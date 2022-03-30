@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'my_project';
   public user = {
-    name: 'John'
+    name: 'David',
+    surname: 'Ait'
   }
 }

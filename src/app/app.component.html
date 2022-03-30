@@ -1,33 +1,52 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="menu-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Dreamteam Technologies</span>
+  <span class="spacer"></span>
+  <mat-form-field class="search-field" floatLabel="never">
+    <input matInput type="search" placeholder="Search" class="search-input">
+  </mat-form-field>
+  <span class="span-username">{{user.name}} {{user.surname}}</span>
+  <mat-icon>account_circle</mat-icon>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
 
-    <mat-toolbar color="primary">
-      <button mat-icon-button class="menu-icon" (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
+<div class="general-wrapper">
+  <div class="header-wrapper">
+    <h2 [style.font-weight]="'bold'">Hospital admin</h2>
+    <h3>Dashboard<span [style.font-weight]="'lighter'"> / Task Board</span></h3>
+    <div class="progress">
+      <span [style.font-weight]="'bold'">PROGRESS 30%</span>
+      <button mat-raised-button>
+        <mat-icon>add</mat-icon>
+        Create List
       </button>
-      <span>MyJira</span>
-      <span class="spacer"></span>
-      <mat-form-field class="search-field" floatLabel="never">
-        <input matInput type="search" placeholder="Search" class="search-input">
-      </mat-form-field>
-      <span>{{user.name}}</span>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>settings</mat-icon>
-      </button>
-    </mat-toolbar>
-
-  <mat-sidenav-container class="example-container">
-    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="side"  opened="false" fxHide.gt-sm="true">
-      <div class="items-sidebar">
-        <a mat-button routerLink="/about-us">About us</a>
-        <mat-divider></mat-divider>
-        <a mat-button routerLink="/prices">Terms of service</a>
-        <mat-divider></mat-divider>
-        <a mat-button routerLink="/start-page">Privacy policy</a>
-        <mat-divider></mat-divider>
-        <a mat-button routerLink="/contacts">Contacts</a>
-      </div>
-    </mat-sidenav>
-    <div class="list-wrapper-container">
-      <span></span>
-      <div class="list-item"></div>
     </div>
-  </mat-sidenav-container>
+    <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+  </div>
+  <div class="main-wrapper">
+    <div class="list-gen">
+      <div class="list-header"></div>
+      <div class="list-content">
+        <div class="list-item">
+          <span>create app</span>
+          <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          <div>
+          <mat-icon>schedule</mat-icon>
+          <span>due time</span>
+          </div>
+          <button mat-raised-button color="warn">Low</button>
+        </div>
+      </div>
+      <div class="add-task-btn">
+        <button mat-button>
+          <mat-icon>add_circle_outline</mat-icon>
+          Add New Task
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
