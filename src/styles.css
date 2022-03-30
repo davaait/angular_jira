@@ -5,9 +5,9 @@ html, body {
 }
 
 body {
-  background-image: url("./assets/main_back.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  /*background-image: url("./assets/main_back.jpg");*/
+  /*background-size: cover;*/
+  /*background-repeat: no-repeat;*/
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }

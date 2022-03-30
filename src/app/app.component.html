@@ -1,17 +1,33 @@
-<div>
-  <p>
-    <mat-toolbar>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+
+    <mat-toolbar color="primary">
+      <button mat-icon-button class="menu-icon" (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>My App</span>
-      <span class="example-spacer"></span>
+      <span>MyJira</span>
+      <span class="spacer"></span>
+      <mat-form-field class="search-field" floatLabel="never">
+        <input matInput type="search" placeholder="Search" class="search-input">
+      </mat-form-field>
+      <span>{{user.name}}</span>
       <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
+        <mat-icon>settings</mat-icon>
       </button>
     </mat-toolbar>
-  </p>
-</div>
+
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="side"  opened="false" fxHide.gt-sm="true">
+      <div class="items-sidebar">
+        <a mat-button routerLink="/about-us">About us</a>
+        <mat-divider></mat-divider>
+        <a mat-button routerLink="/prices">Terms of service</a>
+        <mat-divider></mat-divider>
+        <a mat-button routerLink="/start-page">Privacy policy</a>
+        <mat-divider></mat-divider>
+        <a mat-button routerLink="/contacts">Contacts</a>
+      </div>
+    </mat-sidenav>
+    <div class="list-wrapper-container">
+      <span></span>
+      <div class="list-item"></div>
+    </div>
+  </mat-sidenav-container>
