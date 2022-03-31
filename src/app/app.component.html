@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="toolbar-main" color="primary">
   <button mat-icon-button class="menu-icon">
     <mat-icon>menu</mat-icon>
   </button>
@@ -29,16 +29,31 @@
   </div>
   <div class="main-wrapper">
     <div class="list-gen">
-      <div class="list-header"></div>
+      <div class="list-header">
+        <span [style.margin-left]="'20px'">Pending</span>
+        <button [style.color]="'white'" mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
       <div class="list-content">
         <div class="list-item">
-          <span>create app</span>
-          <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
-          <div>
-          <mat-icon>schedule</mat-icon>
-          <span>due time</span>
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
           </div>
-          <button mat-raised-button color="warn">Low</button>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
         </div>
       </div>
       <div class="add-task-btn">
