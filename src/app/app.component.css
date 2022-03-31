@@ -69,13 +69,15 @@
 .main-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
   border-radius: 10px;
   margin-top: 45px;
   width: 90%;
   min-height: 90vh;
   background-color: antiquewhite;
   padding: 15px;
-  overflow: hidden;
 }
 
 .list-gen {
@@ -84,12 +86,15 @@
   justify-content: flex-start;
   align-items: center;
   width: 300px;
-  min-height: 300px;
+  min-height: 150px;
+  /*max-height: 500px;*/
+  /*overflow: visible;*/
   background-color: #E1F5FE;
   opacity: 0.8;
-  margin-right: 25px;
+  margin: 25px 25px;
   border: 1px solid rgba(0, 0, 0, 0.37);
   border-radius: 10px;
+  overflow: initial;
 }
 
 .list-header {
