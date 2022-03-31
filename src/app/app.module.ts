@@ -9,6 +9,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatInputModule,
     MatSidenavModule,
     MatDividerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
