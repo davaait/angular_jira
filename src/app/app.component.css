@@ -67,24 +67,28 @@
 }
 
 .main-wrapper {
+  display: flex;
+  flex-direction: row;
   border-radius: 10px;
   margin-top: 45px;
   width: 90%;
   min-height: 90vh;
   background-color: antiquewhite;
   padding: 15px;
+  overflow: hidden;
 }
 
 .list-gen {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 300px;
-  min-height: 100px;
+  min-height: 300px;
   background-color: #E1F5FE;
   opacity: 0.8;
   margin-right: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.37);
   border-radius: 10px;
 }
 
@@ -94,7 +98,6 @@
   align-items: center;
   width: 100%;
   height: 35px;
-  background-color: red;
   border-radius: 10px 10px 0 0;
 }
 
@@ -106,7 +109,9 @@
 
 .list-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   min-height: 110px;
   padding: 10px;
@@ -119,6 +124,7 @@
   width: 90%;
   height: 130px;
   background-color: white;
+  margin-bottom: 10px;
 }
 
 .add-task-btn {

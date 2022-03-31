@@ -28,13 +28,15 @@
     <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
   </div>
   <div class="main-wrapper">
+
     <div class="list-gen">
-      <div class="list-header">
+      <div class="list-header" [style.background-color]="'#ef5350'">
         <span [style.margin-left]="'20px'">Pending</span>
         <button [style.color]="'white'" mat-icon-button>
           <mat-icon>more_vert</mat-icon>
         </button>
       </div>
+
       <div class="list-content">
         <div class="list-item">
           <div class="item-title">
@@ -55,7 +57,282 @@
             <button mat-raised-button class="status-btn" color="primary">Low</button>
           </div>
         </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
       </div>
+
+      <div class="add-task-btn">
+        <button mat-button>
+          <mat-icon>add_circle_outline</mat-icon>
+          Add New Task
+        </button>
+      </div>
+    </div>
+
+    <div class="list-gen">
+      <div class="list-header" [style.background-color]="'#42a5f5'">
+        <span [style.margin-left]="'20px'">Completed</span>
+        <button [style.color]="'white'" mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+
+      <div class="list-content">
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-task-btn">
+        <button mat-button>
+          <mat-icon>add_circle_outline</mat-icon>
+          Add New Task
+        </button>
+      </div>
+    </div>
+
+    <div class="list-gen">
+      <div class="list-header" [style.background-color]="'#4caf50'">
+        <span [style.margin-left]="'20px'">Inprogress</span>
+        <button [style.color]="'white'" mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+
+      <div class="list-content">
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-task-btn">
+        <button mat-button>
+          <mat-icon>add_circle_outline</mat-icon>
+          Add New Task
+        </button>
+      </div>
+    </div>
+
+    <div class="list-gen">
+      <div class="list-header" [style.background-color]="'#ff9b44'">
+        <span [style.margin-left]="'20px'">Review</span>
+        <button [style.color]="'white'" mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+
+      <div class="list-content">
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <div class="item-title">
+            <span>Create React App</span>
+            <button mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="item-progress">
+            <span>70%</span>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+          </div>
+          <div class="bottom-item">
+            <div class="item-bottom-status">
+              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+              <span>due time</span>
+            </div>
+            <button mat-raised-button class="status-btn" color="primary">Low</button>
+          </div>
+        </div>
+      </div>
+
       <div class="add-task-btn">
         <button mat-button>
           <mat-icon>add_circle_outline</mat-icon>
