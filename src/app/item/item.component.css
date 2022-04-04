@@ -1,0 +1,104 @@
+.list-gen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 300px;
+  min-height: 150px;
+  background-color: #E1F5FE;
+  opacity: 0.8;
+  margin: 25px 25px;
+  border: 1px solid rgba(0, 0, 0, 0.37);
+  border-radius: 10px;
+  overflow: initial;
+}
+
+.inner-item-container {
+  margin: 5px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 35px;
+  border-radius: 10px 10px 0 0;
+}
+
+.list-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 110px;
+  padding: 10px;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 90%;
+  height: 130px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  margin: 0;
+}
+
+.item-title span {
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.list-header span {
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
+.item-progress {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.bottom-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.item-bottom-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 25px;
+}
+
+/* Animate items as they're being sorted. */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
+

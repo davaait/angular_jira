@@ -3,7 +3,7 @@
   {{buttonText}}
 </button>
 <button *ngIf="stroked" mat-raised-button>
-  <mat-icon>{{iconName}}</mat-icon>
+  <mat-icon *ngIf="iconName">{{iconName}}</mat-icon>
   {{buttonText}}
 </button>
 <button *ngIf="strokedColor" mat-raised-button color="primary">{{buttonText}}</button>

@@ -13,6 +13,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { HeaderComponent } from './header/header.component';
 import { ButtonComponent } from './button/button.component';
 import { InfoPanelComponent } from './info-panel/info-panel.component';
+import {ItemComponent} from "./item/item.component";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { InfoPanelComponent } from './info-panel/info-panel.component';
     HeaderComponent,
     ButtonComponent,
     InfoPanelComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,

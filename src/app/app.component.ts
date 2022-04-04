@@ -1,14 +1,15 @@
 import {Component} from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 export type UsersType = {
   name: string,
   surname: string
 }
-export type PendingTodosType = string[]
-export type CompletedTodosType = string[]
-export type InProgressTodosType = string[]
-export type ReviewTodosType = string[]
+
+export type itemsArrayType = {
+  itemName: string,
+  color: string,
+  array: string[]
+}
 
 @Component({
   selector: 'app-root',
@@ -24,32 +25,19 @@ export class AppComponent {
   }
 
   // Data arrays
-  public itemsArray = [
-    {itemName: 'Pending', color: '#ef5350'},
-    {itemName: 'Completed', color: '#42a5f5'},
-    {itemName: 'Inprogress', color: '#4caf50'},
-    {itemName: 'Review', color: '#ff9b44'},
+  public pendingTodos: string[] = ['react/redux', 'JS', 'HTML/CSS']
+
+  public completedTodos: string[] = ['.NET', 'Python']
+
+  public inProgressTodos: string[] = ['Java']
+
+  public reviewTodos: string[] = ['Kotlin', 'ReactNative', 'ObjectiveC', 'NodeJS', 'C++']
+
+  public itemsArray: Array<itemsArrayType> = [
+    {itemName: 'Pending', color: '#ef5350', array: this.pendingTodos},
+    {itemName: 'Completed', color: '#42a5f5', array: this.completedTodos},
+    {itemName: 'Inprogress', color: '#4caf50', array: this.inProgressTodos},
+    {itemName: 'Review', color: '#ff9b44', array: this.reviewTodos},
   ]
 
-  public pendingTodos: PendingTodosType = ['react/redux', 'JS', 'HTML/CSS']
-
-  public completedTodos: CompletedTodosType = ['.NET', 'Python']
-
-  public inProgressTodos: InProgressTodosType = ['Java']
-
-  public reviewTodos: ReviewTodosType = ['Kotlin', 'ReactNative', 'ObjectiveC', 'NodeJS', 'C++']
-
-  // DragNDrop function
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-  }
 }
