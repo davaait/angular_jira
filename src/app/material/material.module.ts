@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from '@angular/material/toolbar';
 
@@ -9,8 +9,9 @@ const MaterialComponents = [
 
 @NgModule({
   imports: [
-   MaterialComponents
+    MaterialComponents
   ],
   exports: [MaterialComponents]
 })
-export class MaterialModule { }
+export class MaterialModule {
+}

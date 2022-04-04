@@ -13,8 +13,6 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { HeaderComponent } from './header/header.component';
 import { ButtonComponent } from './button/button.component';
 import { InfoPanelComponent } from './info-panel/info-panel.component';
-import { ButtonDirective } from './btnAttr/button.directive';
-import { BtnAttributeDirective } from './button/btn-attribute/btn-attribute.directive';
 
 @NgModule({
   declarations: [
@@ -22,8 +20,6 @@ import { BtnAttributeDirective } from './button/btn-attribute/btn-attribute.dire
     HeaderComponent,
     ButtonComponent,
     InfoPanelComponent,
-    ButtonDirective,
-    BtnAttributeDirective
   ],
   imports: [
     BrowserModule,

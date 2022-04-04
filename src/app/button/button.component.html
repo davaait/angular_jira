@@ -1,4 +1,9 @@
-<button mat-icon-button>
+<button *ngIf="!stroked" mat-icon-button>
   <mat-icon>{{iconName}}</mat-icon>
   {{buttonText}}
 </button>
+<button *ngIf="stroked" mat-raised-button>
+  <mat-icon>{{iconName}}</mat-icon>
+  {{buttonText}}
+</button>
+<button *ngIf="strokedColor" mat-raised-button color="primary">{{buttonText}}</button>

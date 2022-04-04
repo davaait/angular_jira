@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 export type UsersType = {
@@ -24,13 +24,20 @@ export class AppComponent {
   }
 
   // Data arrays
-  pendingTodos: PendingTodosType = ['react/redux', 'JS', 'HTML/CSS']
+  public itemsArray = [
+    {itemName: 'Pending', color: '#ef5350'},
+    {itemName: 'Completed', color: '#42a5f5'},
+    {itemName: 'Inprogress', color: '#4caf50'},
+    {itemName: 'Review', color: '#ff9b44'},
+  ]
 
-  completedTodos: CompletedTodosType = ['.NET', 'Python']
+  public pendingTodos: PendingTodosType = ['react/redux', 'JS', 'HTML/CSS']
 
-  inProgressTodos: InProgressTodosType = ['Java']
+  public completedTodos: CompletedTodosType = ['.NET', 'Python']
 
-  reviewTodos: ReviewTodosType = ['Kotlin', 'ReactNative', 'ObjectiveC', 'NodeJS', 'C++']
+  public inProgressTodos: InProgressTodosType = ['Java']
+
+  public reviewTodos: ReviewTodosType = ['Kotlin', 'ReactNative', 'ObjectiveC', 'NodeJS', 'C++']
 
   // DragNDrop function
   drop(event: CdkDragDrop<string[]>) {

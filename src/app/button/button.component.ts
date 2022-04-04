@@ -9,7 +9,9 @@ export class ButtonComponent implements OnInit {
 
   @Input() iconName?: string;
   @Input() buttonText?: string;
-  @Input() matValue?: boolean;
+  @Input() stroked?: boolean;
+  @Input() strokedColor?: boolean;
+  @Input() color?: string;
 
   constructor() {
   }
