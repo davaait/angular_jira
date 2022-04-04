@@ -1,0 +1,19 @@
+<h2 [style.font-weight]="'bold'">Hospital admin</h2>
+<h3>Dashboard<span [style.font-weight]="'lighter'"> / Task Board</span></h3>
+<div class="progress">
+  <span [style.font-weight]="'bold'">PROGRESS 30%</span>
+  <div class="add-group-btn">
+<!--    <app-button [iconName]="iconsName.add" [buttonText]="buttonText.create" ></app-button>-->
+<!--    <app-button [iconName]="iconsName.add_circle_outline" [buttonText]="buttonText.addTask"></app-button>-->
+    <button mat-raised-button>
+      <mat-icon>add</mat-icon>
+      Create List
+    </button>
+    <button mat-raised-button>
+      <mat-icon>add_circle_outline</mat-icon>
+      Add New Task
+    </button>
+  </div>
+</div>
+<mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+

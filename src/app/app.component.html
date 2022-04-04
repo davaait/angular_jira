@@ -1,32 +1,7 @@
-<mat-toolbar class="toolbar-main" color="primary">
-  <button mat-icon-button class="menu-icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Dreamteam Technologies</span>
-  <span class="spacer"></span>
-  <mat-form-field class="search-field" floatLabel="never">
-    <input matInput type="search" placeholder="Search here" class="search-input">
-  </mat-form-field>
-  <span class="span-username">{{user.name}} {{user.surname}}</span>
-  <mat-icon>account_circle</mat-icon>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>settings</mat-icon>
-  </button>
-</mat-toolbar>
+<app-header [user]="user"></app-header>
 
 <div class="general-wrapper">
-  <div class="header-wrapper">
-    <h2 [style.font-weight]="'bold'">Hospital admin</h2>
-    <h3>Dashboard<span [style.font-weight]="'lighter'"> / Task Board</span></h3>
-    <div class="progress">
-      <span [style.font-weight]="'bold'">PROGRESS 30%</span>
-      <button mat-raised-button>
-        <mat-icon>add</mat-icon>
-        Create List
-      </button>
-    </div>
-    <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
-  </div>
+  <app-info-panel class="header-wrapper"></app-info-panel>
   <div class="main-wrapper" cdkDropListGroup>
 
     <div class="list-gen">
@@ -39,30 +14,26 @@
 
       <div class="list-content" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="pendingTodos">
         <div class="list-item" cdkDrag *ngFor="let pendingTodo of pendingTodos">
-          <div class="item-title">
-            <span>{{pendingTodo}}</span>
-            <button mat-icon-button>
-              <mat-icon>expand_more</mat-icon>
-            </button>
-          </div>
-          <div class="item-progress">
-            <span>70%</span>
-            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
-          </div>
-          <div class="bottom-item">
-            <div class="item-bottom-status">
-              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
-              <span>due time</span>
+          <div class="inner-item-container">
+            <div class="item-title">
+              <span>{{pendingTodo}}</span>
+              <button mat-icon-button>
+                <mat-icon>expand_more</mat-icon>
+              </button>
             </div>
-            <button mat-raised-button class="status-btn" color="primary">Low</button>
+            <div class="item-progress">
+              <span>70%</span>
+              <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+            </div>
+            <div class="bottom-item">
+              <div class="item-bottom-status">
+                <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+                <span>due time</span>
+              </div>
+              <button mat-raised-button class="status-btn" color="primary">Low</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="add-task-btn">
-        <button mat-button>
-          <mat-icon>add_circle_outline</mat-icon>
-          Add New Task
-        </button>
       </div>
     </div>
 
@@ -75,30 +46,26 @@
       </div>
       <div class="list-content" cdkDropList [cdkDropListData]="completedTodos" (cdkDropListDropped)="drop($event)">
         <div class="list-item" cdkDrag *ngFor="let completedTodo of completedTodos">
-          <div class="item-title">
-            <span>{{completedTodo}}</span>
-            <button mat-icon-button>
-              <mat-icon>expand_more</mat-icon>
-            </button>
-          </div>
-          <div class="item-progress">
-            <span>70%</span>
-            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
-          </div>
-          <div class="bottom-item">
-            <div class="item-bottom-status">
-              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
-              <span>due time</span>
+          <div class="inner-item-container">
+            <div class="item-title">
+              <span>{{completedTodo}}</span>
+              <button mat-icon-button>
+                <mat-icon>expand_more</mat-icon>
+              </button>
             </div>
-            <button mat-raised-button class="status-btn" color="primary">Low</button>
+            <div class="item-progress">
+              <span>70%</span>
+              <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+            </div>
+            <div class="bottom-item">
+              <div class="item-bottom-status">
+                <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+                <span>due time</span>
+              </div>
+              <button mat-raised-button class="status-btn" color="primary">Low</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="add-task-btn">
-        <button mat-button>
-          <mat-icon>add_circle_outline</mat-icon>
-          Add New Task
-        </button>
       </div>
     </div>
 
@@ -111,30 +78,26 @@
       </div>
       <div class="list-content" cdkDropList [cdkDropListData]="inProgressTodos" (cdkDropListDropped)="drop($event)">
         <div class="list-item" cdkDrag *ngFor="let inProgressTodo of inProgressTodos">
-          <div class="item-title">
-            <span>{{inProgressTodo}}</span>
-            <button mat-icon-button>
-              <mat-icon>expand_more</mat-icon>
-            </button>
-          </div>
-          <div class="item-progress">
-            <span>70%</span>
-            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
-          </div>
-          <div class="bottom-item">
-            <div class="item-bottom-status">
-              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
-              <span>due time</span>
+          <div class="inner-item-container">
+            <div class="item-title">
+              <span>{{inProgressTodo}}</span>
+              <button mat-icon-button>
+                <mat-icon>expand_more</mat-icon>
+              </button>
             </div>
-            <button mat-raised-button class="status-btn" color="primary">Low</button>
+            <div class="item-progress">
+              <span>70%</span>
+              <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+            </div>
+            <div class="bottom-item">
+              <div class="item-bottom-status">
+                <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+                <span>due time</span>
+              </div>
+              <button mat-raised-button class="status-btn" color="primary">Low</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="add-task-btn">
-        <button mat-button>
-          <mat-icon>add_circle_outline</mat-icon>
-          Add New Task
-        </button>
       </div>
     </div>
 
@@ -147,30 +110,26 @@
       </div>
       <div class="list-content" cdkDropList [cdkDropListData]="reviewTodos" (cdkDropListDropped)="drop($event)">
         <div class="list-item" cdkDrag *ngFor="let reviewTodo of reviewTodos">
-          <div class="item-title">
-            <span>{{reviewTodo}}</span>
-            <button mat-icon-button>
-              <mat-icon>expand_more</mat-icon>
-            </button>
-          </div>
-          <div class="item-progress">
-            <span>70%</span>
-            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
-          </div>
-          <div class="bottom-item">
-            <div class="item-bottom-status">
-              <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
-              <span>due time</span>
+          <div class="inner-item-container">
+            <div class="item-title">
+              <span>{{reviewTodo}}</span>
+              <button mat-icon-button>
+                <mat-icon>expand_more</mat-icon>
+              </button>
             </div>
-            <button mat-raised-button class="status-btn" color="primary">Low</button>
+            <div class="item-progress">
+              <span>70%</span>
+              <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+            </div>
+            <div class="bottom-item">
+              <div class="item-bottom-status">
+                <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
+                <span>due time</span>
+              </div>
+              <button mat-raised-button class="status-btn" color="primary">Low</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="add-task-btn">
-        <button mat-button>
-          <mat-icon>add_circle_outline</mat-icon>
-          Add New Task
-        </button>
       </div>
     </div>
   </div>

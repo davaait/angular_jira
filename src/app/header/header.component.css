@@ -1,0 +1,57 @@
+.toolbar-main {
+  width: 100%;
+  background: linear-gradient(to right,#667eea 0%,#764ba2 100%);
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 1px #0003;
+}
+
+.left-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-group-header {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.menu-icon {
+  margin-right: 25px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.search-field {
+  width: 200px;
+  margin: 5px 25px;
+}
+
+.user-details {
+  min-width: 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-button {
+  padding-left: 15px;
+  margin-right: 15px;
+}
+
+.search-field {
+  width: 200px;
+  margin: 5px 25px;
+}
+
+div {
+  overflow: inherit;
+}
+
+button {
+  font-size: 110%;
+  min-width: min-content;
+}
