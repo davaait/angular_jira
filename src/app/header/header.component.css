@@ -1,5 +1,5 @@
 .toolbar-main {
-  width: 100%;
+  min-width: 100%;
   background: linear-gradient(to right,#667eea 0%,#764ba2 100%);
   border-bottom: 1px solid transparent;
   box-shadow: 0 1px 1px #0003;
@@ -54,4 +54,19 @@ div {
 button {
   font-size: 110%;
   min-width: min-content;
+}
+
+@media screen and (max-width: 740px) {
+  .user-details,  .search-field{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 406px) {
+  .left-group-header span {
+    display: none;
+  }
+  .spacer {
+    flex: 1 0 auto
+  }
 }
