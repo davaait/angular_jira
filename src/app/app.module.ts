@@ -14,6 +14,10 @@ import { HeaderComponent } from './header/header.component';
 import { ButtonComponent } from './button/button.component';
 import { InfoPanelComponent } from './info-panel/info-panel.component';
 import {ItemComponent} from "./item/item.component";
+import { AuthComponent } from './auth/auth.component';
+import {MatCardModule} from "@angular/material/card";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -21,7 +25,8 @@ import {ItemComponent} from "./item/item.component";
     HeaderComponent,
     ButtonComponent,
     InfoPanelComponent,
-    ItemComponent
+    ItemComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,10 @@ import {ItemComponent} from "./item/item.component";
     MatSidenavModule,
     MatDividerModule,
     MatProgressBarModule,
-    DragDropModule
+    DragDropModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
