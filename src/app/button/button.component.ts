@@ -12,6 +12,7 @@ export class ButtonComponent implements OnInit {
   @Input() stroked?: boolean;
   @Input() strokedColor?: boolean;
   @Input() btnTheme?: string;
+  @Input() menuAccBtn?: boolean;
 
   constructor() {
   }

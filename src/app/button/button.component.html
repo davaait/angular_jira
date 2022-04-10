@@ -1,4 +1,4 @@
-<button *ngIf="!stroked" mat-icon-button>
+<button *ngIf="iconName === 'menu'" mat-icon-button>
   <mat-icon>{{iconName}}</mat-icon>
   {{buttonText}}
 </button>
@@ -7,3 +7,11 @@
   {{buttonText}}
 </button>
 <button *ngIf="strokedColor" mat-raised-button color="primary">{{buttonText}}</button>
+
+<button *ngIf="menuAccBtn" mat-icon-button [matMenuTriggerFor]="belowMenu">
+  <mat-icon>{{iconName}}</mat-icon>
+</button>
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <button mat-menu-item>My settings</button>
+  <button mat-menu-item>Log out</button>
+</mat-menu>

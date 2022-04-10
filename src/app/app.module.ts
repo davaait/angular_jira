@@ -18,6 +18,7 @@ import { AuthComponent } from './auth/auth.component';
 import {MatCardModule} from "@angular/material/card";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     DragDropModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

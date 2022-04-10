@@ -3,7 +3,7 @@ import {UsersType} from "../app.component";
 
 export type IconsNameType = {
   menu: string,
-  settings: string
+  settings: string,
 }
 
 @Component({
