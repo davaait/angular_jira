@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UsersType} from "../app.component";
+import firebase from "firebase/compat/app";
 
 export type IconsNameType = {
   menu: string,
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
     settings: 'settings'
   }
 
-  @Input() user?: UsersType;
+  @Input() user?: firebase.User | null;
 
   constructor() {
   }

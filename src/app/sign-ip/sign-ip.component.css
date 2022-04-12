@@ -1,0 +1,95 @@
+.sign-up-wrapper {
+  background-image: url("src/assets/sign-up-back.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  min-height: 100vh;
+  padding-top: 3rem!important;
+}
+
+.inner-wrapper {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  place-content: flex-start center;
+  align-items: flex-start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  max-width: 80%;
+}
+
+.mat-toolbar-row {
+  display: flex;
+  place-content: stretch space-between;
+  align-items: stretch;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+
+.login-btn {
+  margin-left: 10px;
+}
+
+.form-main-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  box-sizing: border-box;
+  place-content: stretch center;
+  align-items: stretch;
+  max-height: 100%;
+}
+
+.from-wrapper {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+.mat-card {
+  font-family: Nunito Sans,sans-serif;
+  background-color: #fff;
+  margin: 1rem;
+  border-radius: 8px;
+  padding: 0.875rem 1.5rem;
+  overflow: hidden;
+  transition: all .4s ease 0s;
+}
+
+.get-started {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  place-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  place-content: flex-start center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.form-div {
+  display: flex;
+  flex-direction: column;
+  place-content: stretch flex-start;
+  align-items: stretch;
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  max-width: 80%;
+}
+
+mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
