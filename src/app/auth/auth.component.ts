@@ -26,11 +26,6 @@ export class AuthComponent implements OnInit {
     this.authService.googleSignIn().subscribe()
   }
 
-  public signOut(): void {
-    // this.authService.signOut().subscribe(() => this.router.navigate(["/"]))
-    this.authService.signOut().subscribe()
-  }
-
   ngOnInit(): void {
   }
 

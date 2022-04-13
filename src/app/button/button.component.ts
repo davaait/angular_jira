@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {AuthService} from "../services/auth/auth.service";
 
 @Component({
   selector: 'app-button',
@@ -15,7 +16,12 @@ export class ButtonComponent implements OnInit {
   @Input() btnTheme?: string;
   @Input() menuAccBtn?: boolean;
 
-  constructor() {
+  constructor(private authService: AuthService) {
+  }
+
+  public signOut(): void {
+    // this.authService.signOut().subscribe(() => this.router.navigate(["/"]))
+    this.authService.signOut().subscribe()
   }
 
   ngOnInit(): void {
