@@ -10,11 +10,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatDividerModule} from "@angular/material/divider";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import { HeaderComponent } from './header/header.component';
-import { ButtonComponent } from './button/button.component';
-import { InfoPanelComponent } from './info-panel/info-panel.component';
+import {HeaderComponent} from './header/header.component';
+import {ButtonComponent} from './button/button.component';
+import {InfoPanelComponent} from './info-panel/info-panel.component';
 import {ItemComponent} from "./item/item.component";
-import { AuthComponent } from './auth/auth.component';
+import {AuthComponent} from './auth/auth.component';
 import {MatCardModule} from "@angular/material/card";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -24,6 +24,8 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {RouterModule} from "@angular/router";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    RouterModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,13 +1,19 @@
-<div>
-  <app-header [user]="user"></app-header>
+<ng-container *ngIf="!user; else main">
+  <app-auth></app-auth>
+</ng-container>
 
-  <div class="general-wrapper">
-    <app-info-panel class="header-wrapper"></app-info-panel>
-    <div class="main-wrapper" cdkDropListGroup>
-      <div *ngFor="let item of itemsArray">
-        <app-item [itemName]="item?.itemName" [genColor]="item.color" [arrayList]="item.array"></app-item>
+<ng-template #main>
+  <div>
+    <app-header [user]="user"></app-header>
+
+    <div class="general-wrapper">
+      <app-info-panel class="header-wrapper"></app-info-panel>
+      <div class="main-wrapper" cdkDropListGroup>
+        <div *ngFor="let item of itemsArray">
+          <app-item [itemName]="item?.itemName" [genColor]="item.color" [arrayList]="item.array"></app-item>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<app-auth></app-auth>
+</ng-template>
+
