@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import firebase from "firebase/compat/app";
 import {AuthService} from "./services/auth/auth.service";
+import {FormControl} from "@angular/forms";
 
 export type itemsArrayType = {
   itemName: string,
@@ -13,8 +14,12 @@ export type itemsArrayType = {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  title = 'my_project';
+export class AppComponent implements OnInit {
+
+  public title: string = 'my_project';
+
+  public mode = new FormControl('over');
+  public shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
 
   public user: firebase.User | null = null;
 
@@ -49,5 +54,4 @@ export class AppComponent implements OnInit{
     {itemName: 'Inprogress', color: '#4caf50', array: this.inProgressTodos},
     {itemName: 'Review', color: '#ff9b44', array: this.reviewTodos},
   ]
-
 }

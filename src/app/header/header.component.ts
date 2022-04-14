@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   }
 
   @Input() user?: firebase.User | null;
+  @Input() toggle?: () => void;
 
   constructor() {
   }
