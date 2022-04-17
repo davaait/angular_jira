@@ -62,37 +62,13 @@ mat-sidenav {
   margin-right: 25px;
 }
 
-/*.general-wrapper {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.header-wrapper {*/
-/*  width: 90%;*/
-/*  height: 100px;*/
-/*  margin: 10px 15px;*/
-/*}*/
-
 .progress-text {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/*.main-wrapper {*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  justify-content: center;*/
-/*  align-items: flex-start;*/
-/*  flex-wrap: wrap;*/
-/*  border-radius: 10px;*/
-/*  margin-top: 45px;*/
-/*  max-width: 90%;*/
-/*  min-height: 90vh;*/
-/*  background-color: antiquewhite;*/
-/*  padding: 15px;*/
-/*}*/
+
 
 .add-task-btn {
   display: flex;

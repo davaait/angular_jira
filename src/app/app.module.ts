@@ -43,7 +43,7 @@ const routes: Routes = [
   {
     path: 'terms-of-service', component: TermsofserviceComponent
   },
-  { path: '**', redirectTo: '/'}
+  { path: '**', redirectTo: 'home'}
 ]
 
 @NgModule({
