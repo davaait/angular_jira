@@ -2,33 +2,44 @@
   <app-auth></app-auth>
 </ng-container>
 
-<mat-sidenav-container class="sidenav-container" *ngIf="shouldRun" #main>
-  <mat-sidenav #sidenav [mode]="mode.value">
-    <p>
-      <button mat-button (click)="sidenav.toggle()">Toggle</button>
-    </p>
-    <a href="">1</a>
-    <a href="">2</a>
-    <a href="">3</a>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <ng-template>
-      <div>
-        <app-header [user]="user"></app-header>
-        <div class="general-wrapper">
-          <p>
-            <button mat-button (click)="sidenav.toggle()">Toggle</button>
-          </p>
-          <app-info-panel class="header-wrapper"></app-info-panel>
-          <div class="main-wrapper" cdkDropListGroup>
-            <div *ngFor="let item of itemsArray">
-              <app-item [itemName]="item?.itemName" [genColor]="item.color" [arrayList]="item.array"></app-item>
-            </div>
-          </div>
+<ng-template #main>
+  <div>
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav #sidenav mode="over">
+        <div class="sidenav-item">
+          <button mat-icon-button routerLink="main">
+            <mat-icon>home</mat-icon>
+          </button>
+<!--          <a routerLink="main">Home</a>-->
         </div>
-      </div>
-    </ng-template>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
-
+        <div class="sidenav-item">
+          <span>Dreamteam Technologies</span>
+        </div>
+        <div class="sidenav-item">
+          <a routerLink="privacy-policy">Privacy policy</a>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="sidenav-item">
+          <a routerLink="terms-of-service">Terms of service</a>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <app-header [user]="user">
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </app-header>
+<!--          <div class="general-wrapper">-->
+<!--            <app-info-panel class="header-wrapper"></app-info-panel>-->
+<!--            <div class="main-wrapper" cdkDropListGroup>-->
+<!--              <div *ngFor="let item of itemsArray">-->
+<!--                <app-item [itemName]="item?.itemName" [genColor]="item.color" [arrayList]="item.array"></app-item>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</ng-template>

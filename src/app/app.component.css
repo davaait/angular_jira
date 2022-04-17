@@ -5,11 +5,39 @@
 }
 
 .sidenav-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+ }
+
+mat-sidenav {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sidenav-item {
+  min-height: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px 10px;
+}
+
+.sidenav-item span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.example-radio-group {
+  display: block;
+  border: 1px solid #555;
+  margin: 20px;
+  padding: 10px;
 }
 
 .right-group-header {
@@ -34,17 +62,17 @@
   margin-right: 25px;
 }
 
-.general-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+/*.general-wrapper {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*}*/
 
-.header-wrapper {
-  width: 90%;
-  height: 100px;
-  margin: 10px 15px;
-}
+/*.header-wrapper {*/
+/*  width: 90%;*/
+/*  height: 100px;*/
+/*  margin: 10px 15px;*/
+/*}*/
 
 .progress-text {
   display: flex;
@@ -52,19 +80,19 @@
   align-items: center;
 }
 
-.main-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  border-radius: 10px;
-  margin-top: 45px;
-  max-width: 90%;
-  min-height: 90vh;
-  background-color: antiquewhite;
-  padding: 15px;
-}
+/*.main-wrapper {*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: center;*/
+/*  align-items: flex-start;*/
+/*  flex-wrap: wrap;*/
+/*  border-radius: 10px;*/
+/*  margin-top: 45px;*/
+/*  max-width: 90%;*/
+/*  min-height: 90vh;*/
+/*  background-color: antiquewhite;*/
+/*  padding: 15px;*/
+/*}*/
 
 .add-task-btn {
   display: flex;

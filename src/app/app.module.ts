@@ -24,6 +24,27 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {RouterModule, Routes} from "@angular/router";
+import {MatRadioModule} from "@angular/material/radio";
+import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { MainComponent } from './main/main.component';
+
+const routes: Routes = [
+  {
+    path: '', component: AppComponent
+  },
+  {
+    path: 'main', component: MainComponent
+  },
+  {
+    path: 'privacy-policy', component: PrivacyComponent
+  },
+  {
+    path: 'terms-of-service', component: TermsofserviceComponent
+  },
+  { path: '**', redirectTo: '/'}
+]
 
 @NgModule({
   declarations: [
@@ -32,7 +53,10 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
     ButtonComponent,
     InfoPanelComponent,
     ItemComponent,
-    AuthComponent
+    AuthComponent,
+    TermsofserviceComponent,
+    PrivacyComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +75,10 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    RouterModule,
+    MatRadioModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
