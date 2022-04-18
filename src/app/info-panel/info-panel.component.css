@@ -11,14 +11,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 h3 {
   margin-left: 10px;
-}
-
-@media screen and (max-width: 462px) {
-  .add-group-btn {
-    margin-top: 5px;
-  }
 }

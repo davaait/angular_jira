@@ -10,11 +10,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatDividerModule} from "@angular/material/divider";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import { HeaderComponent } from './header/header.component';
-import { ButtonComponent } from './button/button.component';
-import { InfoPanelComponent } from './info-panel/info-panel.component';
+import {HeaderComponent} from './header/header.component';
+import {ButtonComponent} from './button/button.component';
+import {InfoPanelComponent} from './info-panel/info-panel.component';
 import {ItemComponent} from "./item/item.component";
-import { AuthComponent } from './auth/auth.component';
+import {AuthComponent} from './auth/auth.component';
 import {MatCardModule} from "@angular/material/card";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -24,27 +24,14 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
-import {RouterModule, Routes} from "@angular/router";
+import {Route, RouterModule} from "@angular/router";
 import {MatRadioModule} from "@angular/material/radio";
-import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
-import { PrivacyComponent } from './privacy/privacy.component';
-import { MainComponent } from './main/main.component';
-
-const routes: Routes = [
-  {
-    path: '', component: AppComponent
-  },
-  {
-    path: 'main', component: MainComponent
-  },
-  {
-    path: 'privacy-policy', component: PrivacyComponent
-  },
-  {
-    path: 'terms-of-service', component: TermsofserviceComponent
-  },
-  { path: '**', redirectTo: 'home'}
-]
+import {TermsofserviceComponent} from './termsofservice/termsofservice.component';
+import {PrivacyComponent} from './privacy/privacy.component';
+import {MainComponent} from './main/main.component';
+import {Routes} from "./routes";
+import {AppRoutingModule} from "./app-routing.module";
+import { MysettingsComponent } from './mysettings/mysettings.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +43,8 @@ const routes: Routes = [
     AuthComponent,
     TermsofserviceComponent,
     PrivacyComponent,
-    MainComponent
+    MainComponent,
+    MysettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +66,7 @@ const routes: Routes = [
     AngularFireStorageModule,
     RouterModule,
     MatRadioModule,
-    RouterModule.forRoot(routes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
