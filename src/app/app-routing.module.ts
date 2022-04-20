@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {Route, RouterModule} from "@angular/router";
-import {AppComponent} from "./app.component";
 import {Routes} from "./routes";
 import {MainComponent} from "./main/main.component";
 import {PrivacyComponent} from "./privacy/privacy.component";
@@ -24,7 +23,7 @@ const routes: Route[] = [
   {
     path: Routes.MYSETTINGS, component: MysettingsComponent, canActivate: [AuthGuard]
   },
-  { path: '**', redirectTo: 'home'}
+  { path: '**', redirectTo: Routes.MAIN},
 ]
 
 @NgModule({

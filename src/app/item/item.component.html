@@ -10,7 +10,12 @@
       <div class="inner-item-container">
         <div class="item-title">
           <span>{{arrayItem}}</span>
-          <app-button [expand]="true" [iconName]="'expand_more'"></app-button>
+          <div>
+            <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+            <app-button [expand]="true" [iconName]="'expand_more'"></app-button>
+          </div>
         </div>
         <div class="item-progress">
           <span>70%</span>
