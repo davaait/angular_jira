@@ -32,6 +32,7 @@ import {MainComponent} from './main/main.component';
 import {Routes} from "./routes";
 import {AppRoutingModule} from "./app-routing.module";
 import { MysettingsComponent } from './mysettings/mysettings.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -39,35 +40,36 @@ import { MysettingsComponent } from './mysettings/mysettings.component';
     HeaderComponent,
     ButtonComponent,
     InfoPanelComponent,
-    ItemComponent,
     AuthComponent,
     TermsofserviceComponent,
     PrivacyComponent,
     MainComponent,
-    MysettingsComponent
+    MysettingsComponent,
+    ItemComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatIconModule,
-    MatInputModule,
-    MatSidenavModule,
-    MatDividerModule,
-    MatProgressBarModule,
-    DragDropModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatTooltipModule,
-    MatMenuModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    RouterModule,
-    MatRadioModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatIconModule,
+        MatInputModule,
+        MatSidenavModule,
+        MatDividerModule,
+        MatProgressBarModule,
+        DragDropModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatTooltipModule,
+        MatMenuModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+        AngularFireStorageModule,
+        RouterModule,
+        MatRadioModule,
+        AppRoutingModule,
+        MatProgressSpinnerModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

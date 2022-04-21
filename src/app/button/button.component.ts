@@ -23,13 +23,12 @@ export class ButtonComponent implements OnInit {
     public router: Router
   ) {}
 
-  public signOut(): void {
-    // this.authService.signOut().subscribe(() => this.router.navigate(["/"]))
+  public logout(): void {
     this.authService.signOut()
       .pipe(
         switchMap(() => this.authService.user$)
       )
-      .subscribe(() => this.router.navigate(["/"]))
+      .subscribe(() => this.router.navigate(["login"]))
   }
 
   ngOnInit(): void {

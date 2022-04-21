@@ -1,16 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import firebase from "firebase/compat/app";
+import {CrudService} from "../services/crud/crud.service";
+import {Collections} from "../services/crud/collections";
+import DocumentReference = firebase.firestore.DocumentReference;
 import {itemsArrayType} from "../app.component";
+import {Observable} from "rxjs";
+import {TasksStore} from "../services/types";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit{
 
-  constructor() { }
+  public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
-  ngOnInit(): void {
+  constructor(private crudService: CrudService) { }
+
+  public addItem(): void {
+    const task: any = {
+      taskName: "react/redux",
+      tasksCollection: "Pending"
+    }
+    this.crudService.createObject(Collections.TASKS, task).subscribe((value: DocumentReference<Task>) => console.log(value));
   }
 
   // Data arrays
@@ -28,5 +41,13 @@ export class MainComponent implements OnInit {
     {itemName: 'Inprogress', color: '#4caf50', array: this.inProgressTodos},
     {itemName: 'Review', color: '#ff9b44', array: this.reviewTodos},
   ]
+
+  public spinnerValue: boolean = true
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.spinnerValue = false
+    }, 3000)
+  }
 
 }

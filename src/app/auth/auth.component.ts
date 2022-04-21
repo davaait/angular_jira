@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
     public router: Router
     ) { }
 
-  public login() {
+  public login(): void {
     // this.authService.googleSignIn().subscribe(() => this.router.navigate(["/main"]))
     this.authService.googleSignIn().
       pipe(
