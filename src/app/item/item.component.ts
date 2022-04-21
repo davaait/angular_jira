@@ -21,6 +21,13 @@ export class ItemComponent {
   constructor(private crudService: CrudService) {
   }
 
+  public update(id: string): void {
+    const task: any = {
+      taskName: 'Milk'
+    }
+    this.crudService.updateObject(Collections.TASKS, id, task).subscribe()
+  }
+
   public delete(id: string): void {
     this.crudService.deleteObject(Collections.TASKS, id).subscribe();
   }
