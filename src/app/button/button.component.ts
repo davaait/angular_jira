@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth/auth.service";
+import {Router} from "@angular/router";
+import {switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-button',
@@ -16,12 +18,17 @@ export class ButtonComponent implements OnInit {
   @Input() btnTheme?: string;
   @Input() menuAccBtn?: boolean;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(
+    private authService: AuthService,
+    public router: Router
+  ) {}
 
-  public signOut(): void {
-    // this.authService.signOut().subscribe(() => this.router.navigate(["/"]))
-    this.authService.signOut().subscribe()
+  public logout(): void {
+    this.authService.signOut()
+      .pipe(
+        switchMap(() => this.authService.user$)
+      )
+      .subscribe(() => this.router.navigate(["login"]))
   }
 
   ngOnInit(): void {

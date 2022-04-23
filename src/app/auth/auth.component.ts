@@ -24,9 +24,18 @@ export class AuthComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   constructor(private authService: AuthService,
               public router: Router) { }
+  constructor(
+    private authService: AuthService,
+    public router: Router
+    ) { }
 
-  public login() {
-    this.authService.googleSignIn().subscribe(() => this.router.navigate([Routes.MAIN]))
+  public login(): void {
+    // this.authService.googleSignIn().subscribe(() => this.router.navigate(["/main"]))
+    this.authService.googleSignIn().
+      pipe(
+        switchMap(() => this.authService.user$)
+    )
+      .subscribe(() => this.router.navigate(["/main"]))
   }
 
   ngOnInit(): void {

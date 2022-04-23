@@ -6,12 +6,15 @@
 
   <div *ngIf="arrayList" class="list-content" cdkDropList (cdkDropListDropped)="drop($event)"
        [cdkDropListData]="arrayList">
-    <div class="list-item" cdkDrag *ngFor="let arrayItem of arrayList">
+    <div class="list-item" cdkDrag *ngFor="let task of (tasks | async)">
       <div class="inner-item-container">
         <div class="item-title">
-          <span>{{arrayItem}}</span>
+          <span>{{task.taskName}}</span>
           <div>
-            <button mat-icon-button>
+            <button mat-icon-button (click)="update(task.id)">
+              <mat-icon>autorenew</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete(task.id)">
               <mat-icon>delete</mat-icon>
             </button>
             <app-button [expand]="true" [iconName]="'expand_more'"></app-button>
