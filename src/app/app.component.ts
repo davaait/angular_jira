@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import firebase from "firebase/compat/app";
 import {AuthService} from "./services/auth/auth.service";
-import {FormControl} from "@angular/forms";
+import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 export type itemsArrayType = {
   itemName: string,
@@ -18,9 +19,10 @@ export class AppComponent implements OnInit {
 
   public title: string = 'my_project';
 
-  public user: firebase.User | null = null;
+  public user: any = null;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService,
+              public router: Router) {
   }
 
   public ngOnInit() {

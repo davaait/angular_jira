@@ -6,11 +6,9 @@ import {PrivacyComponent} from "./privacy/privacy.component";
 import {TermsofserviceComponent} from "./termsofservice/termsofservice.component";
 import {AuthGuard} from "./services/auth/auth.guard";
 import {MysettingsComponent} from "./mysettings/mysettings.component";
+import {AuthComponent} from "./auth/auth.component";
 
 const routes: Route[] = [
-  {
-    path: '', component: MainComponent, canActivate: [AuthGuard]
-  },
   {
     path: Routes.MAIN, component: MainComponent, canActivate: [AuthGuard]
   },
@@ -23,7 +21,6 @@ const routes: Route[] = [
   {
     path: Routes.MYSETTINGS, component: MysettingsComponent, canActivate: [AuthGuard]
   },
-  { path: '**', redirectTo: Routes.MAIN},
 ]
 
 @NgModule({

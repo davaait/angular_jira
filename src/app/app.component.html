@@ -1,4 +1,5 @@
 <ng-container *ngIf="!user; else main">
+<!--<ng-container *ngIf="(user | async); else main">-->
   <app-auth></app-auth>
 </ng-container>
 
