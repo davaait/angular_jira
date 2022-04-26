@@ -1,5 +1,6 @@
-export enum UserControls {
+export enum TasksControls {
   name = "name",
-  surname = "surname",
-  email = "email",
+  priority = "priority",
+  dueDate = "dueDate",
+  group = "group",
 }

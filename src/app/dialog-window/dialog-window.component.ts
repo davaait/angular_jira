@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserControls} from "../model/controls.enum";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {TasksControls} from "../model/controls.enum";
 import {Task, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
-import {DocumentReference} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-dialog-window',
@@ -17,31 +16,42 @@ export class DialogWindowComponent implements OnInit {
 
   public data: TasksStore[] = [];
 
-  public formControls: typeof UserControls = UserControls;
+  public formControls: typeof TasksControls = TasksControls;
 
   constructor(private crudService: CrudService) { }
 
+  public myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  };
+
   ngOnInit(): void {
+    this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
+      this.data = value;
+    })
     this.myForm.valueChanges.subscribe(value => console.log(value));
-    this.myForm.addControl(UserControls.name, new FormControl("", Validators.required));
-    this.myForm.addControl(UserControls.surname, new FormControl("Test", Validators.required));
-    this.myForm.addControl(UserControls.email, new FormControl("", Validators.compose([Validators.required, Validators.email])));
+    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.minLength(3)])));
+    this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
   }
 
-  public addTask(newTask:string): any {
-    const task: Task = {
-      taskName: 'MILK',
-      taskGroup: 'Pending'
-    }
-    this.crudService.createObject(Collections.TASKS, newTask).subscribe((value: any) => console.log(value));
+  public addTask(newTask:any): any {
+    // const task: Task = {
+    //   taskName: 'MILK',
+    //   taskGroup: 'Pending'
+    // }
+    this.crudService.createObject(Collections.TASKS, newTask).subscribe((value) => console.log(value));
   }
 
   public submitForm(): void {
     if (this.myForm.valid) {
       const newTask: any = {
-        name: this.myForm?.controls[UserControls.name].value,
-        surname: this.myForm?.controls[UserControls.surname].value,
-        email: this.myForm?.controls[UserControls.email].value
+        name: this.myForm?.controls[TasksControls.name].value,
+        priority: this.myForm?.controls[TasksControls.priority].value,
+        dueDate: this.myForm?.controls[TasksControls.dueDate].value,
+        group: this.myForm?.controls[TasksControls.group].value,
       }
       this.addTask(newTask);
       this.myForm?.reset();
@@ -52,21 +62,24 @@ export class DialogWindowComponent implements OnInit {
 
   public update(id: string): void {
     const task: Task = {
-      taskName: 'BREAD',
-      taskGroup: 'Completed'
+      name: 'react/redux',
+      priority: 'normal',
+      dueDate: '09-05-2022',
+      group: 'completed'
     }
     this.crudService.updateObject(Collections.TASKS, id, task).subscribe();
   }
 
   public getInfo(id: string): void {
-    this.crudService.getUserDoc<Task>(Collections.TASKS, id).subscribe(((user: Task | undefined) => {
-          if (user) {
-            const tasksStore: TasksStore = {...user, id};
+    this.crudService.getUserDoc<Task>(Collections.TASKS, id).subscribe(((task: Task | undefined) => {
+          if (task) {
+            const tasksStore: any = {...task, id};
             this.update(tasksStore);
 
-            this.myForm.controls[this.formControls.name].setValue(user.name);
-            this.myForm.controls[this.formControls.surname].setValue(user.surname);
-            this.myForm.controls[this.formControls.email].setValue(user.email);
+            this.myForm.controls[this.formControls.name].setValue(task.name);
+            this.myForm.controls[this.formControls.priority].setValue(task.priority);
+            this.myForm.controls[this.formControls.dueDate].setValue(task.dueDate);
+            this.myForm.controls[this.formControls.group].setValue(task.group);
           }
         }
       )

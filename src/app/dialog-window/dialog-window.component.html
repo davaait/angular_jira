@@ -1,39 +1,56 @@
 <div class="dialog-wrapper">
   <h2 mat-dialog-title>Add Task</h2>
   <mat-dialog-content class="mat-typography">
-    <form [formGroup]="myForm">
-      <div>
-        <label>
-          Name:
-          <input [formControlName]="formControls.name" placeholder="Your name">
-        </label>
-        <div *ngIf="isControlValid(formControls.name)">
+    <form [formGroup]="myForm" class="form">
+      <div class="input-wrapper">
+        <mat-form-field appearance="fill">
+          <mat-label>Task Name</mat-label>
+          <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter task name">
+        </mat-form-field>
+        <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
           Please provide a name.
         </div>
       </div>
-      <div>
-        <label>
-          Surname:
-          <input [formControlName]="formControls.surname" placeholder="Your name">
-        </label>
-        <div *ngIf="isControlValid(formControls.surname)">
-          Please provide a name.
+      <div class="input-wrapper">
+        <mat-form-field appearance="fill">
+          <mat-label>Task Priority</mat-label>
+          <input matInput class="input-item" [formControlName]="formControls.priority" placeholder="Priority">
+        </mat-form-field>
+        <div *ngIf="isControlValid(formControls.priority)" class="validate-hint">
+          Please provide a priority.
         </div>
       </div>
-      <div>
-        <label>
-          Email:
-          <input [formControlName]="formControls.email" placeholder="Your email">
-        </label>
-        <div *ngIf="isControlValid(formControls.email)">
-          Please provide a valid email address.
+      <div class="input-wrapper">
+<!--        <mat-form-field appearance="fill">-->
+<!--          <mat-label>Choose a date</mat-label>-->
+<!--          <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">-->
+<!--          <mat-hint>MM/DD/YYYY</mat-hint>-->
+<!--          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--          <mat-datepicker #picker></mat-datepicker>-->
+<!--        </mat-form-field>-->
+        <mat-form-field appearance="fill">
+          <mat-label>Due Date</mat-label>
+          <input matInput class="input-item" [formControlName]="formControls.dueDate" placeholder="Due Date">
+        </mat-form-field>
+        <div *ngIf="isControlValid(formControls.dueDate)" class="validate-hint">
+          Please provide a due date.
         </div>
       </div>
-      <button [disabled]="myForm.invalid" (click)="submitForm()">Send</button>
+      <div class="input-wrapper">
+        <mat-form-field appearance="fill">
+          <mat-label>Task Group</mat-label>
+          <input matInput class="input-item" [formControlName]="formControls.group" placeholder="Group">
+        </mat-form-field>
+        <div *ngIf="isControlValid(formControls.group)" class="validate-hint">
+          Please provide a group.
+        </div>
+      </div>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions class="actions">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+    <button mat-button mat-dialog-close color="warn">Cancel</button>
+    <button mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial [disabled]="myForm.invalid"
+            (click)="submitForm()">Save
+    </button>
   </mat-dialog-actions>
 </div>

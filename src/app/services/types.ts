@@ -4,8 +4,10 @@ export type FireBaseUser = firebase.User | null;
 export type UserCredential = firebase.auth.UserCredential;
 
 export type Task = {
-  taskName: string,
-  taskGroup: string
+  name: string,
+  priority: string,
+  dueDate: string,
+  group: string,
 };
 
 export type ID = {

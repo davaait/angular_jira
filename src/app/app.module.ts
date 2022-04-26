@@ -36,6 +36,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import {SignIpComponent} from "./sign-in/sign-ip.component";
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatRadioModule,
     AppRoutingModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

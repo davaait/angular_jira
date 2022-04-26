@@ -9,7 +9,7 @@
     <div class="list-item" cdkDrag *ngFor="let task of (tasks | async)">
       <div class="inner-item-container">
         <div class="item-title">
-          <span>{{task.taskName}}</span>
+          <span>{{task.name}}</span>
           <div>
             <button mat-icon-button (click)="update(task.id)">
               <mat-icon>autorenew</mat-icon>

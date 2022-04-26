@@ -56,16 +56,20 @@ export class InfoPanelComponent {
 
   public update(id: string): void {
     const task: Task = {
-      taskName: 'BREAD',
-      taskGroup: 'Completed'
+      name: 'BREAD',
+      priority: 'high',
+      dueDate: '16-05-2022',
+      group: 'inProgress'
     }
     this.crudService.updateObject(Collections.TASKS, id, task).subscribe();
   }
 
   public addTask(): any {
     const task: Task = {
-      taskName: 'MILK',
-      taskGroup: 'Pending'
+      name: 'MILK',
+      priority: 'low',
+      dueDate: '16-05-2022',
+      group: 'pending'
     }
     this.crudService.createObject(Collections.TASKS, task).subscribe((value: DocumentReference<Task>) => console.log(value));
   }
