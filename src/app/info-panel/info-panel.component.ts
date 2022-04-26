@@ -5,6 +5,8 @@ import {Collections} from "../services/crud/collections";
 import {Task, TasksStore} from "../services/types";
 import DocumentReference = firebase.firestore.DocumentReference;
 import {Observable} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 
 type IconsNameType = {
   add: string,
@@ -35,7 +37,17 @@ export class InfoPanelComponent {
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService,
+              public dialog: MatDialog
+  ) {
+  }
+
+  public openDialog() {
+    const dialogRef = this.dialog.open(DialogWindowComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   public getData(): void {

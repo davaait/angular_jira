@@ -3,7 +3,7 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from "@angular/form
 import {ErrorStateMatcher} from "@angular/material/core";
 import {AuthService} from "../services/auth/auth.service";
 import {Router} from "@angular/router";
-import {Routes} from "../routes";
+import {switchMap} from "rxjs/operators";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -24,10 +24,6 @@ export class AuthComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   constructor(private authService: AuthService,
               public router: Router) { }
-  constructor(
-    private authService: AuthService,
-    public router: Router
-    ) { }
 
   public login(): void {
     // this.authService.googleSignIn().subscribe(() => this.router.navigate(["/main"]))

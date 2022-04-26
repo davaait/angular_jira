@@ -3,5 +3,6 @@ export enum Routes {
   PRIVACY = "privacy-policy",
   TERMS = "terms-of-service",
   MYSETTINGS = "my-settings",
-  LOGIN = "login"
+  LOGIN = "login",
+  SIGNUP = "sign-up",
 }

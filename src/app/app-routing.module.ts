@@ -7,6 +7,7 @@ import {TermsofserviceComponent} from "./termsofservice/termsofservice.component
 import {AuthGuard} from "./services/auth/auth.guard";
 import {MysettingsComponent} from "./mysettings/mysettings.component";
 import {AuthComponent} from "./auth/auth.component";
+import {SignUpComponent} from "./sign-up/sign-up.component";
 
 const routes: Route[] = [
   {
@@ -20,6 +21,12 @@ const routes: Route[] = [
   },
   {
     path: Routes.MYSETTINGS, component: MysettingsComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: Routes.LOGIN, component: AuthComponent
+  },
+  {
+    path: Routes.SIGNUP, component: SignUpComponent
   },
 ]
 

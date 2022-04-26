@@ -24,15 +24,18 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
-import {Route, RouterModule} from "@angular/router";
+import {RouterModule} from "@angular/router";
 import {MatRadioModule} from "@angular/material/radio";
 import {TermsofserviceComponent} from './termsofservice/termsofservice.component';
 import {PrivacyComponent} from './privacy/privacy.component';
 import {MainComponent} from './main/main.component';
-import {Routes} from "./routes";
 import {AppRoutingModule} from "./app-routing.module";
 import { MysettingsComponent } from './mysettings/mysettings.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { SignUpComponent } from './sign-up/sign-up.component';
+import {SignIpComponent} from "./sign-in/sign-ip.component";
+import { DialogWindowComponent } from './dialog-window/dialog-window.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -45,31 +48,35 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     PrivacyComponent,
     MainComponent,
     MysettingsComponent,
-    ItemComponent
+    ItemComponent,
+    SignUpComponent,
+    SignIpComponent,
+    DialogWindowComponent,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        MatIconModule,
-        MatInputModule,
-        MatSidenavModule,
-        MatDividerModule,
-        MatProgressBarModule,
-        DragDropModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        MatTooltipModule,
-        MatMenuModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFireAuthModule,
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        RouterModule,
-        MatRadioModule,
-        AppRoutingModule,
-        MatProgressSpinnerModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatIconModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatProgressBarModule,
+    DragDropModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatTooltipModule,
+    MatMenuModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    RouterModule,
+    MatRadioModule,
+    AppRoutingModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

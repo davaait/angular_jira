@@ -1,0 +1,39 @@
+<div class="dialog-wrapper">
+  <h2 mat-dialog-title>Add Task</h2>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="myForm">
+      <div>
+        <label>
+          Name:
+          <input [formControlName]="formControls.name" placeholder="Your name">
+        </label>
+        <div *ngIf="isControlValid(formControls.name)">
+          Please provide a name.
+        </div>
+      </div>
+      <div>
+        <label>
+          Surname:
+          <input [formControlName]="formControls.surname" placeholder="Your name">
+        </label>
+        <div *ngIf="isControlValid(formControls.surname)">
+          Please provide a name.
+        </div>
+      </div>
+      <div>
+        <label>
+          Email:
+          <input [formControlName]="formControls.email" placeholder="Your email">
+        </label>
+        <div *ngIf="isControlValid(formControls.email)">
+          Please provide a valid email address.
+        </div>
+      </div>
+      <button [disabled]="myForm.invalid" (click)="submitForm()">Send</button>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>
+</div>
