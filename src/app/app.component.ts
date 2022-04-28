@@ -3,6 +3,7 @@ import firebase from "firebase/compat/app";
 import {AuthService} from "./services/auth/auth.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {FireBaseUser} from "./services/types";
 
 export type itemsArrayType = {
   itemName: string,
@@ -19,14 +20,17 @@ export class AppComponent implements OnInit {
 
   public title: string = 'my_project';
 
-  public user: any = null;
+  public user: FireBaseUser = null;
 
   constructor(public authService: AuthService,
               public router: Router) {
   }
 
   public ngOnInit() {
-    this.authService.user$.subscribe((value: firebase.User | null) => this.user = value)
+    this.authService.user$.subscribe((value: firebase.User | null) => {
+      this.user = value
+
+    })
   }
 
   public login(): void {

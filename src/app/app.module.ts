@@ -1,3 +1,4 @@
+import { TuiRootModule } from "@taiga-ui/core";
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
@@ -36,7 +37,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import {SignIpComponent} from "./sign-in/sign-ip.component";
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -55,6 +58,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     DialogWindowComponent,
   ],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -77,9 +82,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     AppRoutingModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatDatepickerModule,
+    MatSelectModule,
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -11,6 +11,8 @@ import {CrudService} from "../services/crud/crud.service";
   styleUrls: ['./dialog-window.component.css']
 })
 export class DialogWindowComponent implements OnInit {
+  public priorities: string[] = ['Low', 'Normal', 'High'];
+  public groups: string[] = ['Pending', 'Completed', 'Inprogress', 'Review'];
 
   public myForm: FormGroup = new FormGroup({});
 
@@ -38,10 +40,6 @@ export class DialogWindowComponent implements OnInit {
   }
 
   public addTask(newTask:any): any {
-    // const task: Task = {
-    //   taskName: 'MILK',
-    //   taskGroup: 'Pending'
-    // }
     this.crudService.createObject(Collections.TASKS, newTask).subscribe((value) => console.log(value));
   }
 

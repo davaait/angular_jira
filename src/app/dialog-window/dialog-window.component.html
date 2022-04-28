@@ -14,36 +14,31 @@
       <div class="input-wrapper">
         <mat-form-field appearance="fill">
           <mat-label>Task Priority</mat-label>
-          <input matInput class="input-item" [formControlName]="formControls.priority" placeholder="Priority">
+          <mat-select>
+            <mat-option *ngFor="let prioritet of priorities" [value]="prioritet">
+              {{prioritet}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-        <div *ngIf="isControlValid(formControls.priority)" class="validate-hint">
-          Please provide a priority.
-        </div>
       </div>
-      <div class="input-wrapper">
-<!--        <mat-form-field appearance="fill">-->
-<!--          <mat-label>Choose a date</mat-label>-->
-<!--          <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">-->
-<!--          <mat-hint>MM/DD/YYYY</mat-hint>-->
-<!--          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--          <mat-datepicker #picker></mat-datepicker>-->
-<!--        </mat-form-field>-->
+      <div class="input-wrapper-picker">
         <mat-form-field appearance="fill">
-          <mat-label>Due Date</mat-label>
-          <input matInput class="input-item" [formControlName]="formControls.dueDate" placeholder="Due Date">
+          <mat-label>Choose a due date</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <div *ngIf="isControlValid(formControls.dueDate)" class="validate-hint">
-          Please provide a due date.
-        </div>
       </div>
       <div class="input-wrapper">
         <mat-form-field appearance="fill">
-          <mat-label>Task Group</mat-label>
-          <input matInput class="input-item" [formControlName]="formControls.group" placeholder="Group">
+          <mat-label>Task Groups</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let group of groups" [value]="group">
+              {{group}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-        <div *ngIf="isControlValid(formControls.group)" class="validate-hint">
-          Please provide a group.
-        </div>
       </div>
     </form>
   </mat-dialog-content>

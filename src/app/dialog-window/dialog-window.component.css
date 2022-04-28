@@ -30,3 +30,11 @@ mat-form-field {
   flex-direction: column;
   align-items: center;
 }
+
+.input-wrapper-picker {
+  min-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5px;
+}
