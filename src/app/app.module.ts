@@ -1,4 +1,3 @@
-import { TuiRootModule } from "@taiga-ui/core";
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
@@ -17,7 +16,7 @@ import {InfoPanelComponent} from './info-panel/info-panel.component';
 import {ItemComponent} from "./item/item.component";
 import {AuthComponent} from './auth/auth.component';
 import {MatCardModule} from "@angular/material/card";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatMenuModule} from "@angular/material/menu";
 import {environment} from "../environments/environment";
@@ -83,6 +82,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
+    FormsModule,
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

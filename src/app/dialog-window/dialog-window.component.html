@@ -14,7 +14,7 @@
       <div class="input-wrapper">
         <mat-form-field appearance="fill">
           <mat-label>Task Priority</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="selectedOption" (valueChange)="selectChangeHandler()">
             <mat-option *ngFor="let prioritet of priorities" [value]="prioritet" [formControlName]="formControls.priority">
               {{prioritet}}
             </mat-option>
@@ -27,7 +27,7 @@
       <div class="input-wrapper-picker">
         <mat-form-field appearance="fill">
           <mat-label>Choose a due date</mat-label>
-          <input matInput [matDatepicker]="picker" [formControlName]="formControls.dueDate">
+          <input matInput readonly [matDatepicker]="picker" formControlName="dob" (dateChange)="date($event)">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -51,16 +51,16 @@
       </div>
     </form>
   </mat-dialog-content>
-  <div class="form-group col-12">
-    <input type="file"
-           id="file"
-           (change)="onFileSelected($event)"
-           name="image"
-           autocomplete="off"
-    />
+  <div class="upload-wrapper">
+    <div (click)="uploadFile.click()">
+      <button mat-raised-button color="primary">Choose File</button>
+      <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
+    </div>
+    <div>
+      <img  *ngIf="imageLink" [src]="imageLink" width="400" height="400"/>
+      <progress max="100" [value]="progress" ></progress>
+    </div>
   </div>
-  <img  *ngIf="imageLink" [src]="imageLink" width="400" height="400"/>
-  <progress max="100" [value]="progress" ></progress>
   <mat-dialog-actions class="actions">
     <button mat-button mat-dialog-close color="warn">Cancel</button>
     <button mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial [disabled]="myForm.invalid"
