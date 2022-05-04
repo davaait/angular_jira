@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
 import {Task, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
 import {combineLatest, takeWhile} from "rxjs";
-import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-dialog-window',
@@ -21,26 +21,13 @@ export class DialogWindowComponent implements OnInit {
 
   public progress: string | undefined = "";
 
-  private datePickerValue: Date | undefined;
-
   public myForm: FormGroup = new FormGroup({});
 
   public data: TasksStore[] = [];
 
-  public selectedOption: string = "";
-
   public formControls: typeof TasksControls = TasksControls;
 
-  constructor(private crudService: CrudService, private uploadService: UploadService, public fb: FormBuilder) {
-  }
-
-  public selectChangeHandler(): void {
-    console.log("select value equal to ", this.selectedOption)
-  }
-
-  public onDateChange(event: Date): void {
-    this.datePickerValue = event
-    console.log('Value from date picker is ', this.datePickerValue)
+  constructor(private crudService: CrudService, private uploadService: UploadService, private datePipe: DatePipe) {
   }
 
   public onFileSelected(event: Event): void {
@@ -62,35 +49,15 @@ export class DialogWindowComponent implements OnInit {
     }
   }
 
-  public myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  };
-
-  private reactiveForm() {
-    this.myForm = this.fb.group({
-      dob: ['']
-    })
-  }
-
-  /* Convert date object to string */
-  date(e: any) {
-    var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
-    this.myForm.get('dob').setValue(convertDate, {
-      onlyself: true
-    })
-  }
-
   ngOnInit(): void {
-    this.reactiveForm()
     this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
       this.data = value;
     })
+    this.myForm.valueChanges.subscribe(value => console.log(value));
     this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));
-    // this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
-    // this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
-    // this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
   }
 
   public addTask(newTask: Task): void {

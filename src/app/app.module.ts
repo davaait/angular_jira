@@ -30,15 +30,16 @@ import {TermsofserviceComponent} from './termsofservice/termsofservice.component
 import {PrivacyComponent} from './privacy/privacy.component';
 import {MainComponent} from './main/main.component';
 import {AppRoutingModule} from "./app-routing.module";
-import { MysettingsComponent } from './mysettings/mysettings.component';
+import {MysettingsComponent} from './mysettings/mysettings.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import { SignUpComponent } from './sign-up/sign-up.component';
+import {SignUpComponent} from './sign-up/sign-up.component';
 import {SignIpComponent} from "./sign-in/sign-ip.component";
-import { DialogWindowComponent } from './dialog-window/dialog-window.component';
+import {DialogWindowComponent} from './dialog-window/dialog-window.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {MatNativeDateModule} from "@angular/material/core";
   imports: [
     MatDatepickerModule,
     MatNativeDateModule,
+    MatFormFieldModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,

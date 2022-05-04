@@ -6,7 +6,7 @@ export type UserCredential = firebase.auth.UserCredential;
 export type Task = {
   name: string,
   priority: string,
-  dueDate: string,
+  dueDate: any,
   group: string,
 };
 

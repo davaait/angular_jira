@@ -14,9 +14,10 @@
       <div class="input-wrapper">
         <mat-form-field appearance="fill">
           <mat-label>Task Priority</mat-label>
-          <mat-select [(ngModel)]="selectedOption" (valueChange)="selectChangeHandler()">
-            <mat-option *ngFor="let prioritet of priorities" [value]="prioritet" [formControlName]="formControls.priority">
-              {{prioritet}}
+          <mat-select [formControlName]="formControls.priority">
+            <mat-option *ngFor="let priority of priorities" [value]="priority"
+                        [formControlName]="formControls.priority">
+              {{priority}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -27,7 +28,7 @@
       <div class="input-wrapper-picker">
         <mat-form-field appearance="fill">
           <mat-label>Choose a due date</mat-label>
-          <input matInput readonly [matDatepicker]="picker" formControlName="dob" (dateChange)="date($event)">
+          <input [formControlName]="formControls.dueDate" matInput [matDatepicker]="picker">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -39,8 +40,8 @@
       <div class="input-wrapper">
         <mat-form-field appearance="fill">
           <mat-label>Task Groups</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let group of groups" [value]="group" [formControlName]="formControls.group">
+          <mat-select [formControlName]="formControls.group">
+            <mat-option *ngFor="let group of groups" [value]="group">
               {{group}}
             </mat-option>
           </mat-select>
@@ -57,8 +58,8 @@
       <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
     </div>
     <div>
-      <img  *ngIf="imageLink" [src]="imageLink" width="400" height="400"/>
-      <progress max="100" [value]="progress" ></progress>
+      <img *ngIf="imageLink" [src]="imageLink" width="400" height="400"/>
+      <progress max="100" [value]="progress"></progress>
     </div>
   </div>
   <mat-dialog-actions class="actions">

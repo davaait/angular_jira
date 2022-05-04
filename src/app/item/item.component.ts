@@ -23,7 +23,7 @@ export class ItemComponent {
 
   public update(id: string): void {
     const task: any = {
-      taskName: 'Milk'
+      name: "C++"
     }
     this.crudService.updateObject(Collections.TASKS, id, task).subscribe()
   }
