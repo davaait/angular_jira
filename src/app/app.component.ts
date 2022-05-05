@@ -7,7 +7,7 @@ import {FireBaseUser} from "./services/types";
 export type itemsArrayType = {
   itemName: string,
   color: string,
-  array: string[]
+  array: any[]
 }
 
 @Component({

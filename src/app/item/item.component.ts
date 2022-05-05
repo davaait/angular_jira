@@ -14,7 +14,7 @@ export class ItemComponent {
 
   @Input() itemName?: string;
   @Input() genColor?: string;
-  @Input() arrayList?: string[];
+  @Input() arrayList?: TasksStore[];
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 

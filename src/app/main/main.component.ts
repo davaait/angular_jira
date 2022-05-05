@@ -36,15 +36,22 @@ export class MainComponent implements OnInit{
   public reviewTodos: string[] = ['Kotlin', 'ReactNative', 'ObjectiveC', 'NodeJS', 'C++']
 
   public itemsArray: Array<itemsArrayType> = [
-    {itemName: 'Pending', color: '#ef5350', array: this.pendingTodos},
-    {itemName: 'Completed', color: '#42a5f5', array: this.completedTodos},
-    {itemName: 'Inprogress', color: '#4caf50', array: this.inProgressTodos},
-    {itemName: 'Review', color: '#ff9b44', array: this.reviewTodos},
+    {itemName: 'Pending', color: '#ef5350', array: []},
+    {itemName: 'Completed', color: '#42a5f5', array: []},
+    {itemName: 'Inprogress', color: '#4caf50', array: []},
+    {itemName: 'Review', color: '#ff9b44', array: []},
   ]
 
   public spinnerValue: boolean = true
 
   ngOnInit() {
+    this.tasks.subscribe(value => {
+      const tasks : TasksStore[] = value;
+      this.itemsArray.forEach((value1 : itemsArrayType)=>
+        value1.array = tasks.filter((value2:TasksStore) => value2.group === value1.itemName)
+      )
+      console.log(this.itemsArray);
+    })
     setTimeout(() => {
       this.spinnerValue = false
     }, 3000)

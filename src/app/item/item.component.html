@@ -4,9 +4,8 @@
     <app-button [style.color]="'white'" [stroked]="false" [iconName]="'more_vert'"></app-button>
   </div>
 
-  <div *ngIf="arrayList" class="list-content" cdkDropList (cdkDropListDropped)="drop($event)"
-       [cdkDropListData]="arrayList">
-    <div class="list-item" cdkDrag *ngFor="let task of (tasks | async)">
+  <div *ngIf="arrayList" class="list-content">
+    <div class="list-item" cdkDrag *ngFor="let task of arrayList">
       <div class="inner-item-container">
         <div class="item-title">
           <span>{{task.name}}</span>
