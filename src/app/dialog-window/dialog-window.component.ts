@@ -6,7 +6,6 @@ import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
 import {combineLatest, takeWhile} from "rxjs";
-import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-dialog-window',
@@ -27,7 +26,7 @@ export class DialogWindowComponent implements OnInit {
 
   public formControls: typeof TasksControls = TasksControls;
 
-  constructor(private crudService: CrudService, private uploadService: UploadService, private datePipe: DatePipe) {
+  constructor(private crudService: CrudService, private uploadService: UploadService) {
   }
 
   public onFileSelected(event: Event): void {
@@ -69,7 +68,7 @@ export class DialogWindowComponent implements OnInit {
       const newTask: Task = {
         name: this.myForm?.controls[TasksControls.name].value,
         priority: this.myForm?.controls[TasksControls.priority].value,
-        dueDate: this.myForm?.controls[TasksControls.dueDate].value,
+        dueDate: this.myForm?.controls[TasksControls.dueDate].value.toString(),
         group: this.myForm?.controls[TasksControls.group].value,
       }
       this.addTask(newTask);
@@ -113,5 +112,4 @@ export class DialogWindowComponent implements OnInit {
       return false;
     }
   }
-
 }

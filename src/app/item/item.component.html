@@ -27,9 +27,13 @@
         <div class="bottom-item">
           <div class="item-bottom-status">
             <mat-icon [style.margin-right.px]="5">schedule</mat-icon>
-            <span>due time</span>
+            <span>{{task.dueDate | date: 'dd/MM/yyyy'}}</span>
           </div>
-          <button mat-raised-button class="status-btn" color="primary">Low</button>
+          <ng-container [ngSwitch]="task.priority">
+            <button mat-raised-button *ngSwitchCase="'Normal'" class="status-btn" color="accent">Normal</button>
+            <button mat-raised-button *ngSwitchCase="'High'" class="status-btn" color="warn">High</button>
+            <button mat-raised-button *ngSwitchCase="'Low'" class="status-btn" color="primary">Low</button>
+          </ng-container>
         </div>
       </div>
     </div>

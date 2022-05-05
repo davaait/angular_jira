@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import firebase from "firebase/compat/app";
 import {AuthService} from "./services/auth/auth.service";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
 import {FireBaseUser} from "./services/types";
 
 export type itemsArrayType = {
@@ -38,7 +37,6 @@ export class AppComponent implements OnInit {
   }
 
   public signOut(): void {
-    // this.authService.signOut().subscribe(() => this.router.navigate(["/"]))
     this.authService.signOut().subscribe()
   }
 }
