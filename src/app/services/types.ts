@@ -8,7 +8,14 @@ export type Task = {
   priority: string,
   dueDate: any,
   group: string,
+  type?: string,
 };
+
+export type Group = {
+  name: string,
+  color: string,
+  type: string,
+}
 
 export type ID = {
   id: string;

@@ -1,3 +1,4 @@
 export enum Collections {
-  TASKS = "taskCollection"
+  TASKS = "taskCollection",
+  BOARDS = "boardCollection",
 }
