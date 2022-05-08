@@ -4,8 +4,6 @@ import {ListControl, TasksControls} from "../model/controls.enum";
 import {List, Task, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
-import {UploadService} from "../services/upload/upload.service";
-import {combineLatest, takeWhile} from "rxjs";
 
 @Component({
   selector: 'app-list-window',
@@ -15,23 +13,24 @@ import {combineLatest, takeWhile} from "rxjs";
 
 export class ListWindowComponent implements OnInit {
 
-  public colorCtr: FormControl = new FormControl(null);
+  // public colorCtr: FormControl = new FormControl(null);
 
   public myForm: FormGroup = new FormGroup({});
 
-  public data: TasksStore[] = [];
+  public data: List[] = [];
 
   public formControls: typeof ListControl = ListControl;
 
-  constructor(private crudService: CrudService, private uploadService: UploadService) {
+  constructor(private crudService: CrudService) {
   }
 
   ngOnInit(): void {
-    this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
+    this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.data = value;
     })
     this.myForm.valueChanges.subscribe(value => console.log(value));
     this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));
+    this.myForm.addControl(ListControl.color, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(10)])));
   }
 
   public addList(newList: List): void {
@@ -41,7 +40,8 @@ export class ListWindowComponent implements OnInit {
   public submitForm(): void {
     if (this.myForm.valid) {
       const newList: List = {
-        name: this.myForm?.controls[TasksControls.name].value,
+        name: this.myForm?.controls[ListControl.name].value,
+        color: this.myForm?.controls[ListControl.color].value,
       }
       this.addList(newList);
       this.myForm?.reset();
@@ -59,11 +59,12 @@ export class ListWindowComponent implements OnInit {
   }
 
   public getInfo(id: string): void {
-    this.crudService.getUserDoc<Task>(Collections.GROUP, id).subscribe(((list: Task | undefined) => {
+    this.crudService.getUserDoc<List>(Collections.GROUP, id).subscribe(((list: List | undefined) => {
           if (list) {
             const listStore: any = {...list, id};
             this.update(listStore);
             this.myForm.controls[this.formControls.name].setValue(list.name);
+            this.myForm.controls[this.formControls.color].setValue(list.color);
           }
         }
       )

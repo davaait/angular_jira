@@ -6,5 +6,6 @@ export enum TasksControls {
 }
 
 export enum ListControl {
-  name = "name"
+  name = "name",
+  color = "color",
 }
