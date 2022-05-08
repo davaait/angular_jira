@@ -3,7 +3,6 @@ import firebase from "firebase/compat/app";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import DocumentReference = firebase.firestore.DocumentReference;
-import {itemsArrayType} from "../app.component";
 import {Observable} from "rxjs";
 import {List, TasksStore} from "../services/types";
 
@@ -28,24 +27,6 @@ export class MainComponent implements OnInit {
     this.crudService.createObject(Collections.TASKS, task).subscribe((value: DocumentReference<Task>) => console.log(value));
   }
 
-  // Data arrays
-  public pendingTodos: string[] = ['react/redux', 'JS', 'HTML/CSS']
-
-  public completedTodos: string[] = ['.NET', 'Python']
-
-  public inProgressTodos: string[] = ['Java']
-
-  public reviewTodos: string[] = ['Kotlin', 'ReactNative', 'ObjectiveC', 'NodeJS', 'C++']
-
-  public itemsArray: Array<itemsArrayType> = [
-    {itemName: 'Pending', color: '#ef5350', array: []},
-    {itemName: 'Completed', color: '#42a5f5', array: []},
-    {itemName: 'Inprogress', color: '#4caf50', array: []},
-    {itemName: 'Review', color: '#ff9b44', array: []},
-  ]
-
-  public spinnerValue: boolean = true
-
   ngOnInit() {
     this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.groupsData = value;
@@ -59,5 +40,4 @@ export class MainComponent implements OnInit {
       console.log(this.groupsData);
     })
   }
-
 }
