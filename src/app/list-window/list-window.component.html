@@ -5,12 +5,20 @@
       <form [formGroup]="myForm" class="form">
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
-            <mat-label>Task Name</mat-label>
-            <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter task name">
+            <mat-label>List Name</mat-label>
+            <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter list name">
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
             Please provide a name.
           </div>
+        </div>
+        <div class="input-wrapper">
+          <mat-form-field appearance="fill">
+            <mat-label>List Color</mat-label>
+            <input class="input-item" matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr" placeholder="Choose color">
+            <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+            <ngx-mat-color-picker #picker></ngx-mat-color-picker>
+          </mat-form-field>
         </div>
       </form>
     </mat-dialog-content>

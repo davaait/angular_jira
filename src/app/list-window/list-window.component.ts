@@ -14,12 +14,8 @@ import {combineLatest, takeWhile} from "rxjs";
 })
 
 export class ListWindowComponent implements OnInit {
-  public priorities: string[] = ['Low', 'Normal', 'High'];
-  public groups: string[] = ['Pending', 'Completed', 'Inprogress', 'Review'];
 
-  public imageLink: string | null = "";
-
-  public progress: string | undefined = "";
+  public colorCtr: FormControl = new FormControl(null);
 
   public myForm: FormGroup = new FormGroup({});
 
@@ -30,8 +26,6 @@ export class ListWindowComponent implements OnInit {
   constructor(private crudService: CrudService, private uploadService: UploadService) {
   }
 
-
-
   ngOnInit(): void {
     this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
       this.data = value;
@@ -40,20 +34,16 @@ export class ListWindowComponent implements OnInit {
     this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));
   }
 
-  public addList(newTask: Task): void {
-    this.crudService.createObject(Collections.TASKS, newTask).subscribe((value) => console.log(value));
+  public addList(newList: List): void {
+    this.crudService.createObject(Collections.GROUP, newList).subscribe((value) => console.log(value));
   }
 
   public submitForm(): void {
     if (this.myForm.valid) {
-      const newTask: Task = {
+      const newList: List = {
         name: this.myForm?.controls[TasksControls.name].value,
-        priority: this.myForm?.controls[TasksControls.priority].value,
-        dueDate: this.myForm?.controls[TasksControls.dueDate].value.toString(),
-        group: this.myForm?.controls[TasksControls.group].value,
-        pictureUrl: this.imageLink
       }
-      this.addTask(newTask);
+      this.addList(newList);
       this.myForm?.reset();
     } else {
       alert("Error")

@@ -13,7 +13,7 @@ export type Task = {
 
 export type List = {
   name: string,
-  color: string
+  color?: string
 }
 
 export type Group = {

@@ -41,6 +41,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ListWindowComponent} from "./list-window/list-window.component";
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {ListWindowComponent} from "./list-window/list-window.component";
     ListWindowComponent
   ],
   imports: [
+    NgxMatColorPickerModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
@@ -88,7 +90,9 @@ import {ListWindowComponent} from "./list-window/list-window.component";
     MatSelectModule,
     FormsModule,
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule,
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
