@@ -4,8 +4,8 @@
     <app-button [style.color]="'white'" [stroked]="false" [iconName]="'more_vert'"></app-button>
   </div>
 
-  <div *ngIf="arrayList" class="list-content">
-    <div class="list-item" cdkDrag *ngFor="let task of arrayList">
+  <div *ngIf="tasksData" class="list-content">
+    <div class="list-item" cdkDrag *ngFor="let task of tasksData">
       <div class="inner-item-container">
         <div class="item-title">
           <span>{{task.name}}</span>

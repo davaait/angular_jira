@@ -10,12 +10,12 @@ import {TasksStore} from "../services/types";
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent {
+export class ItemComponent implements OnInit {
 
   @Input() itemName?: string;
   @Input() genColor?: string;
-  @Input() arrayList?: TasksStore[];
 
+  public tasksData: TasksStore[] = [];
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
   constructor(private crudService: CrudService) {
@@ -44,5 +44,11 @@ export class ItemComponent {
         event.currentIndex,
       );
     }
+  }
+
+  ngOnInit(): void {
+    this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
+      this.tasksData = value;
+    })
   }
 }

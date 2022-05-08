@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {Task, TasksStore} from "../services/types";
+import {List, Task, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
@@ -14,7 +14,6 @@ import {combineLatest, takeWhile} from "rxjs";
 })
 export class DialogWindowComponent implements OnInit {
   public priorities: string[] = ['Low', 'Normal', 'High'];
-  public groups: string[] = ['Pending', 'Completed', 'Inprogress', 'Review'];
 
   public imageLink: string | null = "";
 
@@ -23,6 +22,8 @@ export class DialogWindowComponent implements OnInit {
   public myForm: FormGroup = new FormGroup({});
 
   public data: TasksStore[] = [];
+
+  public groupData: List[] = [];
 
   public formControls: typeof TasksControls = TasksControls;
 
@@ -51,6 +52,9 @@ export class DialogWindowComponent implements OnInit {
   ngOnInit(): void {
     this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
       this.data = value;
+    })
+    this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
+      this.groupData = value;
     })
     this.myForm.valueChanges.subscribe(value => console.log(value));
     this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));

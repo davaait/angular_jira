@@ -5,18 +5,20 @@ import {Collections} from "../services/crud/collections";
 import DocumentReference = firebase.firestore.DocumentReference;
 import {itemsArrayType} from "../app.component";
 import {Observable} from "rxjs";
-import {TasksStore} from "../services/types";
+import {List, TasksStore} from "../services/types";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit{
+export class MainComponent implements OnInit {
+  public groupsData: List[] = [];
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
-  constructor(private crudService: CrudService) { }
+  constructor(private crudService: CrudService) {
+  }
 
   public addItem(): void {
     const task: any = {
@@ -45,16 +47,17 @@ export class MainComponent implements OnInit{
   public spinnerValue: boolean = true
 
   ngOnInit() {
-    this.tasks.subscribe(value => {
-      const tasks : TasksStore[] = value;
-      this.itemsArray.forEach((value1 : itemsArrayType)=>
-        value1.array = tasks.filter((value2:TasksStore) => value2.group === value1.itemName)
-      )
-      console.log(this.itemsArray);
+    this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
+      this.groupsData = value;
+      console.log(this.groupsData)
     })
-    setTimeout(() => {
-      this.spinnerValue = false
-    }, 3000)
+    this.tasks.subscribe(task => {
+      const tasks: TasksStore[] = task;
+      this.groupsData.forEach((group: List) =>
+        group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name)
+      )
+      console.log(this.groupsData);
+    })
   }
 
 }

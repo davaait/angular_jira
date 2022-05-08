@@ -13,13 +13,8 @@ export type Task = {
 
 export type List = {
   name: string,
-  color?: string
-}
-
-export type Group = {
-  name: string,
-  color: string,
-  type: string,
+  color?: string,
+  tasksArray?: Task[]
 }
 
 export type ID = {
