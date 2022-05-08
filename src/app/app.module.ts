@@ -40,6 +40,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {ListWindowComponent} from "./list-window/list-window.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     SignUpComponent,
     SignIpComponent,
     DialogWindowComponent,
+    ListWindowComponent
   ],
   imports: [
     MatDatepickerModule,

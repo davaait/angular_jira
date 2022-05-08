@@ -4,3 +4,7 @@ export enum TasksControls {
   dueDate = "dueDate",
   group = "group",
 }
+
+export enum ListControl {
+  name = "name"
+}

@@ -7,6 +7,7 @@ import DocumentReference = firebase.firestore.DocumentReference;
 import {Observable} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
+import {ListWindowComponent} from "../list-window/list-window.component";
 
 type IconsNameType = {
   add: string,
@@ -44,6 +45,13 @@ export class InfoPanelComponent {
 
   public openDialog() {
     const dialogRef = this.dialog.open(DialogWindowComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  public openListWindow() {
+    const dialogRef = this.dialog.open(ListWindowComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

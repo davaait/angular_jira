@@ -3,7 +3,7 @@
 <div class="progress">
   <span [style.font-weight]="'bold'">PROGRESS 30%</span>
   <div class="add-group-btn">
-    <app-button [iconName]="iconsName.add" [buttonText]="buttonText.create" [stroked]="true"></app-button>
+    <app-button [iconName]="iconsName.add" [buttonText]="buttonText.create" [stroked]="true" (click)="openListWindow()"></app-button>
     <app-button [iconName]="iconsName.add_circle_outline" [buttonText]="buttonText.addTask" [stroked]="true" (click)="openDialog()"></app-button>
   </div>
   <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
