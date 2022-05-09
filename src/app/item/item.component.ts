@@ -3,7 +3,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable} from "rxjs";
-import {List, TasksStore} from "../services/types";
+import {TasksStore} from "../services/types";
 
 @Component({
   selector: 'app-item',
@@ -40,7 +40,7 @@ export class ItemComponent implements OnInit {
   }
 
   // DragNDrop function
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<TasksStore[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -51,8 +51,14 @@ export class ItemComponent implements OnInit {
         event.currentIndex,
       );
     }
+    const tasks = {
+      id: event.container.id,
+    }
+    this.crudService.updateObject(Collections.TASKS, event.item.data.id, tasks)
+    event.item.data.id = event.container.id;
   }
 
   ngOnInit(): void {
+
   }
 }

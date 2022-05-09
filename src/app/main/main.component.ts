@@ -3,6 +3,7 @@ import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable} from "rxjs";
 import {List, TasksStore} from "../services/types";
+import {group} from "@angular/animations";
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,7 @@ import {List, TasksStore} from "../services/types";
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  public groupsData: List[] = [];
+  public groupsData?: List[] | undefined;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public lists: Observable<List[]> = this.crudService.handleData<List>(Collections.GROUP);
@@ -19,15 +20,13 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
-    //   this.groupsData = value;
-    // })
     this.crudService.handleData<List>(Collections.GROUP).subscribe((value: List[]) => {
-      this.groupsData = value;
-    })
+       this.groupsData = value;
+      console.log(this.groupsData)
+     })
     this.tasks.subscribe(task => {
       const tasks: TasksStore[] = task;
-      this.groupsData.forEach((group: List) => {
+      this.groupsData?.forEach((group: List) => {
           group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name)
         }
       )
