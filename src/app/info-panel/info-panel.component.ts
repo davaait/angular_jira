@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
-import firebase from "firebase/compat/app";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {Task, TasksStore} from "../services/types";
-import DocumentReference = firebase.firestore.DocumentReference;
+import {TasksStore} from "../services/types";
 import {Observable} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
@@ -50,6 +48,7 @@ export class InfoPanelComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
+
   public openListWindow() {
     const dialogRef = this.dialog.open(ListWindowComponent);
 
@@ -57,33 +56,4 @@ export class InfoPanelComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
-
-  public getData(): void {
-    this.crudService.getDate(Collections.TASKS).subscribe()
-}
-
-  public update(id: string): void {
-    const task: Task = {
-      name: 'BREAD',
-      priority: 'high',
-      dueDate: '16-05-2022',
-      group: 'inProgress'
-    }
-    this.crudService.updateObject(Collections.TASKS, id, task).subscribe();
-  }
-
-  public addTask(): any {
-    const task: Task = {
-      name: 'MILK',
-      priority: 'low',
-      dueDate: '16-05-2022',
-      group: 'pending'
-    }
-    this.crudService.createObject(Collections.TASKS, task).subscribe((value: DocumentReference<Task>) => console.log(value));
-  }
-
-  public getInfo(id: string): void {
-    this.crudService.getUserDoc<Task>(Collections.TASKS, id).subscribe(((value: Task | undefined) => console.log(value)));
-  }
-
 }

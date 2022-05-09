@@ -3,7 +3,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable} from "rxjs";
-import {TasksStore} from "../services/types";
+import {List, TasksStore} from "../services/types";
 
 @Component({
   selector: 'app-item',
@@ -14,8 +14,9 @@ export class ItemComponent implements OnInit {
 
   @Input() itemName?: string;
   @Input() genColor?: string;
+  @Input() itemsArray?: TasksStore[];
+  @Input() itemID?: string;
 
-  public tasksData: TasksStore[] = [];
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
   constructor(private crudService: CrudService) {
@@ -30,6 +31,12 @@ export class ItemComponent implements OnInit {
 
   public delete(id: string): void {
     this.crudService.deleteObject(Collections.TASKS, id).subscribe();
+  }
+
+
+  //TODO: remove tasks from firebase collection in the same time with removing list
+  public removeList(id: string | undefined): void {
+    this.crudService.deleteObject(Collections.GROUP, id).subscribe();
   }
 
   // DragNDrop function
@@ -47,8 +54,5 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
-      this.tasksData = value;
-    })
   }
 }

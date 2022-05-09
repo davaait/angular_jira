@@ -45,7 +45,7 @@ export class CrudService {
       .add(object)) as Observable<DocumentReference<T>>).pipe(take(1));
   }
 
-  public updateObject(collectionName: string, id: string, data: {}): Observable<void> {
+  public updateObject(collectionName: string, id: string | undefined, data: {}): Observable<void> {
     return from(
       this.angularFirestore
         .collection(collectionName)
@@ -54,7 +54,7 @@ export class CrudService {
     ).pipe(take(1));
   }
 
-  public deleteObject(collectionName: string, id: string): Observable<void> {
+  public deleteObject(collectionName: string, id: string | undefined): Observable<void> {
     return from(
       this.angularFirestore
         .collection(collectionName)

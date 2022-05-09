@@ -1,11 +1,18 @@
 <div class="list-gen">
   <div class="list-header" [style.background-color]="genColor">
     <span [style.margin-left]="'20px'">{{itemName}}</span>
-    <app-button [style.color]="'white'" [stroked]="false" [iconName]="'more_vert'"></app-button>
+    <button [style.color]="'white'" mat-icon-button [matMenuTriggerFor]="belowMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="above">
+      <button mat-menu-item>Edit List</button>
+      <button mat-menu-item (click)="removeList(itemID)">Remove List</button>
+    </mat-menu>
+<!--    <app-button [style.color]="'white'" [stroked]="false" [iconName]="'more_vert'"></app-button>-->
   </div>
 
-  <div *ngIf="tasksData" class="list-content">
-    <div class="list-item" cdkDrag *ngFor="let task of tasksData">
+  <div *ngIf="itemsArray" class="list-content">
+    <div class="list-item" cdkDrag *ngFor="let task of itemsArray">
       <div class="inner-item-container">
         <div class="item-title">
           <span>{{task.name}}</span>

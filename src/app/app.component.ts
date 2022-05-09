@@ -4,12 +4,6 @@ import {AuthService} from "./services/auth/auth.service";
 import {Router} from "@angular/router";
 import {FireBaseUser} from "./services/types";
 
-export type itemsArrayType = {
-  itemName: string,
-  color: string,
-  array: any[]
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,7 +22,6 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
     this.authService.user$.subscribe((value: firebase.User | null) => {
       this.user = value
-
     })
   }
 

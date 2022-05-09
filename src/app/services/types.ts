@@ -13,8 +13,9 @@ export type Task = {
 
 export type List = {
   name: string,
-  color?: string,
-  tasksArray?: Task[]
+  color: string,
+  tasksArray?: TasksStore[],
+  id?: string | undefined,
 }
 
 export type ID = {
