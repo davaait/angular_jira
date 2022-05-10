@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {List, TasksStore} from "../services/types";
-import {group} from "@angular/animations";
+import {switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-main',
@@ -13,23 +13,27 @@ import {group} from "@angular/animations";
 export class MainComponent implements OnInit {
   public groupsData?: List[] | undefined;
 
-  public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
-  public lists: Observable<List[]> = this.crudService.handleData<List>(Collections.GROUP);
+  public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  public lists$: Observable<List[]> = this.crudService.handleData<List>(Collections.GROUP);
 
   constructor(private crudService: CrudService) {
   }
 
   ngOnInit() {
-    this.crudService.handleData<List>(Collections.GROUP).subscribe((value: List[]) => {
-       this.groupsData = value;
-      console.log(this.groupsData)
-     })
-    this.tasks.subscribe(task => {
-      const tasks: TasksStore[] = task;
-      this.groupsData?.forEach((group: List) => {
-          group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name)
-        }
-      )
-    })
+    const updateTask: Observable<any> = this.tasks$.pipe(
+      tap((task) => {
+        const tasks: TasksStore[] = task;
+        this.groupsData?.forEach((group: List) => {
+            group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name)
+            console.log('test')
+          }
+        )
+      })
+    );
+    // this.context = this.sessionService.getItem(StorageConstants.DASHBOARD_CONTEXT) || {};
+    this.crudService.handleData<List>(Collections.GROUP).pipe(
+      tap(value => this.groupsData = value),
+      switchMap(() => updateTask)
+    ).subscribe()
   }
 }

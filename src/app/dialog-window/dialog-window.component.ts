@@ -50,9 +50,6 @@ export class DialogWindowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.crudService.getDate<TasksStore>(Collections.TASKS).subscribe((value: TasksStore[]) => {
-      this.data = value;
-    })
     this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.groupData = value;
     })
@@ -81,32 +78,6 @@ export class DialogWindowComponent implements OnInit {
     } else {
       alert("Error")
     }
-  }
-
-  public update(id: string): void {
-    const task: Task = {
-      name: 'react/redux',
-      priority: 'normal',
-      dueDate: '09-05-2022',
-      group: 'completed'
-    }
-    this.crudService.updateObject(Collections.TASKS, id, task).subscribe();
-  }
-
-  public getInfo(id: string): void {
-    this.crudService.getUserDoc<Task>(Collections.TASKS, id).subscribe(((task: Task | undefined) => {
-          if (task) {
-            const tasksStore: any = {...task, id};
-            this.update(tasksStore);
-
-            this.myForm.controls[this.formControls.name].setValue(task.name);
-            this.myForm.controls[this.formControls.priority].setValue(task.priority);
-            this.myForm.controls[this.formControls.dueDate].setValue(task.dueDate);
-            this.myForm.controls[this.formControls.group].setValue(task.group);
-          }
-        }
-      )
-    );
   }
 
   public isControlValid(controlName: string): boolean {

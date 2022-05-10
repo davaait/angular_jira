@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ListControl} from "../model/controls.enum";
-import {List} from "../services/types";
+import {List, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-list-window',
@@ -12,12 +13,11 @@ import {CrudService} from "../services/crud/crud.service";
 })
 
 export class ListWindowComponent implements OnInit {
-
-  // public colorCtr: FormControl = new FormControl(null);
-
   public myForm: FormGroup = new FormGroup({});
 
-  public data: List[] = [];
+  private data: List[] = [];
+  public groupsData?: List[] | undefined;
+  public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
   public formControls: typeof ListControl = ListControl;
 
@@ -25,10 +25,10 @@ export class ListWindowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
+    this.crudService.handleData<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.data = value;
     })
-    this.myForm.valueChanges.subscribe(value => console.log(value));
+    this.myForm.valueChanges.subscribe();
     this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));
     this.myForm.addControl(ListControl.color, new FormControl("", Validators.required));
   }
@@ -50,27 +50,6 @@ export class ListWindowComponent implements OnInit {
       alert("Error")
     }
   }
-
-  // public update(id: string): void {
-  //   const list: List = {
-  //     name: 'Veterinary Clinic',
-  //     color: '#ff006a'
-  //   }
-  //   this.crudService.updateObject(Collections.GROUP, id, list).subscribe();
-  // }
-
-  // public getInfo(id: string): void {
-  //   this.crudService.getUserDoc<List>(Collections.GROUP, id).subscribe(((list: List | undefined) => {
-  //         if (list) {
-  //           const listStore: any = {...list, id};
-  //           this.update(listStore);
-  //           this.myForm.controls[this.formControls.name].setValue(list.name);
-  //           this.myForm.controls[this.formControls.color].setValue(list.color);
-  //         }
-  //       }
-  //     )
-  //   );
-  // }
 
   public isControlValid(controlName: string): boolean {
     const control: AbstractControl | undefined = this.myForm?.controls[controlName];

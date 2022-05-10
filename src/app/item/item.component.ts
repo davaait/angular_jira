@@ -51,14 +51,19 @@ export class ItemComponent implements OnInit {
         event.currentIndex,
       );
     }
-    const tasks = {
-      id: event.container.id,
+    const task = {
+      id: event.container.id
     }
-    this.crudService.updateObject(Collections.TASKS, event.item.data.id, tasks)
-    event.item.data.id = event.container.id;
+    this.crudService.updateObject(Collections.TASKS, event.item.data.id, task)
+    // event.item.data.id = event.container.id
+    // const tasks = {
+    //   group: event.container.id,
+    // }
+    // this.crudService.updateObject(Collections.TASKS, event.item.data.id, tasks)
+    // event.item.data.id = event.container.id;
+    // console.log(event.item.data.id, event.container.id)
   }
 
   ngOnInit(): void {
-
   }
 }
