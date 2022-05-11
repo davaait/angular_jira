@@ -9,7 +9,6 @@ export type Task = {
   dueDate: any,
   group: string,
   pictureUrl?: string | null,
-  groupID?: string | undefined,
 };
 
 export type List = {

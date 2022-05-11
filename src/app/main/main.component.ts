@@ -23,11 +23,7 @@ export class MainComponent implements OnInit {
       tap((task) => {
         const tasks: TasksStore[] = task;
         this.groupsData?.forEach((group: List) => {
-            tasks.forEach((t) => {
-              t.groupID = group.id
-            })
             group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name
-              && filteredTask.groupID === group.id
             )
           }
         )
