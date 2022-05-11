@@ -71,7 +71,8 @@ export class DialogWindowComponent implements OnInit {
         priority: this.myForm?.controls[TasksControls.priority].value,
         dueDate: this.myForm?.controls[TasksControls.dueDate].value.toString(),
         group: this.myForm?.controls[TasksControls.group].value,
-        pictureUrl: this.imageLink
+        pictureUrl: this.imageLink,
+        groupID: "",
       }
       this.addTask(newTask);
       this.myForm?.reset();

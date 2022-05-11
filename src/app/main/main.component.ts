@@ -14,23 +14,25 @@ export class MainComponent implements OnInit {
   public groupsData?: List[] | undefined;
 
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
-  public lists$: Observable<List[]> = this.crudService.handleData<List>(Collections.GROUP);
 
   constructor(private crudService: CrudService) {
   }
 
   ngOnInit() {
-    const updateTask: Observable<any> = this.tasks$.pipe(
+    const updateTask: Observable<TasksStore[]> = this.tasks$.pipe(
       tap((task) => {
         const tasks: TasksStore[] = task;
         this.groupsData?.forEach((group: List) => {
-            group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name)
-            console.log('test')
+            tasks.forEach((t) => {
+              t.groupID = group.id
+            })
+            group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name
+              && filteredTask.groupID === group.id
+            )
           }
         )
       })
     );
-    // this.context = this.sessionService.getItem(StorageConstants.DASHBOARD_CONTEXT) || {};
     this.crudService.handleData<List>(Collections.GROUP).pipe(
       tap(value => this.groupsData = value),
       switchMap(() => updateTask)

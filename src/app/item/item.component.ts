@@ -33,7 +33,6 @@ export class ItemComponent implements OnInit {
     this.crudService.deleteObject(Collections.TASKS, id).subscribe();
   }
 
-
   //TODO: remove tasks from firebase collection in the same time with removing list
   public removeList(id: string | undefined): void {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
@@ -43,7 +42,9 @@ export class ItemComponent implements OnInit {
   drop(event: CdkDragDrop<TasksStore[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log()
     } else {
+      console.log(event.container.id, event.previousContainer.id)
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -51,10 +52,12 @@ export class ItemComponent implements OnInit {
         event.currentIndex,
       );
     }
-    const task = {
-      id: event.container.id
-    }
-    this.crudService.updateObject(Collections.TASKS, event.item.data.id, task)
+    this.crudService.updateObject(Collections.TASKS, event.item.data.id, {group: "Completed"})
+    // const task = {
+    //   // id: event.container.id
+    //   group: event.item.data.group
+    // }
+    // this.crudService.updateObject(Collections.TASKS, event.item.data.id, task)
     // event.item.data.id = event.container.id
     // const tasks = {
     //   group: event.container.id,

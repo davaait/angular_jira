@@ -19,6 +19,8 @@ export class ListWindowComponent implements OnInit {
   public groupsData?: List[] | undefined;
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
+  private handleTasks: TasksStore[] = [];
+
   public formControls: typeof ListControl = ListControl;
 
   constructor(private crudService: CrudService) {
@@ -42,7 +44,7 @@ export class ListWindowComponent implements OnInit {
       const newList: List = {
         name: this.myForm?.controls[ListControl.name].value,
         color: this.myForm?.controls[ListControl.color].value.toString(),
-        tasksArray: []
+        tasksArray: this.handleTasks,
       }
       this.addList(newList);
       this.myForm?.reset();
