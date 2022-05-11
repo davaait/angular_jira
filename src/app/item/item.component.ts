@@ -12,10 +12,11 @@ import {TasksStore} from "../services/types";
 })
 export class ItemComponent implements OnInit {
 
-  @Input() itemName?: string;
+  //TODO change types
+  @Input() itemName?: any;
   @Input() genColor?: string;
   @Input() itemsArray?: TasksStore[];
-  @Input() itemID?: string;
+  @Input() itemID?: any;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
@@ -42,9 +43,9 @@ export class ItemComponent implements OnInit {
   drop(event: CdkDragDrop<TasksStore[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log()
     } else {
-      console.log(event.container.id, event.previousContainer.id)
+      console.log(event.container.id)
+      console.log(event.container.data)
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -52,7 +53,8 @@ export class ItemComponent implements OnInit {
         event.currentIndex,
       );
     }
-    this.crudService.updateObject(Collections.TASKS, event.item.data.id, {group: "Completed"})
+    this.crudService.updateObject(Collections.TASKS, event.item.data.id, {group: event.container.id})
+
     // const task = {
     //   // id: event.container.id
     //   group: event.item.data.group
