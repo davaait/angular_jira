@@ -1,11 +1,12 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {TasksStore} from "../services/types";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 import {ListWindowComponent} from "../list-window/list-window.component";
+import {log} from "util";
 
 type IconsNameType = {
   add: string,
@@ -22,7 +23,7 @@ type ButtonTextType = {
   templateUrl: './info-panel.component.html',
   styleUrls: ['./info-panel.component.css']
 })
-export class InfoPanelComponent {
+export class InfoPanelComponent implements OnInit {
 
   public iconsName: IconsNameType = {
     add: 'add',
@@ -34,11 +35,22 @@ export class InfoPanelComponent {
     addTask: 'Add New Task'
   }
 
-  public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  public progressValue?: number;
+
+  public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog
   ) {
+  }
+
+  ngOnInit() {
+   this.tasks$.pipe(
+     tap((taskArray) => {
+       const completedTasks = taskArray.filter((t) => t.group === "Completed");
+       this.progressValue = Math.round((completedTasks.length / taskArray.length) * 100);
+     })
+   ).subscribe()
   }
 
   public openDialog() {

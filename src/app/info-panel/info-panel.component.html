@@ -1,10 +1,10 @@
 <h2 [style.font-weight]="'bold'">Hospital admin</h2>
 <h3>Dashboard<span [style.font-weight]="'lighter'"> / Task Board</span></h3>
 <div class="progress">
-  <span [style.font-weight]="'bold'">PROGRESS 30%</span>
+  <span [style.font-weight]="'bold'">PROGRESS {{progressValue}}%</span>
   <div class="add-group-btn">
     <app-button [iconName]="iconsName.add" [buttonText]="buttonText.create" [stroked]="true" (click)="openListWindow()"></app-button>
     <app-button [iconName]="iconsName.add_circle_outline" [buttonText]="buttonText.addTask" [stroked]="true" (click)="openDialog()"></app-button>
   </div>
-  <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" color="primary" value="{{progressValue}}"></mat-progress-bar>
 </div>

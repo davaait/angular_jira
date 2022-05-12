@@ -44,8 +44,6 @@ export class ItemComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      console.log(event.container.id)
-      console.log(event.container.data)
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,

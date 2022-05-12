@@ -12,7 +12,6 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {HeaderComponent} from './header/header.component';
 import {ButtonComponent} from './button/button.component';
-import {InfoPanelComponent} from './info-panel/info-panel.component';
 import {ItemComponent} from "./item/item.component";
 import {AuthComponent} from './auth/auth.component';
 import {MatCardModule} from "@angular/material/card";
@@ -42,6 +41,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ListWindowComponent} from "./list-window/list-window.component";
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import {InfoPanelComponent} from "./info-panel/info-panel.component";
 
 @NgModule({
   declarations: [
@@ -58,7 +58,7 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     SignUpComponent,
     SignIpComponent,
     DialogWindowComponent,
-    ListWindowComponent
+    ListWindowComponent,
   ],
   imports: [
     NgxMatColorPickerModule,
