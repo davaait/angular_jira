@@ -5,7 +5,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #belowMenu="matMenu" yPosition="above">
-      <button mat-menu-item>Edit List</button>
+      <button mat-menu-item (click)="openEditList()">Edit List</button>
       <button mat-menu-item (click)="removeList(itemID)">Remove List</button>
     </mat-menu>
   </div>
@@ -22,7 +22,7 @@
             <button mat-icon-button (click)="delete(task.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <app-button [expand]="true" [iconName]="'expand_more'"></app-button>
+            <app-button [expand]="true" [iconName]="'expand_more'" (click)="openEditTask()"></app-button>
           </div>
         </div>
         <div class="item-progress">

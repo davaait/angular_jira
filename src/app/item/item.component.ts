@@ -4,6 +4,9 @@ import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable} from "rxjs";
 import {TasksStore} from "../services/types";
+import {MatDialog} from "@angular/material/dialog";
+import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
+import {EditListWindowComponent} from "../edit-list-window/edit-list-window.component";
 
 @Component({
   selector: 'app-item',
@@ -20,8 +23,7 @@ export class ItemComponent implements OnInit {
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
-  constructor(private crudService: CrudService) {
-  }
+  constructor(private crudService: CrudService, public dialog: MatDialog) {}
 
   public update(id: string): void {
     const task: any = {
@@ -37,6 +39,16 @@ export class ItemComponent implements OnInit {
   //TODO: remove tasks from firebase collection in the same time with removing list
   public removeList(id: string | undefined): void {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
+  }
+
+  public openEditTask(): void {
+    const dialogRef = this.dialog.open(EditTaskWindowComponent);
+    dialogRef.afterClosed().subscribe();
+  }
+
+  public openEditList(): void {
+    const dialogRef = this.dialog.open(EditListWindowComponent);
+    dialogRef.afterClosed().subscribe();
   }
 
   // DragNDrop function
