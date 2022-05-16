@@ -22,7 +22,7 @@
             <button mat-icon-button (click)="delete(task.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <app-button [expand]="true" [iconName]="'expand_more'"></app-button>
+            <app-button [expand]="true" [iconName]="'expand_more'" (click)="editWindow()"></app-button>
           </div>
         </div>
         <div class="item-progress">

@@ -2,8 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {Observable} from "rxjs";
-import {TasksStore} from "../services/types";
+import {Observable, tap} from "rxjs";
+import {List, TasksStore} from "../services/types";
+import {ListWindowComponent} from "../list-window/list-window.component";
+import {MatDialog} from "@angular/material/dialog";
+import {EditTaskWindowComponent} from "../dialog-edit-window/edit-task-window.component";
 
 @Component({
   selector: 'app-item',
@@ -20,8 +23,9 @@ export class ItemComponent implements OnInit {
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
-  constructor(private crudService: CrudService) {
-  }
+  constructor(private crudService: CrudService,
+              public dialog: MatDialog
+              ) {}
 
   public update(id: string): void {
     const task: any = {
@@ -37,6 +41,12 @@ export class ItemComponent implements OnInit {
   //TODO: remove tasks from firebase collection in the same time with removing list
   public removeList(id: string | undefined): void {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
+  }
+
+  public editWindow() {
+    const dialogRef = this.dialog.open(EditTaskWindowComponent);
+
+    dialogRef.afterClosed().subscribe();
   }
 
   // DragNDrop function

@@ -15,8 +15,8 @@ export class MainComponent implements OnInit {
 
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
 
-  constructor(private crudService: CrudService) {
-  }
+  constructor(private crudService: CrudService,
+              ) {}
 
   ngOnInit() {
     const updateTask: Observable<TasksStore[]> = this.tasks$.pipe(
