@@ -6,7 +6,8 @@ import {Observable, tap} from "rxjs";
 import {List, TasksStore} from "../services/types";
 import {ListWindowComponent} from "../list-window/list-window.component";
 import {MatDialog} from "@angular/material/dialog";
-import {EditTaskWindowComponent} from "../dialog-edit-window/edit-task-window.component";
+import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-item',
@@ -22,10 +23,18 @@ export class ItemComponent implements OnInit {
   @Input() itemID?: any;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  public tID?: string;
 
   constructor(private crudService: CrudService,
-              public dialog: MatDialog
+              public dialog: MatDialog,
+              private route: ActivatedRoute,
               ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.tID = params['id']
+    })
+  }
 
   public update(id: string): void {
     const task: any = {
@@ -43,10 +52,8 @@ export class ItemComponent implements OnInit {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
   }
 
-  public editWindow() {
-    const dialogRef = this.dialog.open(EditTaskWindowComponent);
-
-    dialogRef.afterClosed().subscribe();
+  public editWindow(t: TasksStore) {
+    this.dialog.open(EditTaskWindowComponent, {data: {currentTask: t, currentTaskID: this.tID}});
   }
 
   // DragNDrop function
@@ -62,8 +69,5 @@ export class ItemComponent implements OnInit {
       );
     }
     this.crudService.updateObject(Collections.TASKS, event.item.data.id, {group: event.container.id})
-  }
-
-  ngOnInit(): void {
   }
 }

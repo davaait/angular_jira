@@ -8,7 +8,7 @@ import {AuthGuard} from "./services/auth/auth.guard";
 import {MysettingsComponent} from "./mysettings/mysettings.component";
 import {AuthComponent} from "./auth/auth.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
-import {EditTaskWindowComponent} from "./dialog-edit-window/edit-task-window.component";
+import {EditTaskWindowComponent} from "./edit-task-window/edit-task-window.component";
 
 const routes: Route[] = [
   {

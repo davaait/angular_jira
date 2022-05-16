@@ -16,13 +16,13 @@
         <div class="item-title">
           <span>{{task.name}}</span>
           <div>
-            <button mat-icon-button (click)="update(task.id)">
-              <mat-icon>autorenew</mat-icon>
-            </button>
+<!--            <button mat-icon-button (click)="update(task.id)">-->
+<!--              <mat-icon>autorenew</mat-icon>-->
+<!--            </button>-->
             <button mat-icon-button (click)="delete(task.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <app-button [expand]="true" [iconName]="'expand_more'" (click)="editWindow()"></app-button>
+            <app-button [expand]="true" [iconName]="'update'" (click)="editWindow(task)" routerLink="task/{{task.id}}"></app-button>
           </div>
         </div>
         <div class="item-progress">

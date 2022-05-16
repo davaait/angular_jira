@@ -42,7 +42,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {ListWindowComponent} from "./list-window/list-window.component";
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import {InfoPanelComponent} from "./info-panel/info-panel.component";
-import {EditTaskWindowComponent} from "./dialog-edit-window/edit-task-window.component";
+import {EditTaskWindowComponent} from "./edit-task-window/edit-task-window.component";
 
 @NgModule({
   declarations: [
