@@ -2,12 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {Observable, tap} from "rxjs";
+import {Observable} from "rxjs";
 import {List, TasksStore} from "../services/types";
-import {ListWindowComponent} from "../list-window/list-window.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
 import {ActivatedRoute} from "@angular/router";
+import {EditListWindowComponent} from "../edit-list-window/edit-list-window.component";
 
 @Component({
   selector: 'app-item',
@@ -21,6 +21,7 @@ export class ItemComponent implements OnInit {
   @Input() genColor?: string;
   @Input() itemsArray?: TasksStore[];
   @Input() itemID?: any;
+  @Input() group?: List;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public tID?: string;
@@ -28,7 +29,7 @@ export class ItemComponent implements OnInit {
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
               private route: ActivatedRoute,
-              ) {}
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -52,8 +53,12 @@ export class ItemComponent implements OnInit {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
   }
 
-  public editWindow(t: TasksStore) {
-    this.dialog.open(EditTaskWindowComponent, {data: {currentTask: t, currentTaskID: this.tID}});
+  public editWindow(t: TasksStore): void {
+    this.dialog.open(EditTaskWindowComponent, {data: {currentTask: t}});
+  }
+
+  public editListWindow(l: List | undefined): void {
+    this.dialog.open(EditListWindowComponent, {data: {currentList: l}})
   }
 
   // DragNDrop function

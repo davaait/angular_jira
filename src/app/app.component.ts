@@ -3,7 +3,6 @@ import firebase from "firebase/compat/app";
 import {AuthService} from "./services/auth/auth.service";
 import {Router} from "@angular/router";
 import {FireBaseUser} from "./services/types";
-import {CrudService} from "./services/crud/crud.service";
 
 @Component({
   selector: 'app-root',
@@ -17,8 +16,7 @@ export class AppComponent implements OnInit {
   public user: FireBaseUser = null;
 
   constructor(public authService: AuthService,
-              public router: Router, private crudService: CrudService) {
-  }
+              public router: Router,) {}
 
   public ngOnInit() {
     this.authService.user$.subscribe((value: firebase.User | null) => {

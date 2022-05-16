@@ -9,6 +9,7 @@ import {MysettingsComponent} from "./mysettings/mysettings.component";
 import {AuthComponent} from "./auth/auth.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {EditTaskWindowComponent} from "./edit-task-window/edit-task-window.component";
+import {EditListWindowComponent} from "./edit-list-window/edit-list-window.component";
 
 const routes: Route[] = [
   {
@@ -19,6 +20,11 @@ const routes: Route[] = [
     children: [{
       path: 'task/:id',
       component: EditTaskWindowComponent,
+      canActivate: [AuthGuard]
+    },
+      {
+      path: 'group/:name',
+      component: EditListWindowComponent,
       canActivate: [AuthGuard]
     }
     ]
