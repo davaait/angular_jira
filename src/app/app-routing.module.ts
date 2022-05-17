@@ -13,7 +13,7 @@ import {EditListWindowComponent} from "./edit-list-window/edit-list-window.compo
 
 const routes: Route[] = [
   {
-    path: '', redirectTo: '/' + Routes.MAIN, pathMatch: 'full'
+    path: '', redirectTo: '/' + Routes.LOGIN, pathMatch: 'full'
   },
   {
     path: Routes.MAIN, component: MainComponent, canActivate: [AuthGuard],
