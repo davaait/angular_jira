@@ -10,6 +10,10 @@ import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Color} from "@angular-material-components/color-picker";
 
+export type DialogData = {
+  currentList: List,
+}
+
 @Component({
   selector: 'app-dialog-window',
   templateUrl: './edit-list-window.component.html',
@@ -24,18 +28,17 @@ export class EditListWindowComponent implements OnInit {
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
               private location: Location,
-              @Inject(MAT_DIALOG_DATA) public data: List) {}
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   private group$: Observable<List[]> = this.crudService.getDate(Collections.GROUP);
 
   ngOnInit(): void {
     this.group$.subscribe((value: List[]) => {
       this.groupData = value;
-      this.groupData = this.groupData.filter((f) => f.id === this.data.id)
+      this.groupData = this.groupData.filter((f) => f.id === this.data.currentList.id)
     })
-    console.log(this.groupData)
-    this.myForm.addControl(ListControl.name, new FormControl(this.data?.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
-    this.myForm.addControl(ListControl.color, new FormControl(this.data?.color, Validators.required));
+    this.myForm.addControl(ListControl.name, new FormControl(this.data?.currentList?.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
+    this.myForm.addControl(ListControl.color, new FormControl(this.data?.currentList?.color, Validators.required));
   }
 
   goBack(): void {
