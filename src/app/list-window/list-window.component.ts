@@ -13,15 +13,13 @@ import {Observable} from "rxjs";
 })
 
 export class ListWindowComponent implements OnInit {
-  public myForm: FormGroup = new FormGroup({});
 
   private data: List[] = [];
-  public groupsData?: List[] | undefined;
-  public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
-
   private handleTasks: TasksStore[] = [];
-
+  public myForm: FormGroup = new FormGroup({});
   public formControls: typeof ListControl = ListControl;
+  public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  private groupNameArray: string[] = ['backend', 'whatever'];
 
   constructor(private crudService: CrudService) {
   }
@@ -29,15 +27,33 @@ export class ListWindowComponent implements OnInit {
   ngOnInit(): void {
     this.crudService.handleData<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.data = value;
+      // this.groupNameArray = [];
+      // this.data.forEach((g) => {
+      //   this.groupNameArray.push(g.name)
+      // })
+      // console.log(this.groupNameArray)
     })
     this.myForm.valueChanges.subscribe();
-    this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));
+    this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([
+      Validators.required,
+      Validators.maxLength(15),
+      Validators.minLength(5),
+      // this.checkGroupName
+    ])));
     this.myForm.addControl(ListControl.color, new FormControl("", Validators.required));
   }
 
   public addList(newList: List): void {
     this.crudService.createObject(Collections.GROUP, newList).subscribe((value) => console.log(value));
   }
+
+  // private checkGroupName(control: AbstractControl): {[key: string]: any} | null  {
+  //   let name = control.value;
+  //   if (this.groupNameArray.includes(name)) {
+  //     return { 'groupNumberInvalid': true };
+  //   }
+  //   return null;
+  // }
 
   public submitForm(): void {
     if (this.myForm.valid) {
