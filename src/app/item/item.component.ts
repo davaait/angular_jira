@@ -3,9 +3,10 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable} from "rxjs";
-import {TasksStore} from "../services/types";
+import {List, TasksStore} from "../services/types";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
+import {ActivatedRoute} from "@angular/router";
 import {EditListWindowComponent} from "../edit-list-window/edit-list-window.component";
 
 @Component({
@@ -20,10 +21,21 @@ export class ItemComponent implements OnInit {
   @Input() genColor?: string;
   @Input() itemsArray?: TasksStore[];
   @Input() itemID?: any;
+  @Input() group?: List;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  public tID?: string;
 
-  constructor(private crudService: CrudService, public dialog: MatDialog) {}
+  constructor(private crudService: CrudService,
+              public dialog: MatDialog,
+              private route: ActivatedRoute,
+  ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.tID = params['id']
+    })
+  }
 
   public update(id: string): void {
     const task: any = {
@@ -41,14 +53,12 @@ export class ItemComponent implements OnInit {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
   }
 
-  public openEditTask(): void {
-    const dialogRef = this.dialog.open(EditTaskWindowComponent);
-    dialogRef.afterClosed().subscribe();
+  public editWindow(t: TasksStore): void {
+    this.dialog.open(EditTaskWindowComponent, {data: {currentTask: t}});
   }
 
-  public openEditList(): void {
-    const dialogRef = this.dialog.open(EditListWindowComponent);
-    dialogRef.afterClosed().subscribe();
+  public editListWindow(l: List | undefined): void {
+    this.dialog.open(EditListWindowComponent, {data: {currentList: l}})
   }
 
   // DragNDrop function
@@ -64,8 +74,5 @@ export class ItemComponent implements OnInit {
       );
     }
     this.crudService.updateObject(Collections.TASKS, event.item.data.id, {group: event.container.id})
-  }
-
-  ngOnInit(): void {
   }
 }

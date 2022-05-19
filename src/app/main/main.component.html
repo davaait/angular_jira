@@ -2,7 +2,7 @@
   <app-info-panel class="header-wrapper"></app-info-panel>
   <div class="main-wrapper" cdkDropListGroup>
     <div *ngFor="let item of groupsData">
-      <app-item [itemName]="item?.name" [itemID]="item.id" [genColor]="item.color" [itemsArray]="item.tasksArray"></app-item>
+      <app-item [group]="item" [itemName]="item?.name" [itemID]="item.id" [genColor]="item.color" [itemsArray]="item.tasksArray"></app-item>
     </div>
   </div>
 </div>

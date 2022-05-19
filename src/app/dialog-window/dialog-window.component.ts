@@ -13,18 +13,13 @@ import {combineLatest, takeWhile} from "rxjs";
   styleUrls: ['./dialog-window.component.css']
 })
 export class DialogWindowComponent implements OnInit {
+
   public priorities: string[] = ['Low', 'Normal', 'High'];
-
   public imageLink: string | null = "";
-
   public progress: string | undefined = "";
-
   public myForm: FormGroup = new FormGroup({});
-
   public data: TasksStore[] = [];
-
   public groupData: List[] = [];
-
   public formControls: typeof TasksControls = TasksControls;
 
   constructor(private crudService: CrudService, private uploadService: UploadService) {
@@ -53,15 +48,15 @@ export class DialogWindowComponent implements OnInit {
     this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.groupData = value;
     })
-    this.myForm.valueChanges.subscribe(value => console.log(value));
     this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.description, new FormControl("", Validators.required));
   }
 
   public addTask(newTask: Task): void {
-    this.crudService.createObject(Collections.TASKS, newTask).subscribe((value) => console.log(value));
+    this.crudService.createObject(Collections.TASKS, newTask).subscribe();
   }
 
   public submitForm(): void {
@@ -72,6 +67,7 @@ export class DialogWindowComponent implements OnInit {
         dueDate: this.myForm?.controls[TasksControls.dueDate].value.toString(),
         group: this.myForm?.controls[TasksControls.group].value,
         pictureUrl: this.imageLink,
+        description: this.myForm?.controls[TasksControls.description].value,
       }
       this.addTask(newTask);
       this.myForm?.reset();

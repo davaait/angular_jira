@@ -51,6 +51,15 @@
             Please provide a group.
           </div>
         </div>
+        <div class="input-wrapper">
+          <mat-form-field appearance="fill">
+            <mat-label>Task Description</mat-label>
+            <textarea matInput placeholder="Enter task description" [formControlName]="formControls.description"></textarea>
+          </mat-form-field>
+          <div *ngIf="isControlValid(formControls.description)" class="validate-hint">
+            Please provide a description.
+          </div>
+        </div>
       </form>
     </mat-dialog-content>
     <div class="file-wrapper">

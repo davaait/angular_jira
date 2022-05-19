@@ -6,7 +6,6 @@ import {Observable, tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 import {ListWindowComponent} from "../list-window/list-window.component";
-import {log} from "util";
 
 type IconsNameType = {
   add: string,

@@ -1,11 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {TasksControls} from "../model/controls.enum";
+import {ListControl, TasksControls} from "../model/controls.enum";
 import {List, Task, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
-import {combineLatest, takeWhile} from "rxjs";
+import {combineLatest, Observable, takeWhile} from "rxjs";
+import {Location} from '@angular/common';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {Color} from "@angular-material-components/color-picker";
+
+export type DialogData = {
+  currentList: List,
+}
 
 @Component({
   selector: 'app-dialog-window',
@@ -13,67 +20,42 @@ import {combineLatest, takeWhile} from "rxjs";
   styleUrls: ['./edit-list-window.component.css']
 })
 export class EditListWindowComponent implements OnInit {
-  public priorities: string[] = ['Low', 'Normal', 'High'];
-
-  public imageLink: string | null = "";
-
-  public progress: string | undefined = "";
 
   public myForm: FormGroup = new FormGroup({});
-
-  public data: TasksStore[] = [];
-
   public groupData: List[] = [];
+  public formControls: typeof ListControl = ListControl;
 
-  public formControls: typeof TasksControls = TasksControls;
+  constructor(private crudService: CrudService,
+              private uploadService: UploadService,
+              private location: Location,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  constructor(private crudService: CrudService, private uploadService: UploadService) {
-  }
-
-  public onFileSelected(event: Event): void {
-    if (event) {
-      const eventTarget = (<HTMLInputElement>event?.target);
-      if (eventTarget && eventTarget.files) {
-        const file: File = eventTarget.files[0];
-        combineLatest(this.uploadService.uploadFileAndGetMetadata('test', file))
-          .pipe(
-            takeWhile(([, link]) => {
-              return !link;
-            }, true),
-          )
-          .subscribe(([percent, link]) => {
-            this.progress = percent;
-            this.imageLink = link;
-          });
-      }
-    }
-  }
+  private group$: Observable<List[]> = this.crudService.getDate(Collections.GROUP);
 
   ngOnInit(): void {
-    this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
+    this.group$.subscribe((value: List[]) => {
       this.groupData = value;
+      this.groupData = this.groupData.filter((f) => f.id === this.data.currentList.id)
     })
-    this.myForm.valueChanges.subscribe(value => console.log(value));
-    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15)])));
-    this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
-    this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
-    this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
+    this.myForm.addControl(ListControl.name, new FormControl(this.data?.currentList?.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
+    this.myForm.addControl(ListControl.color, new FormControl(this.data?.currentList?.color, Validators.required));
   }
 
-  public addTask(newTask: Task): void {
-    this.crudService.createObject(Collections.TASKS, newTask).subscribe((value) => console.log(value));
+  goBack(): void {
+    this.location.back();
   }
 
-  public submitForm(): void {
+  public updateList(editedList: List, id: string | undefined): void {
+    this.crudService.updateObject(Collections.GROUP, id, editedList).subscribe()
+  }
+
+  public updateForm(id: string | undefined): void {
     if (this.myForm.valid) {
-      const newTask: Task = {
-        name: this.myForm?.controls[TasksControls.name].value,
-        priority: this.myForm?.controls[TasksControls.priority].value,
-        dueDate: this.myForm?.controls[TasksControls.dueDate].value.toString(),
-        group: this.myForm?.controls[TasksControls.group].value,
-        pictureUrl: this.imageLink,
+      const currentList: List = {
+        name: this.myForm?.controls[ListControl.name].value,
+        color: this.myForm?.controls[ListControl.color].value,
       }
-      this.addTask(newTask);
+      this.updateList(currentList, id);
       this.myForm?.reset();
     } else {
       alert("Error")

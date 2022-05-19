@@ -73,6 +73,15 @@
   padding: 5px;
 }
 
+.truncate-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.3em;
+  height: 3.9em;
+}
+
 .item-progress p {
   padding-left: 10px;
 }

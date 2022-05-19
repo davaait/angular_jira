@@ -16,8 +16,7 @@ export class AppComponent implements OnInit {
   public user: FireBaseUser = null;
 
   constructor(public authService: AuthService,
-              public router: Router) {
-  }
+              public router: Router,) {}
 
   public ngOnInit() {
     this.authService.user$.subscribe((value: firebase.User | null) => {
