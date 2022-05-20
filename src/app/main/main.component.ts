@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {Observable, tap} from "rxjs";
+import {Observable, Subscription, tap} from "rxjs";
 import {FireBaseUser, List, TasksStore} from "../services/types";
 import {switchMap} from "rxjs/operators";
 import firebase from "firebase/compat";
@@ -12,20 +12,18 @@ import {AuthService} from "../services/auth/auth.service";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
-  public groupsData?: List[] | undefined;
+export class MainComponent implements OnInit, OnDestroy {
 
+  public groupsData?: List[] | undefined;
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public user: FireBaseUser = null;
+  private subscriptions: Subscription[] = [];
 
   constructor(private crudService: CrudService,
               private authService: AuthService
   ) {}
 
-  ngOnInit() {
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-      this.user = value
-    })
+  public ngOnInit(): void {
     const updateTask: Observable<TasksStore[]> = this.tasks$.pipe(
       tap((task) => {
         const tasks: TasksStore[] = task;
@@ -36,9 +34,21 @@ export class MainComponent implements OnInit {
         )
       })
     );
-    this.crudService.handleData<List>(Collections.GROUP).pipe(
-      tap(value => this.groupsData = value),
-      switchMap(() => updateTask)
-    ).subscribe()
+    this.subscriptions.push(
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
+      }),
+      this.crudService.handleData<List>(Collections.GROUP).pipe(
+        tap(value => this.groupsData = value),
+        switchMap(() => updateTask)
+      ).subscribe()
+    )
   }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
+    })
+  }
+
 }
