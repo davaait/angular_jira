@@ -1,7 +1,7 @@
 <div class="dialog-wrapper">
   <h2 mat-dialog-title>Add Task</h2>
   <div class="flex-wrapper">
-    <mat-dialog-content class="mat-typography">
+    <mat-dialog-content>
       <form [formGroup]="myForm" class="form">
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
@@ -29,7 +29,7 @@
         <div class="input-wrapper-picker">
           <mat-form-field appearance="fill">
             <mat-label>Choose a due date</mat-label>
-            <input [formControlName]="formControls.dueDate" matInput [matDatepicker]="picker">
+            <input [formControlName]="formControls.dueDate" [min]="newDate" matInput [matDatepicker]="picker">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -54,7 +54,8 @@
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
             <mat-label>Task Description</mat-label>
-            <textarea matInput placeholder="Enter task description" [formControlName]="formControls.description"></textarea>
+            <textarea matInput placeholder="Enter task description"
+                      [formControlName]="formControls.description"></textarea>
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.description)" class="validate-hint">
             Please provide a description.
@@ -63,22 +64,20 @@
       </form>
     </mat-dialog-content>
     <div class="file-wrapper">
-      <div class="attach-file">
-        <mat-icon>attach_file</mat-icon>
-        <span>Attach picture</span>
+      <!--      <div class="attach-file">-->
+      <!--        <mat-icon>attach_file</mat-icon>-->
+      <!--        <span>Attach picture</span>-->
+      <!--      </div>-->
+      <div class="img-wrapper">
+        <img *ngIf="imageLink" [src]="imageLink" width="150" height="100"/>
       </div>
-      <div class="choose">
-        <div class="img-wrapper">
-          <img *ngIf="imageLink" [src]="imageLink" width="200" height="150"/>
+      <div class="upload-wrapper" [style.display]="imageLink ? 'none' : 'flex'">
+        <div (click)="uploadFile.click()">
+          <button mat-button color="primary">Choose File</button>
+          <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
         </div>
-        <div class="upload-wrapper">
-          <div (click)="uploadFile.click()">
-            <button mat-button color="primary">Choose File</button>
-            <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
-          </div>
-          <div>
-            <progress max="100" [value]="progress"></progress>
-          </div>
+        <div>
+          <progress max="100" [value]="progress"></progress>
         </div>
       </div>
     </div>

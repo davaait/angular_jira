@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import firebase from "firebase/compat/app";
 
 export type IconsNameType = {
@@ -11,7 +11,7 @@ export type IconsNameType = {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   public iconsName: IconsNameType = {
     menu: 'menu',
@@ -22,9 +22,6 @@ export class HeaderComponent implements OnInit {
   @Input() fn?: () => void;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
 }

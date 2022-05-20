@@ -1,4 +1,4 @@
-<div class="general-wrapper">
+<div class="general-wrapper" *ngIf="user">
   <app-info-panel class="header-wrapper"></app-info-panel>
   <div class="main-wrapper" cdkDropListGroup>
     <div *ngFor="let item of groupsData">

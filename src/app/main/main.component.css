@@ -13,14 +13,21 @@
 .main-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
   border-radius: 10px;
-  margin-top: 45px;
-  max-width: 90%;
+  margin-top: 70px;
+  width: 90%;
   min-height: 90vh;
   background-color: antiquewhite;
-  padding: 15px;
+  padding: 25px;
 }
 
+@media screen and (max-width: 820px) {
+  .main-wrapper {
+    justify-content: center;
+    max-width: 90%;
+    margin: 70px 15px;
+  }
+}

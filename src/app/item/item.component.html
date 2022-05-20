@@ -6,7 +6,7 @@
     </button>
     <mat-menu #belowMenu="matMenu" yPosition="above">
       <button mat-menu-item (click)="editListWindow(group)" routerLink="group/{{itemName}}">Edit List</button>
-      <button mat-menu-item (click)="removeList(itemID)">Remove List</button>
+      <button mat-menu-item (click)="removeList(itemID)" [style.display]="itemName === 'Completed' ? 'none' : ''">Remove List</button>
     </mat-menu>
   </div>
 

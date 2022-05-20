@@ -3,6 +3,7 @@ import firebase from "firebase/compat/app";
 import {AuthService} from "./services/auth/auth.service";
 import {Router} from "@angular/router";
 import {FireBaseUser} from "./services/types";
+import {Routes} from "./routes";
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,8 @@ import {FireBaseUser} from "./services/types";
 export class AppComponent implements OnInit {
 
   public title: string = 'my_project';
-
   public user: FireBaseUser = null;
+  public routes: typeof Routes= Routes;
 
   constructor(public authService: AuthService,
               public router: Router,) {}
