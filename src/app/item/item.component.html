@@ -1,12 +1,13 @@
 <div class="list-gen">
   <div class="list-header" [style.background-color]="genColor">
     <span [style.margin-left]="'20px'">{{itemName}}</span>
-    <button [style.color]="'white'" mat-icon-button [matMenuTriggerFor]="belowMenu">
+    <button [style.color]="'white'" mat-icon-button [matMenuTriggerFor]="belowMenu"
+            [style.display]="itemName === 'Completed' ? 'none' : ''">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #belowMenu="matMenu" yPosition="above">
       <button mat-menu-item (click)="editListWindow(group)" routerLink="group/{{itemName}}">Edit List</button>
-      <button mat-menu-item (click)="removeList(itemID)" [style.display]="itemName === 'Completed' ? 'none' : ''">Remove List</button>
+      <button mat-menu-item (click)="removeList(itemID)">Remove List</button>
     </mat-menu>
   </div>
 

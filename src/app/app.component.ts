@@ -14,10 +14,11 @@ export class AppComponent implements OnInit {
 
   public title: string = 'my_project';
   public user: FireBaseUser = null;
-  public routes: typeof Routes= Routes;
+  public routes: typeof Routes = Routes;
 
   constructor(public authService: AuthService,
-              public router: Router,) {}
+              public router: Router,) {
+  }
 
   public ngOnInit() {
     this.authService.user$.subscribe((value: firebase.User | null) => {

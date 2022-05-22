@@ -29,7 +29,8 @@ export class ItemComponent implements OnInit {
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
               private route: ActivatedRoute,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

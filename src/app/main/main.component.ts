@@ -45,7 +45,7 @@ export class MainComponent implements OnInit, OnDestroy {
     )
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscriptions.forEach((s) => {
       s.unsubscribe();
     })

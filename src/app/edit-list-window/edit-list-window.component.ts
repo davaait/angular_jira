@@ -40,6 +40,7 @@ export class EditListWindowComponent implements OnInit, OnDestroy {
         this.groupData = this.groupData.filter((f) => f.id === this.data.currentList.id)
       })
     )
+    console.log(this.data?.currentList?.color)
     this.myForm.addControl(ListControl.name, new FormControl(this.data?.currentList?.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
     this.myForm.addControl(ListControl.color, new FormControl(this.data?.currentList?.color, Validators.required));
   }
