@@ -1,0 +1,59 @@
+<div class="task-descr-wrapper">
+  <div class="left-main-group">
+    <div class="left-group-header">
+      <div class="span-header">
+        <mat-icon>web</mat-icon>
+        <span
+          [ngStyle]="{'font-size': '23px', 'font-weight': 'bold', 'margin-left': '10px'}">{{data?.item?.name}}</span>
+      </div>
+      <div [style.margin]="'10px 25px'">
+        <span>in group <strong>{{data?.item?.group | uppercase}}</strong></span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="description-wrapper">
+      <div class="description-header">
+        <mat-icon>description</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Attached files</span>
+      </div>
+      <div class="attached-files">
+        <img [src]="data?.item?.pictureUrl" width="120" height="70" [style.vert-align]="'bottom'"/>
+      </div>
+<!--      <div class="description-field">-->
+<!--        <mat-form-field [ngStyle]="{'width': '80%', 'margin-bottom': '-1.25em'}" appearance="fill">-->
+<!--          <mat-label>Task description</mat-label>-->
+<!--          <textarea matInput [value]="data?.item?.description"></textarea>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+      <div class="description-btn-group">
+        <button mat-raised-button color="primary">Update</button>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+    <div class="actions-wrapper">
+      <div class="actions-header">
+        <mat-icon>grading</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Actions</span>
+      </div>
+      <div class="comment-field">
+        <div class="field">
+
+        </div>
+        <div class="comment-btn-group">
+
+        </div>
+      </div>
+      <div class="all-actions">
+        <div class="current-action">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-divider [vertical]="true" [ngStyle]="{'margin-left': '10px'}"></mat-divider>
+  <div class="right-main-group">
+    <div class="right-group-header">
+
+    </div>
+  </div>
+</div>

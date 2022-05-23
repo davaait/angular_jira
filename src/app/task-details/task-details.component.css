@@ -1,0 +1,75 @@
+.task-descr-wrapper {
+  min-width: 750px;
+  min-height: 80vh;
+  display: flex;
+}
+
+.left-main-group {
+  min-width: 550px;
+  min-height: 100%;
+  /*border: solid 1px black;*/
+  display: flex;
+  flex-direction: column;
+}
+
+.right-main-group {
+  min-width: 230px;
+  min-height: 100%;
+  /*border: solid 1px black;*/
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+}
+
+.left-group-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.span-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.description-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.description-field {
+  min-width: 60%;
+  margin: 10px 0 0 25px;
+}
+
+.description-field textarea {
+  resize: vertical;
+  min-height: 30px;
+  height: 40px;
+  max-height: 60px;
+}
+
+.description-btn-group {
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px 0 10px 25px;
+}
+
+.actions-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.attached-files {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 100%;
+  min-height: 10vh;
+}
