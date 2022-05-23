@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
 import {ActivatedRoute} from "@angular/router";
 import {EditListWindowComponent} from "../edit-list-window/edit-list-window.component";
+import {TaskDetailsComponent} from "../task-details/task-details.component";
 
 @Component({
   selector: 'app-item',
@@ -29,7 +30,8 @@ export class ItemComponent implements OnInit {
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
               private route: ActivatedRoute,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -59,6 +61,10 @@ export class ItemComponent implements OnInit {
 
   public editListWindow(l: List | undefined): void {
     this.dialog.open(EditListWindowComponent, {data: {currentList: l}})
+  }
+
+  public openTaskDetailsWindow(t: TasksStore): void {
+    this.dialog.open(TaskDetailsComponent, {data: {item: t}})
   }
 
   // DragNDrop function

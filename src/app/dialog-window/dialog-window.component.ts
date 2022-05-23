@@ -49,7 +49,7 @@ export class DialogWindowComponent implements OnInit {
     this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.groupData = value;
     })
-    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15), Validators.minLength(5)])));
+    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(5)])));
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));

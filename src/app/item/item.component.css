@@ -59,6 +59,10 @@
   font-weight: bolder;
 }
 
+.manage_group {
+  display: flex;
+}
+
 .list-header span {
   font-weight: bold;
   font-size: 18px;

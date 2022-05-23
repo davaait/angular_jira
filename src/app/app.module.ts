@@ -44,6 +44,7 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
 import {InfoPanelComponent} from "./info-panel/info-panel.component";
 import {EditTaskWindowComponent} from "./edit-task-window/edit-task-window.component";
 import {EditListWindowComponent} from "./edit-list-window/edit-list-window.component";
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {EditListWindowComponent} from "./edit-list-window/edit-list-window.compo
     ListWindowComponent,
     EditTaskWindowComponent,
     EditListWindowComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     NgxMatColorPickerModule,
