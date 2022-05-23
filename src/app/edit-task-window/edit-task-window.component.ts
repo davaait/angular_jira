@@ -52,7 +52,6 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
     )
     this.myForm.addControl(TasksControls.name, new FormControl(this.data?.currentTask.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
     this.myForm.addControl(TasksControls.priority, new FormControl(this.data?.currentTask.priority, Validators.required));
-    this.myForm.addControl(TasksControls.dueDate, new FormControl(this.data?.currentTask.dueDate, Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl(this.data?.currentTask.group, Validators.required));
     this.myForm.addControl(TasksControls.description, new FormControl(this.data?.currentTask.description, Validators.required));
   }
@@ -70,7 +69,6 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
       const currentTask: Task = {
         name: this.myForm?.controls[TasksControls.name].value,
         priority: this.myForm?.controls[TasksControls.priority].value,
-        dueDate: this.myForm?.controls[TasksControls.dueDate].value.toString(),
         group: this.myForm?.controls[TasksControls.group].value,
         pictureUrl: this.imageLink,
         description: this.myForm?.controls[TasksControls.description].value,
