@@ -38,7 +38,8 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.subscriptions.push(
@@ -52,19 +53,11 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   }
 
   public openDialog() {
-    const dialogRef = this.dialog.open(DialogWindowComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialog.open(DialogWindowComponent);
   }
 
   public openListWindow() {
-    const dialogRef = this.dialog.open(ListWindowComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialog.open(ListWindowComponent);
   }
 
   public ngOnDestroy(): void {

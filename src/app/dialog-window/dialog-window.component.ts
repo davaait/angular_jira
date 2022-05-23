@@ -51,22 +51,9 @@ export class DialogWindowComponent implements OnInit {
     })
     this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15), Validators.minLength(5)])));
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
-    this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.compose([Validators.required, this.dateValidator])));
+    this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.description, new FormControl("", Validators.required));
-  }
-
-  public dateValidator(c: AbstractControl): { [key: string]: boolean } | null {
-    let value = c.value;
-    if (value && typeof value === "string") {
-      let match = value.match(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/);
-      if (!match) {
-        return {'dateInvalid': true};
-      } else if (match && match[0] !== value) {
-        return {'dateInvalid': true};
-      }
-    }
-    return null;
   }
 
   public addTask(newTask: Task): void {
