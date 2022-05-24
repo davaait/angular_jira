@@ -38,7 +38,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
               private location: Location,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private authService: AuthService,
-              ) {
+  ) {
   }
 
   private task$: Observable<TasksStore[]> = this.crudService.getDate(Collections.TASKS);
@@ -83,23 +83,23 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
         updateDate: new Date().toString()
       }
 
-      if(this.new[0].name !== this.myForm?.controls[TasksControls.name].value) {
+      if (this.new[0].name !== this.myForm?.controls[TasksControls.name].value) {
         history.push(this.user?.displayName + ' changed task name from ' + this.new[0].name + ' to ' + this.myForm?.controls[TasksControls.name].value)
       }
 
-      if(this.new[0].priority !== this.myForm?.controls[TasksControls.priority].value) {
+      if (this.new[0].priority !== this.myForm?.controls[TasksControls.priority].value) {
         history.push(this.user?.displayName + ' changed priority from ' + this.new[0].priority + ' to ' + this.myForm?.controls[TasksControls.priority].value)
       }
 
-      if(this.new[0].group !== this.myForm?.controls[TasksControls.group].value) {
+      if (this.new[0].group !== this.myForm?.controls[TasksControls.group].value) {
         history.push(this.user?.displayName + ' changed group from ' + this.new[0].group + ' to ' + this.myForm?.controls[TasksControls.group].value)
       }
 
-      if(this.new[0].description !== this.myForm?.controls[TasksControls.description].value) {
+      if (this.new[0].description !== this.myForm?.controls[TasksControls.description].value) {
         history.push(this.user?.displayName + ' changed description from ' + this.new[0].description + ' to ' + this.myForm?.controls[TasksControls.description].value)
       }
 
-      if(this.new[0].history) {
+      if (this.new[0].history) {
         currentTask.history = [...history, ...this.new[0].history]
       } else {
         currentTask.history = [...history]
