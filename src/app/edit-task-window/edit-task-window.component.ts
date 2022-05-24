@@ -1,13 +1,15 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {List, Task, TasksStore} from "../services/types";
+import {FireBaseUser, List, Task, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
 import {Observable, Subscription} from "rxjs";
 import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import firebase from "firebase/compat";
+import {AuthService} from "../services/auth/auth.service";
 
 export type DialogData = {
   currentTask: TasksStore,
@@ -28,12 +30,15 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   public groupData: List[] = [];
   public new: TasksStore[] = [];
   public formControls: typeof TasksControls = TasksControls;
+  public user: FireBaseUser | null = null;
   private subscriptions: Subscription[] = [];
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
               private location: Location,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+              @Inject(MAT_DIALOG_DATA) public data: DialogData,
+              private authService: AuthService,
+              ) {
   }
 
   private task$: Observable<TasksStore[]> = this.crudService.getDate(Collections.TASKS);
@@ -48,6 +53,9 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
       }),
       this.group$.subscribe((value: List[]) => {
         this.groupData = value;
+      }),
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
       })
     )
     this.myForm.addControl(TasksControls.name, new FormControl(this.data?.currentTask.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
@@ -65,6 +73,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   }
 
   public updateForm(id: string | undefined): void {
+    let history: string[] = [];
     if (this.myForm.valid) {
       const currentTask: Task = {
         name: this.myForm?.controls[TasksControls.name].value,
@@ -72,7 +81,23 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
         group: this.myForm?.controls[TasksControls.group].value,
         pictureUrl: this.imageLink,
         description: this.myForm?.controls[TasksControls.description].value,
+        updateDate: new Date().toString(),
       }
+
+      if(this.new[0].priority !== this.myForm?.controls[TasksControls.priority].value) {
+        history.push(this.user?.displayName + ' changed priority from ' + this.new[0].priority + ' to ' + this.myForm?.controls[TasksControls.priority].value)
+      }
+
+      if(this.new[0].group !== this.myForm?.controls[TasksControls.group].value) {
+        history.push(this.user?.displayName + ' changed group from ' + this.new[0].group + ' to ' + this.myForm?.controls[TasksControls.group].value)
+      }
+
+      if(this.new[0].history) {
+        currentTask.history = [...history, ...this.new[0].history]
+      } else {
+        currentTask.history = [...history]
+      }
+
       this.updateTask(currentTask, id);
       this.myForm?.reset();
     } else {

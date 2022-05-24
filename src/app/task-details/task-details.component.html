@@ -16,17 +16,19 @@
         <mat-icon>description</mat-icon>
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Attached files</span>
       </div>
-      <div class="attached-files">
-        <img [src]="data?.item?.pictureUrl" width="120" height="70" [style.vert-align]="'bottom'"/>
-      </div>
-<!--      <div class="description-field">-->
-<!--        <mat-form-field [ngStyle]="{'width': '80%', 'margin-bottom': '-1.25em'}" appearance="fill">-->
-<!--          <mat-label>Task description</mat-label>-->
-<!--          <textarea matInput [value]="data?.item?.description"></textarea>-->
-<!--        </mat-form-field>-->
-<!--      </div>-->
-      <div class="description-btn-group">
-        <button mat-raised-button color="primary">Update</button>
+        <div class="attached-files" *ngIf="data?.item?.images">
+          <img [src]="img" width="120" height="90" [style.display]="'block'" *ngFor="let img of imagesArr"/>
+        </div>
+      <!--      <div class="description-field">-->
+      <!--        <mat-form-field [ngStyle]="{'width': '80%', 'margin-bottom': '-1.25em'}" appearance="fill">-->
+      <!--          <mat-label>Task description</mat-label>-->
+      <!--          <textarea matInput [value]="data?.item?.description"></textarea>-->
+      <!--        </mat-form-field>-->
+      <!--      </div>-->
+      <div class="description-btn-group" (click)="uploadFile.click()">
+        <button mat-raised-button color="primary">Upload new</button>
+        <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
+        <progress max="100" [value]="progress"></progress>
       </div>
       <mat-divider></mat-divider>
     </div>
@@ -43,17 +45,67 @@
 
         </div>
       </div>
-      <div class="all-actions">
-        <div class="current-action">
-
-        </div>
+      <div class="all-actions" *ngIf="history !== []">
+          <div class="current-action" *ngFor="let taskHistory of history">
+            <mat-icon [style.margin-right]="'5px'">tips_and_updates</mat-icon>
+            <div>
+              {{taskHistory}}
+            </div>
+          </div>
       </div>
     </div>
   </div>
-  <mat-divider [vertical]="true" [ngStyle]="{'margin-left': '10px'}"></mat-divider>
+  <mat-divider [vertical]="true" [ngStyle]="{'margin': '0 10px 0 15px'}"></mat-divider>
   <div class="right-main-group">
     <div class="right-group-header">
-
+      <div class="curr">
+        <mat-icon>event</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Due Date</span>
+      </div>
+      <div class="current-value">
+        {{data?.item?.dueDate | date}}
+      </div>
     </div>
+    <mat-divider></mat-divider>
+    <div class="right-group-header">
+        <div class="curr">
+          <mat-icon>done_all</mat-icon>
+          <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Priority</span>
+        </div>
+      <div class="current-value">
+        {{data?.item?.priority | uppercase}}
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="right-group-header">
+      <div class="curr">
+        <mat-icon>how_to_reg</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Created by</span>
+      </div>
+      <div class="current-value">
+        {{user?.displayName}}
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="right-group-header">
+      <div class="curr">
+        <mat-icon>new_releases</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Date Of Creation</span>
+      </div>
+      <div class="current-value">
+        {{createDate | date: 'medium'}}
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="right-group-header">
+      <div class="curr">
+        <mat-icon>published_with_changes</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Update Date</span>
+      </div>
+      <div class="current-value">
+        {{updateDate | date: 'medium'}}
+      </div>
+    </div>
+    <mat-divider></mat-divider>
   </div>
 </div>

@@ -10,6 +10,10 @@ export type Task = {
   group: string,
   pictureUrl?: string | null,
   description: string | null,
+  dateOfCreation?: string | null,
+  updateDate?: string | null,
+  images?: string[],
+  history?: string[] | undefined,
 };
 
 export type List = {

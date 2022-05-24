@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {List, Task, TasksStore} from "../services/types";
+import {FireBaseUser, List, Task, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
 import {combineLatest, takeWhile} from "rxjs";
+import {AuthService} from "../services/auth/auth.service";
+import firebase from "firebase/compat";
 
 @Component({
   selector: 'app-dialog-window',
@@ -22,8 +24,12 @@ export class DialogWindowComponent implements OnInit {
   public groupData: List[] = [];
   public formControls: typeof TasksControls = TasksControls;
   public newDate: Date = new Date();
+  public user: FireBaseUser | null = null;
 
-  constructor(private crudService: CrudService, private uploadService: UploadService) {
+  constructor(private crudService: CrudService,
+              private uploadService: UploadService,
+              private authService: AuthService,
+              ) {
   }
 
   public onFileSelected(event: Event): void {
@@ -46,6 +52,9 @@ export class DialogWindowComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe((value: firebase.User | null) => {
+      this.user = value
+    })
     this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.groupData = value;
     })
@@ -67,9 +76,12 @@ export class DialogWindowComponent implements OnInit {
         priority: this.myForm?.controls[TasksControls.priority].value,
         dueDate: this.myForm?.controls[TasksControls.dueDate].value.toString(),
         group: this.myForm?.controls[TasksControls.group].value,
-        pictureUrl: this.imageLink,
         description: this.myForm?.controls[TasksControls.description].value,
+        dateOfCreation: new Date().toString(),
+        updateDate: new Date().toString(),
+        history: [this.user?.displayName + ' create task']
       }
+      this.imageLink ? newTask.images = [this.imageLink] : '';
       this.addTask(newTask);
       this.myForm?.reset();
     } else {

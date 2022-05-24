@@ -33,7 +33,6 @@ export class ListWindowComponent implements OnInit, OnDestroy {
         this.data.forEach((g) => {
           this.groupNameArray.push(g.name)
         })
-        console.log(this.groupNameArray)
       })
     )
     this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([

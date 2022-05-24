@@ -57,7 +57,11 @@
 .description-btn-group {
   display: flex;
   justify-content: flex-start;
-  margin: 5px 0 10px 25px;
+  margin: 5px 0 15px 20px;
+}
+
+.description-btn-group progress {
+  margin: 10px 0 0 15px;
 }
 
 .actions-header {
@@ -67,9 +71,47 @@
   margin-top: 10px;
 }
 
+.current-action {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 7px 0 7px 20px;
+}
+
 .attached-files {
   display: flex;
   flex-wrap: wrap;
   min-width: 100%;
-  min-height: 10vh;
+  min-height: 100px;
+  margin-left: 20px;
+}
+
+.attached-files img {
+  margin-left: 5px;
+}
+
+.curr {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.right-group-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.curr span {
+  margin-left: 5px;
+  align-self: flex-end;
+}
+
+.current-value {
+  margin: 5px 0 0 20px;
+  font-size: 16px;
+  font-weight: normal;
 }

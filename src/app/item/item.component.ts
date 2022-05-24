@@ -26,6 +26,8 @@ export class ItemComponent implements OnInit {
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public tID?: string;
+  private arrID?: string[];
+  private newArr?: any;
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
@@ -51,7 +53,7 @@ export class ItemComponent implements OnInit {
   }
 
   //TODO: remove tasks from firebase collection in the same time with removing list
-  public removeList(id: string | undefined): void {
+  public removeList(id: string): void {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
   }
 
