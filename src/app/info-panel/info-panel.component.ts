@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {TasksStore} from "../services/types";
+import {FireBaseUser, TasksStore} from "../services/types";
 import {Observable, Subscription, tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 import {ListWindowComponent} from "../list-window/list-window.component";
+import {AuthService} from "../services/auth/auth.service";
+import firebase from "firebase/compat";
 
 type IconsNameType = {
   add: string,
@@ -35,20 +37,24 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   public progressValue?: number;
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   private subscriptions: Subscription[] = [];
+  public user: FireBaseUser = null;
 
   constructor(private crudService: CrudService,
-              public dialog: MatDialog
-  ) {
-  }
+              public dialog: MatDialog,
+              private authService: AuthService,
+  ) { }
 
   ngOnInit() {
     this.subscriptions.push(
       this.tasks$.pipe(
         tap((taskArray) => {
-          const completedTasks = taskArray.filter((t) => t.group === "Completed");
+          const completedTasks = taskArray.filter((t) => t.group === "Completed" && this.user?.uid);
           this.progressValue = Math.round((completedTasks.length / taskArray.length) * 100);
         })
-      ).subscribe()
+      ).subscribe(),
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
+      })
     )
   }
 

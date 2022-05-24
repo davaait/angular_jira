@@ -79,7 +79,8 @@ export class DialogWindowComponent implements OnInit {
         description: this.myForm?.controls[TasksControls.description].value,
         dateOfCreation: new Date().toString(),
         updateDate: new Date().toString(),
-        history: [this.user?.displayName + ' create task']
+        history: [this.user?.displayName + ' create task'],
+        activeUser: this.user?.uid
       }
       this.imageLink ? newTask.images = [this.imageLink] : '';
       this.addTask(newTask);

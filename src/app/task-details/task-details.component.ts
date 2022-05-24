@@ -29,6 +29,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   public new: any = [];
   public history: string[] = [];
   private subscriptions: Subscription[] = [];
+  public infoDate: Date = new Date()
 
   constructor(private crudService: CrudService,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -41,6 +42,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
+        console.log(this.user)
       }),
       this.crudService.handleData<TasksStore>(Collections.TASKS).subscribe((value) => {
         this.new = value.filter((f) => f.id === this.data?.item?.id)

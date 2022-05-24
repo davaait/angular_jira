@@ -14,6 +14,7 @@ export type Task = {
   updateDate?: string | null,
   images?: string[],
   history?: string[],
+  activeUser?: string,
 };
 
 export type List = {
@@ -21,6 +22,7 @@ export type List = {
   color: string,
   tasksArray?: TasksStore[],
   id?: string,
+  activeUser?: string,
 }
 
 export type ID = {

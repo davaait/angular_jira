@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ListControl} from "../model/controls.enum";
-import {List, TasksStore} from "../services/types";
+import {FireBaseUser, List, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {Observable, Subscription} from "rxjs";
+import {AuthService} from "../services/auth/auth.service";
+import firebase from "firebase/compat";
 
 @Component({
   selector: 'app-list-window',
@@ -21,9 +23,11 @@ export class ListWindowComponent implements OnInit, OnDestroy {
   private handleTasks: TasksStore[] = [];
   private subscriptions: Subscription[] = [];
   private groupNameArray: string[] = ['backend', 'whatever'];
+  public user: FireBaseUser | null = null;
 
-  constructor(private crudService: CrudService) {
-  }
+  constructor(private crudService: CrudService,
+              private authService: AuthService,
+              ) { }
 
   public ngOnInit(): void {
     this.subscriptions.push(
@@ -33,6 +37,9 @@ export class ListWindowComponent implements OnInit, OnDestroy {
         this.data.forEach((g) => {
           this.groupNameArray.push(g.name)
         })
+      }),
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
       })
     )
     this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([
@@ -57,6 +64,7 @@ export class ListWindowComponent implements OnInit, OnDestroy {
         name: this.myForm?.controls[ListControl.name].value,
         color: this.myForm?.controls[ListControl.color].value.toString(),
         tasksArray: this.handleTasks,
+        activeUser: this.user?.uid
       }
       this.addList(newList);
       this.myForm?.reset();
