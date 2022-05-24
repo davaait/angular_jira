@@ -1,13 +1,12 @@
 .task-descr-wrapper {
   min-width: 750px;
-  min-height: 80vh;
+  max-height: 80vh;
   display: flex;
 }
 
 .left-main-group {
   min-width: 550px;
   min-height: 100%;
-  /*border: solid 1px black;*/
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +14,6 @@
 .right-main-group {
   min-width: 230px;
   min-height: 100%;
-  /*border: solid 1px black;*/
   display: flex;
   flex-direction: column;
   margin-left: 5px;
