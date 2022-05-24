@@ -72,6 +72,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
                 newImage = {
                   images: [...this.data.item.images, this.imageLink],
                   updateDate: new Date().toString(),
+                  history: this.data.item.history?.concat(this.user?.displayName + ' uploaded new file')
                 }
               } else {
                 newImage = {

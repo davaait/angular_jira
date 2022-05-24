@@ -13,7 +13,7 @@ export type Task = {
   dateOfCreation?: string | null,
   updateDate?: string | null,
   images?: string[],
-  history?: string[] | undefined,
+  history?: string[],
 };
 
 export type List = {

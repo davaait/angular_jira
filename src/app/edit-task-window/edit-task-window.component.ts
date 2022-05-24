@@ -79,9 +79,12 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
         name: this.myForm?.controls[TasksControls.name].value,
         priority: this.myForm?.controls[TasksControls.priority].value,
         group: this.myForm?.controls[TasksControls.group].value,
-        pictureUrl: this.imageLink,
         description: this.myForm?.controls[TasksControls.description].value,
-        updateDate: new Date().toString(),
+        updateDate: new Date().toString()
+      }
+
+      if(this.new[0].name !== this.myForm?.controls[TasksControls.name].value) {
+        history.push(this.user?.displayName + ' changed task name from ' + this.new[0].name + ' to ' + this.myForm?.controls[TasksControls.name].value)
       }
 
       if(this.new[0].priority !== this.myForm?.controls[TasksControls.priority].value) {
@@ -90,6 +93,10 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
 
       if(this.new[0].group !== this.myForm?.controls[TasksControls.group].value) {
         history.push(this.user?.displayName + ' changed group from ' + this.new[0].group + ' to ' + this.myForm?.controls[TasksControls.group].value)
+      }
+
+      if(this.new[0].description !== this.myForm?.controls[TasksControls.description].value) {
+        history.push(this.user?.displayName + ' changed description from ' + this.new[0].description + ' to ' + this.myForm?.controls[TasksControls.description].value)
       }
 
       if(this.new[0].history) {

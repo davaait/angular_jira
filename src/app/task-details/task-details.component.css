@@ -78,6 +78,11 @@
   margin: 7px 0 7px 20px;
 }
 
+.all-actions {
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+
 .attached-files {
   display: flex;
   flex-wrap: wrap;
