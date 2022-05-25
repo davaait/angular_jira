@@ -22,6 +22,7 @@ export class DialogWindowComponent implements OnInit {
   public myForm: FormGroup = new FormGroup({});
   public data: TasksStore[] = [];
   public groupData: List[] = [];
+  public filteredGroups: List[] = [];
   public formControls: typeof TasksControls = TasksControls;
   public newDate: Date = new Date();
   public user: FireBaseUser | null = null;
@@ -57,6 +58,8 @@ export class DialogWindowComponent implements OnInit {
     })
     this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.groupData = value;
+      this.filteredGroups = this.groupData.filter((g) => g.activeUser === this.user?.uid
+      )
     })
     this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(5)])));
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));

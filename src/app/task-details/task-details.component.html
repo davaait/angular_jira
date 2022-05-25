@@ -5,6 +5,8 @@
         <mat-icon>web</mat-icon>
         <span
           [ngStyle]="{'font-size': '23px', 'font-weight': 'bold', 'margin-left': '10px'}">{{data?.item?.name}}</span>
+        <app-button [style.margin-bottom]="'5px'" [expand]="true" [iconName]="'update'" (click)="editWindow(data?.item)"
+                    routerLink="task/{{data?.item?.id}}"></app-button>
       </div>
       <div [style.margin]="'10px 25px'">
         <span>in group <strong>{{data?.item?.group | uppercase}}</strong></span>
@@ -16,9 +18,9 @@
         <mat-icon>description</mat-icon>
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Attached files</span>
       </div>
-        <div class="attached-files" *ngIf="data?.item?.images">
-          <img [src]="img" width="120" height="90" [style.display]="'block'" *ngFor="let img of imagesArr"/>
-        </div>
+      <div class="attached-files" *ngIf="data?.item?.images">
+        <img [src]="img" width="120" height="90" [style.display]="'block'" *ngFor="let img of imagesArr"/>
+      </div>
       <!--      <div class="description-field">-->
       <!--        <mat-form-field [ngStyle]="{'width': '80%', 'margin-bottom': '-1.25em'}" appearance="fill">-->
       <!--          <mat-label>Task description</mat-label>-->
@@ -46,12 +48,12 @@
         </div>
       </div>
       <div class="all-actions" *ngIf="history !== []">
-          <div class="current-action" *ngFor="let taskHistory of history">
-            <mat-icon [style.margin-right]="'5px'">tips_and_updates</mat-icon>
-            <div>
-              {{taskHistory}}
-            </div>
+        <div class="current-action" *ngFor="let taskHistory of history">
+          <mat-icon [style.margin-right]="'5px'">tips_and_updates</mat-icon>
+          <div>
+            {{taskHistory}}
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -68,10 +70,10 @@
     </div>
     <mat-divider></mat-divider>
     <div class="right-group-header">
-        <div class="curr">
-          <mat-icon>done_all</mat-icon>
-          <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Priority</span>
-        </div>
+      <div class="curr">
+        <mat-icon>done_all</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Priority</span>
+      </div>
       <div class="current-value">
         {{data?.item?.priority | uppercase}}
       </div>

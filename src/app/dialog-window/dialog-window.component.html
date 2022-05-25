@@ -42,7 +42,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Task Groups</mat-label>
             <mat-select [formControlName]="formControls.group">
-              <mat-option *ngFor="let group of groupData" [value]="group.name">
+              <mat-option *ngFor="let group of filteredGroups" [value]="group.name">
                 {{group.name}}
               </mat-option>
             </mat-select>

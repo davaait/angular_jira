@@ -26,8 +26,6 @@ export class ItemComponent implements OnInit {
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public tID?: string;
-  private arrID?: string[];
-  private newArr?: any;
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,

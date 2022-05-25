@@ -1,13 +1,13 @@
-import {Component, Inject, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {UploadService} from "../services/upload/upload.service";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {CrudService} from "../services/crud/crud.service";
-import {FireBaseUser, TasksStore, UserCredential} from "../services/types";
-import {combineLatest, Observable, Subscription, takeWhile} from "rxjs";
+import {FireBaseUser, TasksStore} from "../services/types";
+import {combineLatest, Subscription, takeWhile} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {Collections} from "../services/crud/collections";
-import {log} from "util";
+import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
 
 type DialogData = {
   item: TasksStore
@@ -29,12 +29,12 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   public new: any = [];
   public history: string[] = [];
   private subscriptions: Subscription[] = [];
-  public infoDate: Date = new Date()
 
   constructor(private crudService: CrudService,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private uploadService: UploadService,
               public authService: AuthService,
+              public dialog: MatDialog,
   ) {
   }
 
@@ -42,7 +42,6 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
-        console.log(this.user)
       }),
       this.crudService.handleData<TasksStore>(Collections.TASKS).subscribe((value) => {
         this.new = value.filter((f) => f.id === this.data?.item?.id)
@@ -52,6 +51,10 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
       })
     )
     this.createDate = this.data?.item?.dateOfCreation ? this.data?.item?.dateOfCreation : "no date of creation"
+  }
+
+  public editWindow(t: TasksStore | undefined): void {
+    this.dialog.open(EditTaskWindowComponent, {data: {currentTask: t}});
   }
 
   public onFileSelected(event: Event): void {

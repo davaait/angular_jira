@@ -10,6 +10,7 @@ import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
+import {Routes} from "../routes";
 
 export type DialogData = {
   currentTask: TasksStore,
@@ -65,7 +66,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.location.back();
+    this.location.go(Routes.MAIN);
   }
 
   public updateTask(editedTask: Task, id: string | undefined): void {

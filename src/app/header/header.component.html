@@ -5,9 +5,18 @@
   </div>
   <span class="spacer"></span>
   <div class="right-group-header">
-    <mat-form-field class="search-field" floatLabel="never">
-      <input matInput type="search" placeholder="Search here" class="search-input">
-    </mat-form-field>
+    <form class="auto-form">
+      <mat-form-field class="search-field" floatLabel="never">
+        <mat-label>Enter task name</mat-label>
+        <input matInput type="text" placeholder="Enter task name" [formControl]="myControl" [matAutocomplete]="auto"
+               class="search-input">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option (click)="openTaskDetailsWindow(option)" *ngFor="let option of filteredOptions | async" [value]="option.name">
+              {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
     <div class="user-details">
       <span class="span-username">{{user?.displayName}}</span>
       <mat-icon>account_circle</mat-icon>
