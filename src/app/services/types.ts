@@ -25,6 +25,12 @@ export type List = {
   activeUser?: string,
 }
 
+export type Board = {
+  name: string,
+  id: string,
+  groupArray: List[],
+}
+
 export type ID = {
   id: string;
 }

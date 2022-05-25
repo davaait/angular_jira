@@ -1,8 +1,7 @@
 export enum Routes {
   MAIN = "main",
-  PRIVACY = "privacy-policy",
-  TERMS = "terms-of-service",
-  MYSETTINGS = "my-settings",
+  BOARD = "board",
+  PROFILE = "profile",
   LOGIN = "login",
   SIGNUP = "sign-up",
 }

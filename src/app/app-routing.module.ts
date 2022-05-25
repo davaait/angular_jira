@@ -30,13 +30,7 @@ const routes: Route[] = [
     ]
   },
   {
-    path: Routes.PRIVACY, component: PrivacyComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: Routes.TERMS, component: TermsofserviceComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: Routes.MYSETTINGS, component: MysettingsComponent, canActivate: [AuthGuard]
+    path: Routes.PROFILE, component: MysettingsComponent, canActivate: [AuthGuard]
   },
   {
     path: Routes.LOGIN, component: AuthComponent

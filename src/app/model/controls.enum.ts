@@ -10,3 +10,7 @@ export enum ListControl {
   name = "name",
   color = "color",
 }
+
+export enum BoardControl {
+  name = "name",
+}

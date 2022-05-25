@@ -11,15 +11,18 @@
         <input matInput type="text" placeholder="Enter task name" [formControl]="myControl" [matAutocomplete]="auto"
                class="search-input">
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option (click)="openTaskDetailsWindow(option)" *ngFor="let option of filteredOptions | async" [value]="option.name">
-              {{option.name}}
-            </mat-option>
+          <mat-option (click)="openTaskDetailsWindow(option)" *ngFor="let option of filteredOptions | async"
+                      [value]="option.name">
+            {{option.name}}
+          </mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </form>
     <div class="user-details">
       <span class="span-username">{{user?.displayName}}</span>
-      <mat-icon>account_circle</mat-icon>
+      <!--      <mat-icon>account_circle</mat-icon>-->
+      <img width="35px" height="35px" [src]="user?.photoURL"
+           [ngStyle]="{'border-radius': '50%', 'margin-left': '5px'}">
     </div>
     <app-button class="settings-button" [iconName]="iconsName.settings" [menuAccBtn]="true"></app-button>
   </div>

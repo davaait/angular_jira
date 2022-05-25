@@ -48,7 +48,7 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.tasks$.pipe(
         tap((taskArray) => {
-          const completedTasks = taskArray.filter((t) => t.group === "Completed" && this.user?.uid);
+          const completedTasks = taskArray.filter((t) => t.group === "Completed" && this.user?.uid && this.user?.uid === t.activeUser);
           this.progressValue = Math.round((completedTasks.length / taskArray.length) * 100);
         })
       ).subscribe(),

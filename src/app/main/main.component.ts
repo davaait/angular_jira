@@ -38,6 +38,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
+        console.log(this.user?.photoURL)
       }),
       this.crudService.handleData<List>(Collections.GROUP).pipe(
         tap(value => {

@@ -21,12 +21,6 @@
       <div class="attached-files" *ngIf="data?.item?.images">
         <img [src]="img" width="120" height="90" [style.display]="'block'" *ngFor="let img of imagesArr"/>
       </div>
-      <!--      <div class="description-field">-->
-      <!--        <mat-form-field [ngStyle]="{'width': '80%', 'margin-bottom': '-1.25em'}" appearance="fill">-->
-      <!--          <mat-label>Task description</mat-label>-->
-      <!--          <textarea matInput [value]="data?.item?.description"></textarea>-->
-      <!--        </mat-form-field>-->
-      <!--      </div>-->
       <div class="description-btn-group" (click)="uploadFile.click()">
         <button mat-raised-button color="primary">Upload new</button>
         <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
@@ -42,7 +36,7 @@
       <div class="current-value">
         {{data?.item?.description}}
       </div>
-      <mat-divider></mat-divider>
+      <mat-divider [style.margin-top]="'5px'"></mat-divider>
     </div>
     <div class="actions-wrapper">
       <div class="actions-header">

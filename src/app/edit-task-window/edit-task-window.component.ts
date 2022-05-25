@@ -29,6 +29,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   public myForm: FormGroup = new FormGroup({});
   public tasksArray?: TasksStore[] = [];
   public groupData: List[] = [];
+  public filteredGroup: List[] = [];
   public new: TasksStore[] = [];
   public formControls: typeof TasksControls = TasksControls;
   public user: FireBaseUser | null = null;
@@ -54,6 +55,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
       }),
       this.group$.subscribe((value: List[]) => {
         this.groupData = value;
+        this.filteredGroup = this.groupData.filter((f) => f.activeUser === this.user?.uid)
       }),
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
