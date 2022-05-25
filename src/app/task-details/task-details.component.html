@@ -34,6 +34,16 @@
       </div>
       <mat-divider></mat-divider>
     </div>
+    <div class="description-wrapper">
+      <div class="description-header">
+        <mat-icon [style.margin]="'0 5px 5px 0'">menu_book</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Description</span>
+      </div>
+      <div class="current-value">
+        {{data?.item?.description}}
+      </div>
+      <mat-divider></mat-divider>
+    </div>
     <div class="actions-wrapper">
       <div class="actions-header">
         <mat-icon>grading</mat-icon>
