@@ -40,12 +40,18 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ListWindowComponent} from "./list-window/list-window.component";
-import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import {
+  MAT_COLOR_FORMATS,
+  NgxMatColorPickerModule,
+  NGX_MAT_COLOR_FORMATS
+} from '@angular-material-components/color-picker';
 import {InfoPanelComponent} from "./info-panel/info-panel.component";
 import {EditTaskWindowComponent} from "./edit-task-window/edit-task-window.component";
 import {EditListWindowComponent} from "./edit-list-window/edit-list-window.component";
-import { TaskDetailsComponent } from './task-details/task-details.component';
+import {TaskDetailsComponent} from './task-details/task-details.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {ChartComponent} from './chart/chart.component';
+import {NgChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -66,40 +72,42 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     EditTaskWindowComponent,
     EditListWindowComponent,
     TaskDetailsComponent,
+    ChartComponent,
   ],
-    imports: [
-        NgxMatColorPickerModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatFormFieldModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        MatIconModule,
-        MatInputModule,
-        MatSidenavModule,
-        MatDividerModule,
-        MatProgressBarModule,
-        DragDropModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        MatTooltipModule,
-        MatMenuModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFireAuthModule,
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        RouterModule,
-        MatRadioModule,
-        AppRoutingModule,
-        MatProgressSpinnerModule,
-        MatDialogModule,
-        MatSelectModule,
-        FormsModule,
-        MatAutocompleteModule,
-    ],
+  imports: [
+    NgxMatColorPickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatIconModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatProgressBarModule,
+    DragDropModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatTooltipModule,
+    MatMenuModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    RouterModule,
+    MatRadioModule,
+    AppRoutingModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSelectModule,
+    FormsModule,
+    MatAutocompleteModule,
+    NgChartsModule
+  ],
   providers: [MatDatepickerModule,
-    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS },
+    {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS},
   ],
   bootstrap: [AppComponent]
 })

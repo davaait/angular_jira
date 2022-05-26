@@ -11,16 +11,26 @@
     <div class="info">
       <div class="left-info">
         <div>
-          <img width="70px" height="70px" src="">
+          <img width="70px" height="70px" [src]="user?.photoURL" [ngStyle]="{'border-radius': '50%'}">
         </div>
+        <h2>{{user?.displayName}}</h2>
         <div>
-          <h2>{{'name'}}</h2>
+          <div>
+            <span>Creation time: {{user?.metadata?.creationTime | date: 'medium'}}</span>
+            <mat-divider></mat-divider>
+          </div>
+          <div>
+            <span>Last sign in: {{user?.metadata?.lastSignInTime | date: 'medium'}}</span>
+            <mat-divider></mat-divider>
+          </div>
+          <div>Phone: {{user?.phoneNumber !== null ? user?.phoneNumber : "No phone number data"}}
+            <mat-divider></mat-divider>
+          </div>
+          <div>Email: {{user?.email}}
+          </div>
         </div>
       </div>
-      <mat-divider [vertical]="true"></mat-divider>
-      <div class="right-info">
-
-      </div>
+      <app-chart class="chart"></app-chart>
     </div>
   </div>
 </div>

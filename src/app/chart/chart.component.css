@@ -1,0 +1,25 @@
+.chart-wrapper {
+  width: 800px;
+  height: 800px;
+}
+
+.gen {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 1131px) {
+  .chart-wrapper {
+    max-width: 650px;
+    max-height: 650px;
+  }
+}
+
+@media screen and (max-width: 627px) {
+  .chart-wrapper {
+    max-width: 400px;
+    max-height: 400px;
+  }
+}
