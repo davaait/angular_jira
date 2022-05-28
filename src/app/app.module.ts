@@ -25,8 +25,6 @@ import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 import {RouterModule} from "@angular/router";
 import {MatRadioModule} from "@angular/material/radio";
-import {TermsofserviceComponent} from './termsofservice/termsofservice.component';
-import {PrivacyComponent} from './privacy/privacy.component';
 import {MainComponent} from './main/main.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {MysettingsComponent} from './mysettings/mysettings.component';
@@ -60,8 +58,6 @@ import {NgChartsModule} from "ng2-charts";
     ButtonComponent,
     InfoPanelComponent,
     AuthComponent,
-    TermsofserviceComponent,
-    PrivacyComponent,
     MainComponent,
     MysettingsComponent,
     ItemComponent,

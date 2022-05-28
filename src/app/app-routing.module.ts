@@ -2,8 +2,6 @@ import {NgModule} from '@angular/core';
 import {Route, RouterModule} from "@angular/router";
 import {Routes} from "./routes";
 import {MainComponent} from "./main/main.component";
-import {PrivacyComponent} from "./privacy/privacy.component";
-import {TermsofserviceComponent} from "./termsofservice/termsofservice.component";
 import {AuthGuard} from "./services/auth/auth.guard";
 import {MysettingsComponent} from "./mysettings/mysettings.component";
 import {AuthComponent} from "./auth/auth.component";
