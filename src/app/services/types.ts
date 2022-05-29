@@ -30,8 +30,16 @@ export type Board = {
   activeUsers: string[],
 }
 
+export type User = {
+  name: string | undefined | null,
+  userId?: string | undefined,
+  avatarUrl: string | undefined | null,
+}
+
 export type ID = {
   id: string;
 }
 
 export type TasksStore = Task & ID;
+export type BoardStore = Board & ID;
+export type UserStore = User & ID;

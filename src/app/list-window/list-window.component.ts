@@ -45,7 +45,7 @@ export class ListWindowComponent implements OnInit, OnDestroy {
     this.myForm.addControl(ListControl.name, new FormControl("", Validators.compose([
       Validators.required,
       Validators.maxLength(15),
-      Validators.minLength(5),
+      Validators.minLength(3),
     ])));
     this.myForm.addControl(ListControl.color, new FormControl("", Validators.required));
   }

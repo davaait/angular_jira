@@ -18,7 +18,7 @@
       <mat-divider></mat-divider>
       <ng-container *ngFor="let i of (board$ | async)">
         <div class="sidenav-item">
-          <a [ngStyle]="{'font-size': '15px', 'margin-left': '15px'}" routerLink="main/board/i.name">{{i.name}}</a>
+          <a [ngStyle]="{'font-size': '15px', 'margin-left': '15px'}">{{i.name}}</a>
         </div>
         <mat-divider></mat-divider>
       </ng-container>

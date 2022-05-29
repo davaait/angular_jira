@@ -61,7 +61,7 @@ export class DialogWindowComponent implements OnInit {
       this.filteredGroups = this.groupData.filter((g) => g.activeUser === this.user?.uid
       )
     })
-    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(5)])));
+    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(3)])));
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));

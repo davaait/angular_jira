@@ -3,7 +3,7 @@ export enum TasksControls {
   priority = "priority",
   dueDate = "dueDate",
   group = "group",
-  description = "description"
+  description = "description",
 }
 
 export enum ListControl {
@@ -13,4 +13,5 @@ export enum ListControl {
 
 export enum BoardControl {
   name = "name",
+  users = "users",
 }
