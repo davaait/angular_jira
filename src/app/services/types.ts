@@ -27,8 +27,7 @@ export type List = {
 
 export type Board = {
   name: string,
-  id: string,
-  groupArray: List[],
+  activeUsers: string[],
 }
 
 export type ID = {

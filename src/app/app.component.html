@@ -9,13 +9,19 @@
       <div class="sidenav-item">
         <span>Dreamteam Technologies</span>
       </div>
-      <div class="sidenav-item">
+      <div class="sidenav-item" (click)="openBoardComp()">
         <button mat-icon-button>
           <mat-icon>add</mat-icon>
         </button>
         <span [style.font-size]="'15px'">Add New Board</span>
       </div>
       <mat-divider></mat-divider>
+      <ng-container *ngFor="let i of (board$ | async)">
+        <div class="sidenav-item">
+          <a [ngStyle]="{'font-size': '15px', 'margin-left': '15px'}" routerLink="main/board/i.name">{{i.name}}</a>
+        </div>
+        <mat-divider></mat-divider>
+      </ng-container>
     </mat-sidenav>
     <mat-sidenav-content>
       <app-header [user]="user" *ngIf="user">

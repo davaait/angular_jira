@@ -3,7 +3,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable} from "rxjs";
-import {List, TasksStore} from "../services/types";
+import {FireBaseUser, List, TasksStore} from "../services/types";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
 import {ActivatedRoute} from "@angular/router";
@@ -23,6 +23,7 @@ export class ItemComponent implements OnInit {
   @Input() itemsArray?: TasksStore[];
   @Input() itemID?: any;
   @Input() group?: List;
+  @Input() user?: FireBaseUser;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public tID?: string;
@@ -79,6 +80,9 @@ export class ItemComponent implements OnInit {
         event.currentIndex,
       );
     }
-    this.crudService.updateObject(Collections.TASKS, event.item.data.id, {group: event.container.id})
+    this.crudService.updateObject(Collections.TASKS, event.item.data.id, {
+      group: event.container.id,
+      history: [this.user?.displayName + ' change group from ' + event.previousContainer.id + ' to ' + event.container.id, ...event.item.data.history]
+    })
   }
 }

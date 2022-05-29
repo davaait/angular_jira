@@ -15,18 +15,18 @@
         </div>
         <h2>{{user?.displayName}}</h2>
         <div>
-          <div>
+          <div class="info-item">
             <span>Creation time: {{user?.metadata?.creationTime | date: 'medium'}}</span>
             <mat-divider></mat-divider>
           </div>
-          <div>
+          <div class="info-item">
             <span>Last sign in: {{user?.metadata?.lastSignInTime | date: 'medium'}}</span>
             <mat-divider></mat-divider>
           </div>
-          <div>Phone: {{user?.phoneNumber !== null ? user?.phoneNumber : "No phone number data"}}
+          <div class="info-item"><span>Phone: {{user?.phoneNumber !== null ? user?.phoneNumber : "No phone number data"}}</span>
             <mat-divider></mat-divider>
           </div>
-          <div>Email: {{user?.email}}
+          <div class="info-item"><span>Email: {{user?.email}}</span>
           </div>
         </div>
       </div>

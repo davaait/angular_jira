@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ChartData} from 'chart.js';
 import {CrudService} from "../services/crud/crud.service";
 import {Observable, Subscription, tap} from "rxjs";
@@ -13,7 +13,7 @@ import {switchMap} from "rxjs/operators";
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnDestroy {
   // Doughnut
   // public doughnutChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ];
 

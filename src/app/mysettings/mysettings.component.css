@@ -26,10 +26,18 @@
 .left-info {
   width: 350px;
   max-height: 300px;
-  border: 1px solid black;
+  border: 2px dashed #ccc;
   padding: 10px;
   border-radius: 10px;
   margin-right: 100px;
+}
+
+.info-item {
+  min-height: 40px;
+}
+
+.info-item span {
+  font-size: 18px;
 }
 
 @media screen and (max-width: 1131px) {

@@ -50,6 +50,7 @@ import {TaskDetailsComponent} from './task-details/task-details.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ChartComponent} from './chart/chart.component';
 import {NgChartsModule} from "ng2-charts";
+import {BoardWindowComponent} from "./board-window/board-window.component";
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {NgChartsModule} from "ng2-charts";
     EditListWindowComponent,
     TaskDetailsComponent,
     ChartComponent,
+    BoardWindowComponent
   ],
   imports: [
     NgxMatColorPickerModule,
