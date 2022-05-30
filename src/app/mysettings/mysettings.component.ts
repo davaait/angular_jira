@@ -13,7 +13,7 @@ import {Collections} from "../services/crud/collections";
 })
 export class MysettingsComponent implements OnInit {
 
-  public user?: firebase.User | null = null;
+  public user: firebase.User | null = null;
   private board$: Observable<Board[]> = this.crudService.handleData(Collections.BOARDS);
   public boardsArray: Board[] = [];
 

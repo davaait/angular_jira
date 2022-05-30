@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import firebase from "firebase/compat/app";
 import {AuthService} from "./services/auth/auth.service";
 import {Router} from "@angular/router";
-import {Board, BoardStore, FireBaseUser, User, UserStore} from "./services/types";
+import {BoardStore, FireBaseUser, User, UserStore} from "./services/types";
 import {Routes} from "./routes";
 import {MatDialog} from "@angular/material/dialog";
 import {BoardWindowComponent} from "./board-window/board-window.component";
-import {Observable, switchMap, tap} from "rxjs";
+import {debounceTime, Observable, tap} from "rxjs";
 import {CrudService} from "./services/crud/crud.service";
 import {Collections} from "./services/crud/collections";
 
@@ -22,9 +21,8 @@ export class AppComponent implements OnInit {
   public routes: typeof Routes = Routes;
   public board$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
-  public users: UserStore[] = [];
-  public usersId: any[] = [];
-  public boardsCollection: Board[] = [];
+  public users: User[] = [];
+  public allIds?: any[] = [];
 
   constructor(public authService: AuthService,
               public router: Router,
@@ -34,26 +32,28 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-      this.user = value;
+    this.users$.subscribe((u) => {
+      this.users = u as User[];
+      this.users.forEach((f) => {
+        if (!this.allIds?.includes(f.userId)) {
+          this.allIds?.push(f.userId)
+        }
+      })
+    })
+    this.authService.user$.pipe(
+      tap((value) => {
+        this.user = value;
+      }),
+      debounceTime(1500)
+    ).subscribe((val) => {
       let newUser: User = {
         name: this.user?.displayName,
         userId: this.user?.uid,
         avatarUrl: this.user?.photoURL,
       }
-      if (this.usersId.includes(this.user?.displayName)) {
+      if (!this.allIds?.includes(this.user?.uid)) {
         this.crudService.createObject(Collections.USERS, newUser).subscribe();
       }
-      console.log(this.usersId, this.user?.uid)
-    })
-    this.users$.subscribe((u) => {
-      this.users = u as UserStore[];
-      this.users.forEach((f) => {
-        if (!this.usersId.includes(f.name)) {
-          this.usersId.push(f.name)
-        }
-      })
-      console.log(this.usersId)
     })
   }
 
