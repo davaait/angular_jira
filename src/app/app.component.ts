@@ -5,7 +5,7 @@ import {BoardStore, FireBaseUser, User, UserStore} from "./services/types";
 import {Routes} from "./routes";
 import {MatDialog} from "@angular/material/dialog";
 import {BoardWindowComponent} from "./board-window/board-window.component";
-import {debounceTime, Observable, tap} from "rxjs";
+import {delay, Observable, tap} from "rxjs";
 import {CrudService} from "./services/crud/crud.service";
 import {Collections} from "./services/crud/collections";
 
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
       tap((value) => {
         this.user = value;
       }),
-      debounceTime(1500)
+      delay(1200)
     ).subscribe((val) => {
       let newUser: User = {
         name: this.user?.displayName,
