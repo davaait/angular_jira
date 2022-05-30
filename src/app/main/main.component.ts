@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable, Subscription, tap} from "rxjs";
-import {FireBaseUser, List, TasksStore} from "../services/types";
+import {FireBaseUser, List, TasksStore, User} from "../services/types";
 import {switchMap} from "rxjs/operators";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
@@ -17,12 +17,15 @@ export class MainComponent implements OnInit, OnDestroy {
   public groupsData?: List[] | undefined;
   public filteredGroup?: List[];
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  public userColl$: Observable<User[]> = this.crudService.handleData<User>(Collections.USERS);
+  public boards$: Observable<User[]> = this.crudService.handleData<User>(Collections.BOARDS);
   public user: FireBaseUser = null;
   private subscriptions: Subscription[] = [];
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
     const updateTask: Observable<TasksStore[]> = this.tasks$.pipe(

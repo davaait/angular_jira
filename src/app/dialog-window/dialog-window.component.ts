@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {TasksControls} from "../model/controls.enum";
-import {FireBaseUser, List, Task, TasksStore} from "../services/types";
+import {BoardControl, TasksControls} from "../model/controls.enum";
+import {FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
-import {combineLatest, takeWhile} from "rxjs";
+import {combineLatest, Observable, takeWhile} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 
@@ -26,6 +26,7 @@ export class DialogWindowComponent implements OnInit {
   public formControls: typeof TasksControls = TasksControls;
   public newDate: Date = new Date();
   public user: FireBaseUser | null = null;
+  public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
@@ -83,7 +84,8 @@ export class DialogWindowComponent implements OnInit {
         dateOfCreation: new Date().toString(),
         updateDate: new Date().toString(),
         history: [this.user?.displayName + ' create task'],
-        activeUser: this.user?.uid
+        activeUser: this.user?.uid,
+        assignedUsers: this.myForm?.controls[BoardControl.users].value,
       }
       this.imageLink ? newTask.images = [this.imageLink] : '';
       this.addTask(newTask);

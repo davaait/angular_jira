@@ -3,7 +3,7 @@ import {UploadService} from "../services/upload/upload.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {CrudService} from "../services/crud/crud.service";
 import {FireBaseUser, TasksStore} from "../services/types";
-import {combineLatest, Subscription, takeWhile} from "rxjs";
+import {combineLatest, Observable, Subscription, takeWhile} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {Collections} from "../services/crud/collections";

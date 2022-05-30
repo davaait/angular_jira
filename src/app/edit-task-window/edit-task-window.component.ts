@@ -11,6 +11,7 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
 import {Routes} from "../routes";
+import {ActivatedRoute} from "@angular/router";
 
 export type DialogData = {
   currentTask: TasksStore,
@@ -34,6 +35,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   public formControls: typeof TasksControls = TasksControls;
   public user: FireBaseUser | null = null;
   private subscriptions: Subscription[] = [];
+  public tID?: any;
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,

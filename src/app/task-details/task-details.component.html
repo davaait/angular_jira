@@ -113,5 +113,15 @@
       </div>
     </div>
     <mat-divider></mat-divider>
+    <div class="right-group-header">
+      <div class="curr">
+        <mat-icon>assignment_ind</mat-icon>
+        <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Assigned to:</span>
+      </div>
+      <div class="current-value">
+        {{updateDate | date: 'medium'}}
+      </div>
+    </div>
+    <mat-divider></mat-divider>
   </div>
 </div>

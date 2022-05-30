@@ -42,7 +42,8 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
               private authService: AuthService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.subscriptions.push(

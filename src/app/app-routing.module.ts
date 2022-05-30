@@ -8,6 +8,7 @@ import {AuthComponent} from "./auth/auth.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {EditTaskWindowComponent} from "./edit-task-window/edit-task-window.component";
 import {EditListWindowComponent} from "./edit-list-window/edit-list-window.component";
+import {BoardComponent} from "./board/board.component";
 
 const routes: Route[] = [
   {
@@ -15,18 +16,22 @@ const routes: Route[] = [
   },
   {
     path: Routes.MAIN, component: MainComponent, canActivate: [AuthGuard],
-    children: [{
-      path: 'task/:id',
-      component: EditTaskWindowComponent,
-      canActivate: [AuthGuard]
-    },
+    children: [
       {
-      path: 'group/:name',
-      component: EditListWindowComponent,
-      canActivate: [AuthGuard]
-    }
+        path: 'task/:id',
+        component: EditTaskWindowComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'group/:name',
+        component: EditListWindowComponent,
+        canActivate: [AuthGuard]
+      },
     ]
   },
+  // {
+  //   path: 'board/:name', component: MainComponent, canActivate: [AuthGuard]
+  // },
   {
     path: Routes.PROFILE, component: MysettingsComponent, canActivate: [AuthGuard]
   },

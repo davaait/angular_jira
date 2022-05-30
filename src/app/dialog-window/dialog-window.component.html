@@ -53,6 +53,14 @@
         </div>
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
+            <mat-label>Assigned Users</mat-label>
+            <mat-select [formControlName]="formControls.users" multiple>
+              <mat-option *ngFor="let user of (users$ | async)" [value]="user.userId">{{user.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="input-wrapper">
+          <mat-form-field appearance="fill">
             <mat-label>Task Description</mat-label>
             <textarea matInput placeholder="Enter task description"
                       [formControlName]="formControls.description"></textarea>

@@ -35,9 +35,6 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.tID = params['id']
-    })
   }
 
   public update(id: string): void {

@@ -3,6 +3,7 @@ export enum TasksControls {
   priority = "priority",
   dueDate = "dueDate",
   group = "group",
+  users = "users",
   description = "description",
 }
 

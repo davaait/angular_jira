@@ -51,6 +51,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ChartComponent} from './chart/chart.component';
 import {NgChartsModule} from "ng2-charts";
 import {BoardWindowComponent} from "./board-window/board-window.component";
+import { BoardComponent } from './board/board.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {BoardWindowComponent} from "./board-window/board-window.component";
     EditListWindowComponent,
     TaskDetailsComponent,
     ChartComponent,
-    BoardWindowComponent
+    BoardWindowComponent,
+    BoardComponent
   ],
   imports: [
     NgxMatColorPickerModule,
