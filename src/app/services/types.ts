@@ -15,7 +15,7 @@ export type Task = {
   images?: string[],
   history?: string[],
   activeUser?: string,
-  assignedUsers?: string[],
+  assignedUser: string,
 };
 
 export type List = {

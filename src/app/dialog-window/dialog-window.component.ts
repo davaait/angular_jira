@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {BoardControl, TasksControls} from "../model/controls.enum";
+import {TasksControls} from "../model/controls.enum";
 import {FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
@@ -66,6 +66,7 @@ export class DialogWindowComponent implements OnInit {
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.assignedUser, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.description, new FormControl("", Validators.required));
   }
 
@@ -85,7 +86,7 @@ export class DialogWindowComponent implements OnInit {
         updateDate: new Date().toString(),
         history: [this.user?.displayName + ' create task'],
         activeUser: this.user?.uid,
-        assignedUsers: this.myForm?.controls[BoardControl.users].value,
+        assignedUser: this.myForm?.controls[TasksControls.assignedUser].value,
       }
       this.imageLink ? newTask.images = [this.imageLink] : '';
       this.addTask(newTask);

@@ -115,6 +115,8 @@
 }
 
 .current-value {
+  display: flex;
+  align-items: center;
   margin: 5px 0 0 20px;
   font-size: 16px;
   font-weight: normal;

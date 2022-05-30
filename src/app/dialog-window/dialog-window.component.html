@@ -54,8 +54,8 @@
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
             <mat-label>Assigned Users</mat-label>
-            <mat-select [formControlName]="formControls.users" multiple>
-              <mat-option *ngFor="let user of (users$ | async)" [value]="user.userId">{{user.name}}</mat-option>
+            <mat-select [formControlName]="formControls.assignedUser" multiple>
+              <mat-option *ngFor="let user of (users$ | async)" [value]="user.name">{{user.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

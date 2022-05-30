@@ -119,7 +119,8 @@
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Assigned to:</span>
       </div>
       <div class="current-value">
-        {{updateDate | date: 'medium'}}
+        {{personName}}
+        <img [src]="pictureUrl" width="35px" height="35px" [ngStyle]="{'border-radius': '50%', 'margin-left': '5px'}">
       </div>
     </div>
     <mat-divider></mat-divider>

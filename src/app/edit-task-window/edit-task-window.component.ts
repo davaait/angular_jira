@@ -1,7 +1,7 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {FireBaseUser, List, Task, TasksStore} from "../services/types";
+import {FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
@@ -11,7 +11,6 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
 import {Routes} from "../routes";
-import {ActivatedRoute} from "@angular/router";
 
 export type DialogData = {
   currentTask: TasksStore,
@@ -35,7 +34,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   public formControls: typeof TasksControls = TasksControls;
   public user: FireBaseUser | null = null;
   private subscriptions: Subscription[] = [];
-  public tID?: any;
+  public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
@@ -66,6 +65,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
     this.myForm.addControl(TasksControls.name, new FormControl(this.data?.currentTask.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
     this.myForm.addControl(TasksControls.priority, new FormControl(this.data?.currentTask.priority, Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl(this.data?.currentTask.group, Validators.required));
+    this.myForm.addControl(TasksControls.assignedUser, new FormControl(this.data?.currentTask.assignedUser, Validators.required));
     this.myForm.addControl(TasksControls.description, new FormControl(this.data?.currentTask.description, Validators.required));
   }
 
@@ -85,7 +85,8 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
         priority: this.myForm?.controls[TasksControls.priority].value,
         group: this.myForm?.controls[TasksControls.group].value,
         description: this.myForm?.controls[TasksControls.description].value,
-        updateDate: new Date().toString()
+        updateDate: new Date().toString(),
+        assignedUser: this.myForm?.controls[TasksControls.assignedUser].value,
       }
 
       if (this.new[0].name !== this.myForm?.controls[TasksControls.name].value) {
@@ -98,6 +99,10 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
 
       if (this.new[0].group !== this.myForm?.controls[TasksControls.group].value) {
         history.push(this.user?.displayName + ' changed group from ' + this.new[0].group + ' to ' + this.myForm?.controls[TasksControls.group].value)
+      }
+
+      if (this.new[0].assignedUser !== this.myForm?.controls[TasksControls.assignedUser].value) {
+        history.push(this.user?.displayName + ' reassigned task to ' + this.myForm?.controls[TasksControls.assignedUser].value)
       }
 
       if (this.new[0].description !== this.myForm?.controls[TasksControls.description].value) {
