@@ -21,6 +21,7 @@ export class MainComponent implements OnInit, OnDestroy {
   public boards$: Observable<User[]> = this.crudService.handleData<User>(Collections.BOARDS);
   public user: FireBaseUser = null;
   private subscriptions: Subscription[] = [];
+  private someID?: string | null
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
