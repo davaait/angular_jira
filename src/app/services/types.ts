@@ -16,6 +16,7 @@ export type Task = {
   history?: string[],
   activeUser?: string,
   assignedUser: string,
+  boardID?: string,
 };
 
 export type List = {
@@ -24,6 +25,7 @@ export type List = {
   tasksArray?: TasksStore[],
   id?: string,
   activeUser?: string,
+  boardID?: string,
 }
 
 export type Board = {

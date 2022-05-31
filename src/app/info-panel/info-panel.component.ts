@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {FireBaseUser, TasksStore} from "../services/types";
+import {BoardStore, FireBaseUser, TasksStore} from "../services/types";
 import {Observable, Subscription, tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
@@ -26,6 +26,8 @@ type ButtonTextType = {
 })
 export class InfoPanelComponent implements OnInit, OnDestroy {
 
+  @Input() board?: BoardStore;
+
   public iconsName: IconsNameType = {
     add: 'add',
     addCircleOutline: 'add_circle_outline'
@@ -49,8 +51,13 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.tasks$.pipe(
         tap((taskArray) => {
-          const completedTasks = taskArray.filter((t) => t.group === "Completed" && this.user?.uid && this.user?.uid === t.activeUser);
-          this.progressValue = Math.round((completedTasks.length / taskArray.length) * 100);
+          let afterFilterTasks = taskArray.filter((f) => f.activeUser === this.user?.uid && f.boardID === this.board?.id)
+          const completedTasks = taskArray.filter((t) => t.group === "Completed"
+            && this.user?.uid
+            && this.user?.uid === t.activeUser
+            && t.boardID === this.board?.id
+          );
+          this.progressValue = Math.round((completedTasks.length / afterFilterTasks.length) * 100);
         })
       ).subscribe(),
       this.authService.user$.subscribe((value: firebase.User | null) => {
@@ -60,11 +67,11 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   }
 
   public openDialog() {
-    this.dialog.open(DialogWindowComponent);
+    this.dialog.open(DialogWindowComponent, {data: {boardID: this.board?.id}});
   }
 
   public openListWindow() {
-    this.dialog.open(ListWindowComponent);
+    this.dialog.open(ListWindowComponent, {data: {boardID: this.board?.id}});
   }
 
   public ngOnDestroy(): void {

@@ -1,5 +1,5 @@
 <div class="general-wrapper" *ngIf="user">
-  <app-info-panel class="header-wrapper"></app-info-panel>
+  <app-info-panel [board]="board" class="header-wrapper"></app-info-panel>
   <div class="main-wrapper" cdkDropListGroup>
     <div *ngFor="let item of filteredGroup">
       <app-item [group]="item" [user]="user" [itemName]="item?.name" [itemID]="item.id" [genColor]="item.color"

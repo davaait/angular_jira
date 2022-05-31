@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
 import {FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
@@ -8,6 +8,11 @@ import {UploadService} from "../services/upload/upload.service";
 import {combineLatest, Observable, takeWhile} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+
+type DialogData = {
+  boardID: string
+}
 
 @Component({
   selector: 'app-dialog-window',
@@ -31,6 +36,7 @@ export class DialogWindowComponent implements OnInit {
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
               private authService: AuthService,
+              @Inject(MAT_DIALOG_DATA) public mainData: DialogData,
               ) {
   }
 
@@ -59,7 +65,7 @@ export class DialogWindowComponent implements OnInit {
     })
     this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
       this.groupData = value;
-      this.filteredGroups = this.groupData.filter((g) => g.activeUser === this.user?.uid
+      this.filteredGroups = this.groupData.filter((g) => g.activeUser === this.user?.uid && g.boardID === this.mainData.boardID
       )
     })
     this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(3)])));
@@ -87,6 +93,7 @@ export class DialogWindowComponent implements OnInit {
         history: [this.user?.displayName + ' create task'],
         activeUser: this.user?.uid,
         assignedUser: this.myForm?.controls[TasksControls.assignedUser].value,
+        boardID: this.mainData.boardID,
       }
       this.imageLink ? newTask.images = [this.imageLink] : '';
       this.addTask(newTask);

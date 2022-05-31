@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ListControl} from "../model/controls.enum";
 import {FireBaseUser, List, TasksStore} from "../services/types";
@@ -7,6 +7,11 @@ import {CrudService} from "../services/crud/crud.service";
 import {Observable, Subscription} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+
+type DialogData = {
+  boardID: string
+}
 
 @Component({
   selector: 'app-list-window',
@@ -27,7 +32,8 @@ export class ListWindowComponent implements OnInit, OnDestroy {
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
-              ) { }
+              @Inject(MAT_DIALOG_DATA) public mainData: DialogData,
+  ) { }
 
   public ngOnInit(): void {
     this.subscriptions.push(
@@ -64,7 +70,8 @@ export class ListWindowComponent implements OnInit, OnDestroy {
         name: this.myForm?.controls[ListControl.name].value,
         color: this.myForm?.controls[ListControl.color].value.toString(),
         tasksArray: this.handleTasks,
-        activeUser: this.user?.uid
+        activeUser: this.user?.uid,
+        boardID: this.mainData.boardID,
       }
       this.addList(newList);
       this.myForm?.reset();
