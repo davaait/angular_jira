@@ -12,10 +12,25 @@ import {BoardComponent} from "./board/board.component";
 
 const routes: Route[] = [
   {
-    path: '', redirectTo: '/' + Routes.MAIN, pathMatch: 'full'
+    path: '', redirectTo: '/' + Routes.PROFILE, pathMatch: 'full'
   },
+  // {
+  //   path: Routes.BOARD, component: MainComponent, canActivate: [AuthGuard],
+  //   children: [
+  //     {
+  //       path: 'task/:id',
+  //       component: EditTaskWindowComponent,
+  //       canActivate: [AuthGuard]
+  //     },
+  //     {
+  //       path: 'group/:name',
+  //       component: EditListWindowComponent,
+  //       canActivate: [AuthGuard]
+  //     },
+  //   ]
+  // },
   {
-    path: Routes.MAIN, component: MainComponent, canActivate: [AuthGuard],
+    path: Routes.BOARD + "/:id", component: BoardComponent, canActivate: [AuthGuard],
     children: [
       {
         path: 'task/:id',
@@ -28,9 +43,6 @@ const routes: Route[] = [
         canActivate: [AuthGuard]
       },
     ]
-  },
-  {
-    path: Routes.BOARD + "/:id", component: BoardComponent, canActivate: [AuthGuard]
   },
   {
     path: Routes.PROFILE, component: MysettingsComponent, canActivate: [AuthGuard]

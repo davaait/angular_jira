@@ -70,7 +70,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.location.go(Routes.MAIN);
+    this.location.back();
   }
 
   public updateTask(editedTask: Task, id: string | undefined): void {

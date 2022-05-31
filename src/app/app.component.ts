@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   public user: FireBaseUser = null;
   public routes: typeof Routes = Routes;
   public board$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
+  public default?: string;
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
   public users: User[] = [];
   public allIds?: any[] = [];
@@ -32,6 +33,9 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.board$.subscribe((s) => {
+      this.default = s[0].id
+    })
     this.users$.subscribe((u) => {
       this.users = u as User[];
       this.users.forEach((f) => {
