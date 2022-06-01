@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {BoardControl, ListControl} from "../model/controls.enum";
-import {Board, FireBaseUser, List, TasksStore, UserStore} from "../services/types";
+import {BoardControl} from "../model/controls.enum";
+import {Board, FireBaseUser} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
-import {Observable} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 
@@ -19,14 +18,14 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
   public myForm: FormGroup = new FormGroup({});
   public formControls: typeof BoardControl = BoardControl;
   public user: FireBaseUser | null = null;
-  public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
-              ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
-      this.authService.user$.subscribe((value: firebase.User | null) => {
+    this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
       }
     )
@@ -35,18 +34,16 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
       Validators.maxLength(15),
       Validators.minLength(3),
     ])));
-    this.myForm.addControl(BoardControl.users, new FormControl("", Validators.required));
   }
 
   public addBoard(newBoard: Board): void {
-      this.crudService.createObject(Collections.BOARDS, newBoard).subscribe();
+    this.crudService.createObject(Collections.BOARDS, newBoard).subscribe();
   }
 
   public submitForm(): void {
     if (this.myForm.valid) {
       const newBoard: Board = {
         name: this.myForm?.controls[BoardControl.name].value,
-        activeUsers: this.myForm?.controls[BoardControl.users].value,
       }
       this.addBoard(newBoard);
       this.myForm?.reset();

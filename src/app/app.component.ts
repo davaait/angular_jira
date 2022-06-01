@@ -61,6 +61,10 @@ export class AppComponent implements OnInit {
     })
   }
 
+  public removeBoard(id: string): void {
+    this.crudService.deleteObject(Collections.BOARDS, id).subscribe()
+  }
+
   public login(): void {
     this.authService.googleSignIn().subscribe()
   }

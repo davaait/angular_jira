@@ -20,7 +20,7 @@ mat-sidenav {
   align-items: center;
 }
 
-.sidenav-item {
+.sidenav-add {
   min-height: 40px;
   display: flex;
   justify-content: flex-start;
@@ -28,7 +28,20 @@ mat-sidenav {
   margin: 5px 10px;
 }
 
+.sidenav-item {
+  min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 10px;
+}
+
 .sidenav-item span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.sidenav-add span {
   font-weight: bold;
   font-size: 18px;
 }

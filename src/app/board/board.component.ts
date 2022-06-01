@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {BoardStore, FireBaseUser, List, TasksStore} from "../services/types";
-import {Observable, switchMap, tap} from "rxjs";
+import {concatMap, mergeMap, Observable, switchMap, tap} from "rxjs";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
+import {GetIdService} from "../services/get-value/get-id.service";
 
 @Component({
   selector: 'app-board',
@@ -18,6 +19,7 @@ export class BoardComponent implements OnInit {
     private route: ActivatedRoute,
     private crudService: CrudService,
     private authService: AuthService,
+    private getIdService: GetIdService,
   ) {
   }
 
@@ -26,6 +28,7 @@ export class BoardComponent implements OnInit {
   public filteredGroup?: List[];
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public user: FireBaseUser = null;
+  public id: Params = {};
 
   ngOnInit(): void {
     this.authService.user$.subscribe((value: firebase.User | null) => {
@@ -44,24 +47,22 @@ export class BoardComponent implements OnInit {
         )
       })
     );
-    let getBoard: Observable<BoardStore[]> = this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
+    const getBoard: Observable<BoardStore[]> = this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
       tap((t) => {
-        let newArr = t;
-        let arr = newArr.filter((f) => f.id === id.id)
+        let arr = t.filter((f) => f.id === this.id['id'])
         this.board = arr[0]
-        console.log(this.board)
       })
     )
-    let filterAll: Observable<TasksStore[]> = this.crudService.handleData<List>(Collections.GROUP).pipe(
+    const filterAll: Observable<TasksStore[]> = this.crudService.handleData<List>(Collections.GROUP).pipe(
       tap(value => {
         this.groupsData = value
         this.filteredGroup = this.groupsData.filter((g) => g.activeUser === this.user?.uid && g.boardID === this.board?.id)
       }),
       switchMap(() => updateTask))
-    let id: any;
     this.route.params.pipe(
       tap((s) => {
-        id = s;
+        this.id = s;
+        this.getIdService.changeIdValue(this.id['id'])
       }),
       switchMap(() => getBoard),
       switchMap(() => filterAll)

@@ -49,7 +49,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((s) => {
       this.defaultBoardID = s[0].id
-      console.log(this.defaultBoardID)
     })
     this.subscriptions.push(
       this.authService.user$.subscribe((value: firebase.User | null) => {

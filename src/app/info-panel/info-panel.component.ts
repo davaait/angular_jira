@@ -8,6 +8,8 @@ import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 import {ListWindowComponent} from "../list-window/list-window.component";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
+import {Params} from "@angular/router";
+import {GetIdService} from "../services/get-value/get-id.service";
 
 type IconsNameType = {
   add: string,
@@ -38,25 +40,36 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   }
   public progressValue?: number;
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
-  private subscriptions: Subscription[] = [];
   public user: FireBaseUser = null;
+  private urlID: string = "";
+  private subscriptions: Subscription[] = [];
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
               private authService: AuthService,
+              private getIdService: GetIdService,
   ) {
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.getIdService.idValue$.subscribe((value) => {
+      this.urlID = value
+      console.log(this.urlID)
+    })
     this.subscriptions.push(
       this.tasks$.pipe(
         tap((taskArray) => {
-          let afterFilterTasks = taskArray.filter((f) => f.activeUser === this.user?.uid && f.boardID === this.board?.id)
-          const completedTasks = taskArray.filter((t) => t.group === "Completed"
+          let afterFilterTasks = taskArray.filter((f) =>
+            f.activeUser === this.user?.uid
+            && f.boardID === this.urlID
+          )
+          let completedTasks = taskArray.filter((t) =>
+            t.group === "Completed"
             && this.user?.uid
             && this.user?.uid === t.activeUser
-            && t.boardID === this.board?.id
+            && t.boardID === this.urlID
           );
+          console.log(afterFilterTasks, completedTasks)
           this.progressValue = Math.round((completedTasks.length / afterFilterTasks.length) * 100);
         })
       ).subscribe(),

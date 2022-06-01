@@ -10,7 +10,6 @@ import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
-import {Routes} from "../routes";
 
 export type DialogData = {
   currentTask: TasksStore,

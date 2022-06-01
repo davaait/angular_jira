@@ -8,6 +8,7 @@ import {Observable, Subscription} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {GetIdService} from "../services/get-value/get-id.service";
 
 type DialogData = {
   boardID: string
@@ -27,15 +28,21 @@ export class ListWindowComponent implements OnInit, OnDestroy {
   private data: List[] = [];
   private handleTasks: TasksStore[] = [];
   private subscriptions: Subscription[] = [];
-  private groupNameArray: string[] = ['backend', 'whatever'];
+  private groupNameArray: string[] = [];
   public user: FireBaseUser | null = null;
+  private urlID: string = "";
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
               @Inject(MAT_DIALOG_DATA) public mainData: DialogData,
+              private getIdService: GetIdService,
   ) { }
 
   public ngOnInit(): void {
+    this.getIdService.idValue$.subscribe((value) => {
+      this.urlID = value
+      console.log(this.urlID)
+    })
     this.subscriptions.push(
       this.crudService.handleData<List>(Collections.GROUP).subscribe((value: List[]) => {
         this.data = value;
@@ -57,7 +64,7 @@ export class ListWindowComponent implements OnInit, OnDestroy {
   }
 
   public addList(newList: List): void {
-    if (this.groupNameArray.includes(this.myForm?.controls[ListControl.name].value)) {
+    if (this.groupNameArray.includes(this.myForm?.controls[ListControl.name].value) || this.urlID === this.mainData.boardID) {
       return
     } else {
       this.crudService.createObject(Collections.GROUP, newList).subscribe();
