@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {BoardStore, FireBaseUser, TasksStore} from "../services/types";
-import {Observable, Subscription, tap} from "rxjs";
+import {Observable, Subscription, switchMap, tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 import {ListWindowComponent} from "../list-window/list-window.component";
@@ -52,31 +52,32 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.getIdService.idValue$.subscribe((value) => {
-      this.urlID = value
-      console.log(this.urlID)
+    const newObs = this.tasks$.pipe(
+      tap((taskArray) => {
+        let afterFilterTasks = taskArray.filter((f) =>
+          f.activeUser === this.user?.uid
+          && f.boardID === this.urlID
+        )
+        let completedTasks = taskArray.filter((t) =>
+          t.group === "Completed"
+          && this.user?.uid
+          && this.user?.uid === t.activeUser
+          && t.boardID === this.urlID
+        );
+        console.log(afterFilterTasks, completedTasks)
+        this.progressValue = Math.round((completedTasks.length / afterFilterTasks.length) * 100);
+      }))
+    this.getIdService.idValue$.pipe(
+      tap((value) => {
+        this.urlID = value
+        console.log(this.urlID)
+      }),
+      switchMap(() => newObs)
+    ).subscribe()
+
+    this.authService.user$.subscribe((value: firebase.User | null) => {
+      this.user = value
     })
-    this.subscriptions.push(
-      this.tasks$.pipe(
-        tap((taskArray) => {
-          let afterFilterTasks = taskArray.filter((f) =>
-            f.activeUser === this.user?.uid
-            && f.boardID === this.urlID
-          )
-          let completedTasks = taskArray.filter((t) =>
-            t.group === "Completed"
-            && this.user?.uid
-            && this.user?.uid === t.activeUser
-            && t.boardID === this.urlID
-          );
-          console.log(afterFilterTasks, completedTasks)
-          this.progressValue = Math.round((completedTasks.length / afterFilterTasks.length) * 100);
-        })
-      ).subscribe(),
-      this.authService.user$.subscribe((value: firebase.User | null) => {
-        this.user = value
-      })
-    )
   }
 
   public openDialog() {
