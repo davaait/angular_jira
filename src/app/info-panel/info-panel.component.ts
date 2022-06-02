@@ -64,13 +64,11 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
           && this.user?.uid === t.activeUser
           && t.boardID === this.urlID
         );
-        console.log(afterFilterTasks, completedTasks)
         this.progressValue = Math.round((completedTasks.length / afterFilterTasks.length) * 100);
       }))
     this.getIdService.idValue$.pipe(
       tap((value) => {
         this.urlID = value
-        console.log(this.urlID)
       }),
       switchMap(() => newObs)
     ).subscribe()

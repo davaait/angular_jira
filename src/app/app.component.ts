@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./services/auth/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {BoardStore, FireBaseUser, User, UserStore} from "./services/types";
 import {Routes} from "./routes";
 import {MatDialog} from "@angular/material/dialog";
@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
   public users: User[] = [];
   public allIds?: any[] = [];
+  public filteredBoards?: BoardStore[];
 
   constructor(public authService: AuthService,
               public router: Router,
@@ -33,6 +34,9 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.board$.subscribe((value) => {
+      this.filteredBoards = value.filter((f) => f.activeUser === this.user?.uid)
+    })
     this.board$.subscribe((s) => {
       this.default = s[0].id
     })

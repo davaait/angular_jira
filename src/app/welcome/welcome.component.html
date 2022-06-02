@@ -1,0 +1,11 @@
+<div class="welcome-wrapper">
+  <div class="container">
+    <h2>Welcome, <strong>{{user?.displayName}}!</strong></h2>
+    <div>
+      <p>choose your board or create new in the sidebar</p>
+    </div>
+    <div class="for" *ngFor="let item of allBoards" (click)="goTo(item.id)">
+      <h1>{{item.name}}</h1>
+    </div>
+  </div>
+</div>

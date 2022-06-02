@@ -41,7 +41,6 @@ export class ListWindowComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.getIdService.idValue$.subscribe((value) => {
       this.urlID = value
-      console.log(this.urlID)
     })
     this.subscriptions.push(
       this.crudService.handleData<List>(Collections.GROUP).subscribe((value: List[]) => {
@@ -64,7 +63,7 @@ export class ListWindowComponent implements OnInit, OnDestroy {
   }
 
   public addList(newList: List): void {
-    if (this.groupNameArray.includes(this.myForm?.controls[ListControl.name].value) || this.urlID === this.mainData.boardID) {
+    if (this.groupNameArray.includes(this.myForm?.controls[ListControl.name].value) && this.urlID === this.mainData.boardID) {
       return
     } else {
       this.crudService.createObject(Collections.GROUP, newList).subscribe();

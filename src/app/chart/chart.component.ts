@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChartData} from 'chart.js';
 import {CrudService} from "../services/crud/crud.service";
 import {Observable, Subscription, tap} from "rxjs";
@@ -14,8 +14,6 @@ import {switchMap} from "rxjs/operators";
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit, OnDestroy {
-  // Doughnut
-  // public doughnutChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ];
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
@@ -43,7 +41,9 @@ export class ChartComponent implements OnInit, OnDestroy {
       tap((task) => {
         const tasks: TasksStore[] = task;
         this.filteredGroup?.forEach((group: List) => {
-            group.tasksArray = tasks.filter((filteredTask: TasksStore) => filteredTask.group === group.name && filteredTask.activeUser === this.user?.uid
+            group.tasksArray = tasks.filter((filteredTask: TasksStore) =>
+              filteredTask.group === group.name
+              && filteredTask.activeUser === this.user?.uid
             )
             this.doughnutChartLabels.push(group.name)
             this.chartData.push(group.tasksArray.length)

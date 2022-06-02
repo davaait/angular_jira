@@ -2,7 +2,7 @@
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav mode="over">
       <div class="sidenav-item">
-        <button mat-icon-button routerLink="board/{{default}}">
+        <button mat-icon-button routerLink="welcome">
           <mat-icon>home</mat-icon>
         </button>
       </div>
@@ -16,7 +16,7 @@
         <span [style.font-size]="'15px'">Add New Board</span>
       </div>
       <mat-divider></mat-divider>
-      <ng-container *ngFor="let i of (board$ | async)">
+      <ng-container *ngFor="let i of filteredBoards">
         <div class="sidenav-item">
           <div>
             <a [ngStyle]="{'font-size': '15px', 'margin-left': '15px'}" routerLink="board/{{i.id}}">{{i.name}}</a>

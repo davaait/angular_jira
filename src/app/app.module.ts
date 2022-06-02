@@ -52,6 +52,7 @@ import {ChartComponent} from './chart/chart.component';
 import {NgChartsModule} from "ng2-charts";
 import {BoardWindowComponent} from "./board-window/board-window.component";
 import { BoardComponent } from './board/board.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { BoardComponent } from './board/board.component';
     TaskDetailsComponent,
     ChartComponent,
     BoardWindowComponent,
-    BoardComponent
+    BoardComponent,
+    WelcomeComponent
   ],
   imports: [
     NgxMatColorPickerModule,

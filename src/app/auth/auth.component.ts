@@ -4,11 +4,9 @@ import {ErrorStateMatcher} from "@angular/material/core";
 import {AuthService} from "../services/auth/auth.service";
 import {Router} from "@angular/router";
 import {switchMap} from "rxjs/operators";
-import {BoardStore, FireBaseUser} from "../services/types";
+import {FireBaseUser} from "../services/types";
 import firebase from "firebase/compat";
 import {Subscription} from "rxjs";
-import {CrudService} from "../services/crud/crud.service";
-import {Collections} from "../services/crud/collections";
 import {Routes} from "../routes";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -31,11 +29,9 @@ export class AuthComponent implements OnInit, OnDestroy {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   matcher = new MyErrorStateMatcher();
-  public defaultBoardID?: string;
 
   constructor(private authService: AuthService,
               public router: Router,
-              private crudService: CrudService,
               ) {
   }
 
@@ -43,13 +39,10 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.authService.googleSignIn().pipe(
       switchMap(() => this.authService.user$)
     )
-      .subscribe(() => this.router.navigate([Routes.BOARD, this.defaultBoardID]))
+      .subscribe(() => this.router.navigate([Routes.WELCOME]))
   }
 
   public ngOnInit(): void {
-    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((s) => {
-      this.defaultBoardID = s[0].id
-    })
     this.subscriptions.push(
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value

@@ -4,4 +4,5 @@ export enum Routes {
   PROFILE = "profile",
   LOGIN = "login",
   SIGNUP = "sign-up",
+  WELCOME = "welcome",
 }
