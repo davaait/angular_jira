@@ -53,6 +53,7 @@ import {NgChartsModule} from "ng2-charts";
 import {BoardWindowComponent} from "./board-window/board-window.component";
 import { BoardComponent } from './board/board.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
     MatSelectModule,
     FormsModule,
     MatAutocompleteModule,
-    NgChartsModule
+    NgChartsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [MatDatepickerModule,
     {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS},

@@ -5,8 +5,8 @@ h2 {
 }
 
 .welcome-wrapper {
-  min-width: 100%;
-  min-height: 90vh;
+  max-width: 100%;
+  max-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
