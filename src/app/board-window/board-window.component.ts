@@ -62,25 +62,25 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
         name: this.myForm?.controls[BoardControl.name].value,
         activeUser: this.user?.uid
       }
-      // this.addBoard(newBoard);
-      // let defaultCompletedGroup: List;
-      // if (this.completedBoards.length >= 1) {
-      //   return
-      // } else {
-      //   this.getIdService.idValue$.pipe(
-      //     delay(800),
-      //     tap((value) => {
-      //       defaultCompletedGroup = {
-      //         name: "Completed",
-      //         color: "#4caf50",
-      //         tasksArray: [],
-      //         activeUser: this.user?.uid,
-      //         boardID: value,
-      //       }
-      //     }),
-      //     switchMap(() => this.crudService.createObject(Collections.GROUP, defaultCompletedGroup))
-      //   ).subscribe()
-      // }
+      this.addBoard(newBoard);
+      let defaultCompletedGroup: List;
+      if (this.completedBoards.length >= 1) {
+        return
+      } else {
+        this.getIdService.idValue$.pipe(
+          delay(800),
+          tap((value) => {
+            defaultCompletedGroup = {
+              name: "Completed",
+              color: "#4caf50",
+              tasksArray: [],
+              activeUser: this.user?.uid,
+              boardID: value,
+            }
+          }),
+          switchMap(() => this.crudService.createObject(Collections.GROUP, defaultCompletedGroup))
+        ).subscribe()
+      }
       this.myForm?.reset();
     } else {
       alert("Error")
