@@ -53,8 +53,8 @@
         </div>
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
-            <mat-label>Assigned Users</mat-label>
-            <mat-select [formControlName]="formControls.assignedUser" multiple>
+            <mat-label>Assigned User</mat-label>
+            <mat-select [formControlName]="formControls.assignedUser">
               <mat-option *ngFor="let user of (users$ | async)" [value]="user.name">{{user.name}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -85,7 +85,6 @@
         </div>
       </div>
     </mat-dialog-content>
-
   </div>
   <mat-dialog-actions class="actions">
     <button mat-raised-button mat-dialog-close color="warn">Cancel</button>

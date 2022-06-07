@@ -6,7 +6,6 @@ import {Observable} from "rxjs";
 import {FireBaseUser, List, TasksStore} from "../services/types";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
-import {ActivatedRoute} from "@angular/router";
 import {EditListWindowComponent} from "../edit-list-window/edit-list-window.component";
 import {TaskDetailsComponent} from "../task-details/task-details.component";
 
@@ -26,11 +25,9 @@ export class ItemComponent implements OnInit {
   @Input() user?: FireBaseUser;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
-  public tID?: string;
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
-              private route: ActivatedRoute,
   ) {
   }
 

@@ -17,6 +17,7 @@ export type Task = {
   activeUser?: string,
   assignedUser: string,
   boardID?: string,
+  createdBy?: string | null | undefined,
 };
 
 export type List = {

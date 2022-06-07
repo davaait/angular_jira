@@ -94,6 +94,7 @@ export class DialogWindowComponent implements OnInit {
         activeUser: this.user?.uid,
         assignedUser: this.myForm?.controls[TasksControls.assignedUser].value,
         boardID: this.mainData.boardID,
+        createdBy: this.user?.displayName,
       }
       this.imageLink ? newTask.images = [this.imageLink] : '';
       this.addTask(newTask);
