@@ -9,7 +9,7 @@
                     routerLink="task/{{data?.item?.id}}"></app-button>
       </div>
       <div [style.margin]="'10px 25px'">
-        <span>in group <strong>{{data?.item?.group | uppercase}}</strong></span>
+        <span>in group <strong>{{currentGroupName[0]?.name | uppercase}}</strong></span>
       </div>
     </div>
     <mat-divider></mat-divider>

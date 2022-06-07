@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChartData} from 'chart.js';
 import {CrudService} from "../services/crud/crud.service";
 import {Observable, Subscription, tap} from "rxjs";
-import {FireBaseUser, List, TasksStore} from "../services/types";
+import {BoardStore, FireBaseUser, List, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
@@ -28,6 +28,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private tasks$: Observable<TasksStore[]> = this.crudService.handleData(Collections.TASKS);
   public chartData: number[] = [];
+  public userBoards: BoardStore[] = [];
 
   public doughnutChartData: ChartData<'doughnut'> = {
     labels: [],
@@ -42,17 +43,20 @@ export class ChartComponent implements OnInit, OnDestroy {
         const tasks: TasksStore[] = task;
         this.filteredGroup?.forEach((group: List) => {
             group.tasksArray = tasks.filter((filteredTask: TasksStore) =>
-              filteredTask.group === group.name
-              && filteredTask.activeUser === this.user?.uid
+              filteredTask.group === group.id
+              && filteredTask.activeUser?.includes(this.user?.uid!)
             )
-            this.doughnutChartLabels.push(group.name)
-            this.chartData.push(group.tasksArray.length)
-            this.doughnutChartData = {
-              labels: this.doughnutChartLabels,
-              datasets: [
-                {data: this.chartData}
-              ]
+            if (group.activeUser === this.user?.uid) {
+              this.doughnutChartLabels.push(group.name)
+              this.chartData.push(group.tasksArray.length)
+              this.doughnutChartData = {
+                labels: this.doughnutChartLabels,
+                datasets: [
+                  {data: this.chartData}
+                ]
+              }
             }
+
           }
         )
       })

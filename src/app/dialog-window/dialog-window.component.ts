@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
+import {BoardStore, FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
-import {combineLatest, Observable, takeWhile} from "rxjs";
+import {combineLatest, Observable, Subscription, takeWhile} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
@@ -19,7 +19,7 @@ type DialogData = {
   templateUrl: './dialog-window.component.html',
   styleUrls: ['./dialog-window.component.css']
 })
-export class DialogWindowComponent implements OnInit {
+export class DialogWindowComponent implements OnInit, OnDestroy {
 
   public priorities: string[] = ['Low', 'Normal', 'High'];
   public imageLink: string | null = "";
@@ -31,13 +31,16 @@ export class DialogWindowComponent implements OnInit {
   public formControls: typeof TasksControls = TasksControls;
   public newDate: Date = new Date();
   public user: FireBaseUser | null = null;
-  public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
+  public boardID: string = "";
+  public currentBoard: BoardStore[] = [];
+  private subscriptions: Subscription[] = [];
+  public filteredUsers: UserStore[] = [];
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
               private authService: AuthService,
               @Inject(MAT_DIALOG_DATA) public mainData: DialogData,
-              ) {
+  ) {
   }
 
   public onFileSelected(event: Event): void {
@@ -60,14 +63,27 @@ export class DialogWindowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-      this.user = value
+    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe(
+      (v) => {
+        this.currentBoard = v.filter((f) => f.id === this.mainData.boardID)
+      })
+    this.crudService.handleData<List>(Collections.GROUP).subscribe(
+      (value: List[]) => {
+        this.groupData = value;
+        this.filteredGroups = this.groupData.filter((g) =>
+          this.currentBoard[0].activeUsers.includes(g.activeUser!)
+          && g.boardID === this.mainData.boardID
+        )
+      })
+    this.crudService.handleData<UserStore>(Collections.USERS).subscribe((value) => {
+      let usersArr = value;
+      this.filteredUsers = usersArr.filter((u) => this.currentBoard[0].activeUsers.includes(u.userId!))
     })
-    this.crudService.getDate<List>(Collections.GROUP).subscribe((value: List[]) => {
-      this.groupData = value;
-      this.filteredGroups = this.groupData.filter((g) => g.activeUser === this.user?.uid && g.boardID === this.mainData.boardID
-      )
-    })
+    this.subscriptions.push(
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
+      }),
+    )
     this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(3)])));
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
@@ -111,5 +127,9 @@ export class DialogWindowComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((s) => s.unsubscribe())
   }
 }

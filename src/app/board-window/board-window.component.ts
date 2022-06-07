@@ -39,7 +39,6 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
     this.getIdService.idValue$.pipe(
       tap((value) => {
         this.currentBoardID = value;
-        console.log(this.currentBoardID)
       }),
       switchMap(() => filteredBoards)
     ).subscribe()

@@ -35,7 +35,8 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() {
     this.board$.subscribe((value) => {
-      this.filteredBoards = value.filter((f) => f.activeUsers.includes(this.user?.uid!))
+      let newArr = value;
+      this.filteredBoards = newArr.filter((f) => f.activeUsers.includes(this.user?.uid!))
     })
     this.users$.subscribe((u) => {
       this.users = u as User[];

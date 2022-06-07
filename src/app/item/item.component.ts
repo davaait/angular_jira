@@ -25,6 +25,7 @@ export class ItemComponent implements OnInit {
   @Input() user?: FireBaseUser;
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  public lists: List[] = [];
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
@@ -32,6 +33,9 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.crudService.handleData<List>(Collections.GROUP).subscribe((value) => {
+      this.lists = value;
+    })
   }
 
   public update(id: string): void {
@@ -62,6 +66,11 @@ export class ItemComponent implements OnInit {
     this.dialog.open(TaskDetailsComponent, {data: {item: t}})
   }
 
+  private receiveData(id: string): string {
+    let l = this.lists.filter((f) => f.id === id)
+    return l[0].name
+  }
+
   // DragNDrop function
   drop(event: CdkDragDrop<TasksStore[]>) {
     if (event.previousContainer === event.container) {
@@ -74,9 +83,11 @@ export class ItemComponent implements OnInit {
         event.currentIndex,
       );
     }
+    let prevName = this.receiveData(event.previousContainer.id);
+    let currName = this.receiveData(event.container.id);
     this.crudService.updateObject(Collections.TASKS, event.item.data.id, {
       group: event.container.id,
-      history: [this.user?.displayName + ' change group from ' + event.previousContainer.id + ' to ' + event.container.id, ...event.item.data.history]
+      history: [this.user?.displayName + ' change group from ' + prevName + ' to ' + currName, ...event.item.data.history]
     })
   }
 }

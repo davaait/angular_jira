@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {UploadService} from "../services/upload/upload.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {CrudService} from "../services/crud/crud.service";
-import {FireBaseUser, TasksStore, User} from "../services/types";
+import {FireBaseUser, List, TasksStore, User} from "../services/types";
 import {combineLatest, Subscription, takeWhile} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
@@ -33,6 +33,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   public savedUsers?: User[];
   public pictureUrl?: string | undefined | null
   public personName?: string | undefined | null
+  public currentGroupName: List[] = [];
 
   constructor(private crudService: CrudService,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -53,12 +54,14 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
         this.updateDate = this.data?.item?.updateDate ? this.new[0].updateDate : "no update date"
         this.history = this.new[0].history
         this.assignedPerson = this.new[0].assignedUser
+      }),
+      this.crudService.handleData<List>(Collections.GROUP).subscribe((v) => {
+        this.currentGroupName = v.filter((f) => f.id === this.data?.item?.group)
       })
     )
     this.createDate = this.data?.item?.dateOfCreation ? this.data?.item?.dateOfCreation : "no date of creation"
     this.crudService.handleData<User>(Collections.USERS).subscribe((user) => {
-      // @ts-ignore
-      this.savedUsers = user.filter((f) => f.name === this.assignedPerson[0])
+      this.savedUsers = user.filter((f) => f.name === this.assignedPerson)
       this.pictureUrl = this.savedUsers[0].avatarUrl
       this.personName = this.savedUsers[0].name
     })

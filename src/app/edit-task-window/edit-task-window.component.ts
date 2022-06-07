@@ -1,7 +1,7 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
+import {BoardStore, FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
@@ -10,6 +10,8 @@ import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
+import {Router} from "@angular/router";
+import {COLLECTION_ENABLED} from "@angular/fire/compat/analytics";
 
 export type DialogData = {
   currentTask: TasksStore,
@@ -34,6 +36,8 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   public user: FireBaseUser | null = null;
   private subscriptions: Subscription[] = [];
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
+  public currentBoard: BoardStore[] = [];
+  public filteredUsers: UserStore[] =[];
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
@@ -47,6 +51,12 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   private group$: Observable<List[]> = this.crudService.getDate(Collections.GROUP);
 
   ngOnInit(): void {
+    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((b) => {
+      this.currentBoard = b.filter((f) => f.id === this.data.currentTask.boardID);
+    })
+    this.crudService.handleData<UserStore>(Collections.USERS).subscribe((u) => {
+      this.filteredUsers = u.filter((f) => this.currentBoard[0].activeUsers.includes(f.userId!))
+    })
     this.new = [];
     this.subscriptions.push(
       this.task$.subscribe((tasksValue) => {
@@ -55,7 +65,9 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
       }),
       this.group$.subscribe((value: List[]) => {
         this.groupData = value;
-        this.filteredGroup = this.groupData.filter((f) => f.activeUser === this.user?.uid)
+        this.filteredGroup = this.groupData.filter((f) => f.boardID === this.currentBoard[0].id
+          && this.currentBoard[0].activeUsers.includes(f.activeUser!)
+        )
       }),
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value

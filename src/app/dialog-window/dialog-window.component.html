@@ -42,7 +42,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Task Groups</mat-label>
             <mat-select [formControlName]="formControls.group">
-              <mat-option *ngFor="let group of filteredGroups" [value]="group.name">
+              <mat-option *ngFor="let group of filteredGroups" [value]="group.id">
                 {{group.name}}
               </mat-option>
             </mat-select>
@@ -55,7 +55,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Assigned User</mat-label>
             <mat-select [formControlName]="formControls.assignedUser">
-              <mat-option *ngFor="let user of (users$ | async)" [value]="user.name">{{user.name}}</mat-option>
+              <mat-option *ngFor="let user of filteredUsers" [value]="user.name">{{user.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

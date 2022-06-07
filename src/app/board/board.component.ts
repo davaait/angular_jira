@@ -39,8 +39,8 @@ export class BoardComponent implements OnInit {
         const tasks: TasksStore[] = task;
         this.filteredGroup?.forEach((group: List) => {
             group.tasksArray = tasks.filter((filteredTask: TasksStore) =>
-              filteredTask.group === group.name
-              && filteredTask.activeUser === this.user?.uid
+              filteredTask.group === group.id
+              && this.board?.activeUsers.includes(filteredTask.activeUser!)
               && filteredTask.boardID === this.board?.id
             )
           }
@@ -56,7 +56,9 @@ export class BoardComponent implements OnInit {
     const filterAll: Observable<TasksStore[]> = this.crudService.handleData<List>(Collections.GROUP).pipe(
       tap(value => {
         this.groupsData = value
-        this.filteredGroup = this.groupsData.filter((g) => g.activeUser === this.user?.uid && g.boardID === this.board?.id)
+        this.filteredGroup = this.groupsData.filter((g) =>
+          g.boardID === this.board?.id
+          && this.board?.activeUsers.includes(g.activeUser!))
       }),
       switchMap(() => updateTask))
     this.route.params.pipe(
