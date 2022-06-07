@@ -12,6 +12,14 @@
             Please provide a name.
           </div>
         </div>
+        <div class="input-wrapper">
+          <mat-form-field appearance="fill">
+            <mat-label>Assigned Users</mat-label>
+            <mat-select [formControlName]="formControls.users" multiple>
+              <mat-option *ngFor="let user of (users$ | async)" [value]="user.userId">{{user.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </form>
     </mat-dialog-content>
   </div>

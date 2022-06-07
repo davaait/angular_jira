@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {BoardControl} from "../model/controls.enum";
-import {Board, BoardStore, FireBaseUser, List} from "../services/types";
+import {Board, BoardStore, FireBaseUser, List, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {AuthService} from "../services/auth/auth.service";
@@ -23,6 +23,7 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
   public boards$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
   private completedBoards: BoardStore[] = [];
   private currentBoardID: string = "";
+  public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
@@ -31,8 +32,9 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    let filteredBoards = this.boards$.pipe(tap((value) => {
-      this.completedBoards = value.filter((f) => f.name === "Completed" && f.activeUser === this.user?.uid && f.id === this.currentBoardID)
+    let filteredBoards = this.boards$.pipe(
+      tap((value) => {
+      this.completedBoards = value.filter((f) => f.name === "Completed" && f.activeUsers.includes(this.user?.uid!) && f.id === this.currentBoardID)
     }))
     this.getIdService.idValue$.pipe(
       tap((value) => {
@@ -50,6 +52,7 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
       Validators.maxLength(15),
       Validators.minLength(3),
     ])));
+    this.myForm.addControl(BoardControl.users, new FormControl("", Validators.required))
   }
 
   public addBoard(newBoard: Board): void {
@@ -60,27 +63,27 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
     if (this.myForm.valid) {
       const newBoard: Board = {
         name: this.myForm?.controls[BoardControl.name].value,
-        activeUser: this.user?.uid
+        activeUsers: this.myForm?.controls[BoardControl.users].value,
       }
       this.addBoard(newBoard);
-      let defaultCompletedGroup: List;
-      if (this.completedBoards.length >= 1) {
-        return
-      } else {
-        this.getIdService.idValue$.pipe(
-          delay(800),
-          tap((value) => {
-            defaultCompletedGroup = {
-              name: "Completed",
-              color: "#4caf50",
-              tasksArray: [],
-              activeUser: this.user?.uid,
-              boardID: value,
-            }
-          }),
-          switchMap(() => this.crudService.createObject(Collections.GROUP, defaultCompletedGroup))
-        ).subscribe()
-      }
+      // let defaultCompletedGroup: List;
+      // if (this.completedBoards.length >= 1) {
+      //   return
+      // } else {
+      //   this.getIdService.idValue$.pipe(
+      //     delay(800),
+      //     tap((value) => {
+      //       defaultCompletedGroup = {
+      //         name: "Completed",
+      //         color: "#4caf50",
+      //         tasksArray: [],
+      //         activeUser: this.user?.uid,
+      //         boardID: value,
+      //       }
+      //     }),
+      //     switchMap(() => this.crudService.createObject(Collections.GROUP, defaultCompletedGroup))
+      //   ).subscribe()
+      // }
       this.myForm?.reset();
     } else {
       alert("Error")
