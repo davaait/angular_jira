@@ -34,10 +34,6 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.board$.subscribe((value) => {
-      let newArr = value;
-      this.filteredBoards = newArr.filter((f) => f.activeUsers.includes(this.user?.uid!))
-    })
     this.users$.subscribe((u) => {
       this.users = u as User[];
       this.users.forEach((f) => {
@@ -61,6 +57,10 @@ export class AppComponent implements OnInit {
         this.crudService.createObject(Collections.USERS, newUser).subscribe();
       }
     })
+    this.board$.subscribe(
+      (value) => {
+        this.filteredBoards = value.filter((f) => f.activeUsers?.includes(this.user?.uid!))
+      })
   }
 
   public removeBoard(id: string): void {

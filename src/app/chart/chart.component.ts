@@ -44,7 +44,7 @@ export class ChartComponent implements OnInit, OnDestroy {
         this.filteredGroup?.forEach((group: List) => {
             group.tasksArray = tasks.filter((filteredTask: TasksStore) =>
               filteredTask.group === group.id
-              && filteredTask.activeUser?.includes(this.user?.uid!)
+              && filteredTask.activeUser === this.user?.uid
             )
             if (group.activeUser === this.user?.uid) {
               this.doughnutChartLabels.push(group.name)

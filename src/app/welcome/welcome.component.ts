@@ -30,7 +30,7 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.boards$.subscribe((value) => {
-      this.allBoards = value.filter((f) => f.activeUsers.includes(this.user?.uid!))
+      this.allBoards = value.filter((f) => f.activeUsers?.includes(this.user?.uid!))
     })
     this.authService.user$.subscribe((value: firebase.User | null) => {
       this.user = value
