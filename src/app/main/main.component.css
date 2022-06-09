@@ -17,7 +17,7 @@
   align-items: flex-start;
   flex-wrap: wrap;
   border-radius: 10px;
-  margin-top: 70px;
+  margin-top: 40px;
   width: 90%;
   min-height: 90vh;
   background-color: antiquewhite;
@@ -28,6 +28,23 @@
   .main-wrapper {
     justify-content: center;
     max-width: 90%;
-    margin: 70px 15px;
+    margin: 40px 15px;
   }
 }
+
+@media screen and (max-width: 734px) {
+  .main-wrapper {
+    justify-content: center;
+    max-width: 90%;
+    margin: 76px 15px;
+  }
+}
+
+@media screen and (max-width: 389px) {
+  .main-wrapper {
+    justify-content: center;
+    max-width: 90%;
+    margin: 116px 15px;
+  }
+}
+

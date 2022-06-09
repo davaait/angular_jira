@@ -54,6 +54,7 @@ import {BoardWindowComponent} from "./board-window/board-window.component";
 import { BoardComponent } from './board/board.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {NewAssignedWindowComponent} from "./new-assigned-window/new-assigned-window.component";
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ChartComponent,
     BoardWindowComponent,
     BoardComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    NewAssignedWindowComponent
   ],
   imports: [
     NgxMatColorPickerModule,

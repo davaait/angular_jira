@@ -3,4 +3,5 @@ export enum Collections {
   BOARDS = "board",
   GROUP = "group",
   USERS = "users",
+  PRIORITIES = "priorities",
 }

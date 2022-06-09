@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
               public router: Router,
-              ) {
+  ) {
   }
 
   public login(): void {

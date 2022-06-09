@@ -1,10 +1,20 @@
 <h2 [style.font-weight]="'bold'">{{board?.name}}</h2>
 <h3>Dashboard<span [style.font-weight]="'lighter'"> / Task Board</span></h3>
 <div class="progress">
-<!--  <span [style.font-weight]="'bold'">PROGRESS {{progressValue}}%</span>-->
-  <div class="add-group-btn">
-    <app-button [iconName]="iconsName.add" [buttonText]="buttonText.create" [stroked]="true" (click)="openListWindow()"></app-button>
-    <app-button [iconName]="iconsName.addCircleOutline" [buttonText]="buttonText.addTask" [stroked]="true" (click)="openDialog()"></app-button>
+  <div class="users-icons">
+    <ng-container *ngFor="let user of allusers">
+      <img class="user-icon" [src]="user.avatarUrl" [title]="user.name" width="40px" height="40px">
+    </ng-container>
+    <div class="add-user-btn">
+      <button mat-fab color="primary" (click)="newAssignedUser()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
-<!--  <mat-progress-bar mode="determinate" color="primary" value="{{progressValue}}"></mat-progress-bar>-->
+  <div class="add-group-btn">
+    <app-button [iconName]="iconsName.add" [buttonText]="buttonText.create" [stroked]="true"
+                (click)="openListWindow()"></app-button>
+    <app-button [iconName]="iconsName.addCircleOutline" [buttonText]="buttonText.addTask" [stroked]="true"
+                (click)="openDialog()"></app-button>
+  </div>
 </div>

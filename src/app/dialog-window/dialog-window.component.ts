@@ -1,7 +1,16 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {BoardStore, FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
+import {
+  BoardStore,
+  FireBaseUser,
+  List,
+  Priorities,
+  PrioritiesStore,
+  Task,
+  TasksStore,
+  UserStore
+} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
@@ -21,7 +30,6 @@ type DialogData = {
 })
 export class DialogWindowComponent implements OnInit, OnDestroy {
 
-  public priorities: string[] = ['Low', 'Normal', 'High'];
   public imageLink: string | null = "";
   public progress: string | undefined = "";
   public myForm: FormGroup = new FormGroup({});
@@ -35,6 +43,7 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
   public currentBoard: BoardStore[] = [];
   private subscriptions: Subscription[] = [];
   public filteredUsers: UserStore[] = [];
+  public priorities$: Observable<PrioritiesStore[]> = this.crudService.handleData<PrioritiesStore>(Collections.PRIORITIES);
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,

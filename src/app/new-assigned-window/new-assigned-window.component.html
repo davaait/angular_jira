@@ -1,0 +1,32 @@
+<div class="dialog-wrapper">
+  <h2 mat-dialog-title>Add New Board</h2>
+  <div class="flex-wrapper">
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="myForm" class="form">
+        <div class="input-wrapper">
+          <mat-form-field appearance="fill">
+            <mat-label>Board Name</mat-label>
+            <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter board name">
+          </mat-form-field>
+          <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
+            Please provide a name.
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <mat-form-field appearance="fill">
+            <mat-label>Assigned Users</mat-label>
+            <mat-select [formControlName]="formControls.users" multiple>
+              <mat-option *ngFor="let user of (users$ | async)" [value]="user.userId">{{user.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-dialog-content>
+  </div>
+  <mat-dialog-actions class="actions">
+    <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="true" color="primary" cdkFocusInitial [disabled]="myForm.invalid"
+            (click)="submitForm()">Save
+    </button>
+  </mat-dialog-actions>
+</div>

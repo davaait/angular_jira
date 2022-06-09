@@ -40,6 +40,10 @@ export type User = {
   avatarUrl: string | undefined | null,
 }
 
+export type Priorities = {
+  name: string
+}
+
 export type ID = {
   id: string;
 }
@@ -47,3 +51,4 @@ export type ID = {
 export type TasksStore = Task & ID;
 export type BoardStore = Board & ID;
 export type UserStore = User & ID;
+export type PrioritiesStore = Priorities & ID;

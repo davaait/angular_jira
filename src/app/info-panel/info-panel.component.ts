@@ -1,15 +1,15 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {BoardStore, FireBaseUser, TasksStore} from "../services/types";
+import {BoardStore, FireBaseUser, TasksStore, UserStore} from "../services/types";
 import {Observable, Subscription, switchMap, tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 import {ListWindowComponent} from "../list-window/list-window.component";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
-import {Params} from "@angular/router";
 import {GetIdService} from "../services/get-value/get-id.service";
+import {NewAssignedWindowComponent} from "../new-assigned-window/new-assigned-window.component";
 
 type IconsNameType = {
   add: string,
@@ -40,9 +40,12 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   }
   public progressValue?: number;
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  public users$: Observable<UserStore[]> = this.crudService.handleData<UserStore>(Collections.USERS);
   public user: FireBaseUser = null;
-  private urlID: string = "";
   private subscriptions: Subscription[] = [];
+  private boardId: string = "";
+  private allBoards: BoardStore[] = [];
+  public allusers: UserStore[] = [];
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
@@ -52,30 +55,32 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    const newObs = this.tasks$.pipe(
-      tap((taskArray) => {
-        let afterFilterTasks = taskArray.filter((f) =>
-          f.activeUser === this.user?.uid
-          && f.boardID === this.urlID
-        )
-        let completedTasks = taskArray.filter((t) =>
-          t.group === "Completed"
-          && this.user?.uid
-          && this.user?.uid === t.activeUser
-          && t.boardID === this.urlID
-        );
-        this.progressValue = Math.round((completedTasks.length / afterFilterTasks.length) * 100);
-      }))
-    this.getIdService.idValue$.pipe(
+    let getUsers = this.users$.pipe(
       tap((value) => {
-        this.urlID = value
-      }),
-      switchMap(() => newObs)
-    ).subscribe()
-
+        this.allusers = value.filter((f) => this.allBoards[0].activeUsers.includes(f.userId!))
+      })
+    )
+    let getBoards = this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
+      tap((value) => {
+        this.allBoards = value.filter((f) => f.id === this.boardId)
+      })
+    )
+    this.subscriptions.push(
+      this.getIdService.idValue$.pipe(
+        tap((value) => {
+          this.boardId = value;
+        }),
+        switchMap(() => getBoards),
+        switchMap(() => getUsers)
+      ).subscribe()
+    )
     this.authService.user$.subscribe((value: firebase.User | null) => {
       this.user = value
     })
+  }
+
+  public newAssignedUser(): void {
+    this.dialog.open(NewAssignedWindowComponent, {data: {boardID: this.boardId}});
   }
 
   public openDialog() {

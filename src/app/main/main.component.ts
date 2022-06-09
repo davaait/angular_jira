@@ -2,11 +2,12 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {Observable, Subscription, tap} from "rxjs";
-import {Board, BoardStore, FireBaseUser, List, TasksStore, User} from "../services/types";
+import {Board, BoardStore, FireBaseUser, List, PrioritiesStore, TasksStore, User} from "../services/types";
 import {switchMap} from "rxjs/operators";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
 import {ActivatedRoute, Params} from "@angular/router";
+import {log} from "util";
 
 @Component({
   selector: 'app-main',

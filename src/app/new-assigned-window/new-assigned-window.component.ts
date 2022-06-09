@@ -11,17 +11,16 @@ import {delay, Observable, switchMap, tap} from "rxjs";
 
 @Component({
   selector: 'app-list-window',
-  templateUrl: './board-window.component.html',
-  styleUrls: ['./board-window.component.css']
+  templateUrl: './new-assigned-window.component.html',
+  styleUrls: ['./new-assigned-window.component.css']
 })
 
-export class BoardWindowComponent implements OnInit, OnDestroy {
+export class NewAssignedWindowComponent implements OnInit, OnDestroy {
 
   public myForm: FormGroup = new FormGroup({});
   public formControls: typeof BoardControl = BoardControl;
   public user: FireBaseUser | null = null;
   public boards$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
-  private currentBoardID: string = "";
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
 
   constructor(private crudService: CrudService,
