@@ -9,21 +9,46 @@
   align-items: center;
 }
 
-.inner-wrapper {
-  min-height: 500px;
-  min-width: 80%;
+.form-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  min-width: 50%;
+  min-height: 60%;
 }
 
-.header {
-  max-width: 100%;
-  min-height: 80px;
+.form {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 5px;
+  min-width: 60%;
+  min-height: 180px;
+  border-radius: 10px;
+  border: 1px transparent solid;
+  background-color: white;
+  opacity: 0.7;
+}
+
+.first {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.form-name {
+  max-width: 60%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.form-name span {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 22px;
 }
 
 .header-img {
@@ -33,66 +58,11 @@
   margin-left: 5px;
 }
 
-.btn-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 5px;
-}
-
-.btn-group span {
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.btn-group button {
-  margin-left: 10px;
-}
-
-.form-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 50%;
-  min-height: 80%;
-  border-radius: 10px;
-  border: 1px transparent solid;
-  background-color: white;
-  opacity: 0.7;
-}
-
-.form-name {
-  max-width: 80%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.form-name h2 {
-  text-align: center;
-  font-weight: bolder;
-  font-size: 22px;
-}
-
 .form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.form-wrapper span {
-  margin-top: 10px;
 }
 
 .google-item {
@@ -102,24 +72,12 @@
 }
 
 .google-item span {
+  font-size: 16px;
   margin: 30px 10px;
 }
 
-.example-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.example-full-width {
-  width: 100%;
-  margin-bottom: 15px;
-}
-
 @media screen and (max-width: 1191px) {
-  .form-name h2 {
+  .form-name span {
     font-size: 15px;
   }
 }

@@ -1,45 +1,17 @@
 <div class="main-wrapper" *ngIf="!user">
-  <div class="inner-wrapper">
-    <div class="header">
-      <div class="header-img">
-        <img src="https://gene.theironnetwork.org/assets/img/logo-sign.png">
-      </div>
-      <div class="btn-group">
-        <span>Not Having Account?</span>
-        <button mat-raised-button color="accent">Sign Up</button>
-      </div>
-    </div>
-    <div class="form-wrapper">
-      <div class="form">
+  <div class="form-wrapper">
+    <div class="form">
+      <div class="first">
         <div class="form-name">
-          <h2>Get Started With Dreamteam Technologies</h2>
+          <span>Get Started With Dreamteam Technologies</span>
         </div>
-        <div class="form-wrapper">
-<!--          <form class="example-form">-->
-<!--            <mat-form-field class="example-full-width" appearance="fill">-->
-<!--              <mat-label>Email</mat-label>-->
-<!--              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"-->
-<!--                     placeholder="Enter your E-Mail">-->
-<!--              <mat-hint>Errors appear instantly!</mat-hint>-->
-<!--              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
-<!--                Please enter a valid email address-->
-<!--              </mat-error>-->
-<!--              <mat-error *ngIf="emailFormControl.hasError('required')">-->
-<!--                Email is <strong>required</strong>-->
-<!--              </mat-error>-->
-<!--            </mat-form-field>-->
-<!--            <mat-form-field class="example-full-width" appearance="fill">-->
-<!--              <mat-label>Password</mat-label>-->
-<!--              <input type="text" matInput placeholder="Enter your password">-->
-<!--              <mat-hint>Errors appear instantly!</mat-hint>-->
-<!--            </mat-form-field>-->
-<!--            <button mat-raised-button color="primary">LOGIN</button>-->
-<!--          </form>-->
-          <div class="google-item">
-            <span>Or SignIn Using</span>
-            <button mat-fab color="warn" matTooltip="Google" (click)="login()">G</button>
-          </div>
+        <div class="header-img">
+          <img src="https://smarthr.dreamguystech.com/light/assets/img/logo2.png" width="60px" height="60px">
         </div>
+      </div>
+      <div class="google-item">
+        <span>SignIn With Google</span>
+        <button mat-fab color="warn" matTooltip="Google" (click)="login()">G</button>
       </div>
     </div>
   </div>
