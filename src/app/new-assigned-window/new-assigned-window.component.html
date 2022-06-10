@@ -1,17 +1,8 @@
 <div class="dialog-wrapper">
-  <h2 mat-dialog-title>Add New Board</h2>
+  <h2 mat-dialog-title>Assign New Person</h2>
   <div class="flex-wrapper">
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="myForm" class="form">
-        <div class="input-wrapper">
-          <mat-form-field appearance="fill">
-            <mat-label>Board Name</mat-label>
-            <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter board name">
-          </mat-form-field>
-          <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
-            Please provide a name.
-          </div>
-        </div>
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
             <mat-label>Assigned Users</mat-label>

@@ -46,6 +46,7 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   private boardId: string = "";
   private allBoards: BoardStore[] = [];
   public allusers: UserStore[] = [];
+  public allUsersID: string[] = [];
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
@@ -58,6 +59,7 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
     let getUsers = this.users$.pipe(
       tap((value) => {
         this.allusers = value.filter((f) => this.allBoards[0].activeUsers.includes(f.userId!))
+        this.allusers.forEach((f) => this.allUsersID.push(f.userId!))
       })
     )
     let getBoards = this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
@@ -80,7 +82,7 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   }
 
   public newAssignedUser(): void {
-    this.dialog.open(NewAssignedWindowComponent, {data: {boardID: this.boardId}});
+    this.dialog.open(NewAssignedWindowComponent, {data: {boardID: this.boardId, assignedUsers: this.allUsersID}});
   }
 
   public openDialog() {

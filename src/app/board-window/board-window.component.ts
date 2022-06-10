@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {BoardControl} from "../model/controls.enum";
-import {Board, BoardStore, FireBaseUser, List, UserStore} from "../services/types";
+import {Board, BoardStore, FireBaseUser, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {GetIdService} from "../services/get-value/get-id.service";
-import {delay, Observable, switchMap, tap} from "rxjs";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-list-window',

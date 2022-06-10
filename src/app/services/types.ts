@@ -30,7 +30,7 @@ export type List = {
 }
 
 export type Board = {
-  name: string,
+  name?: string,
   activeUsers: string[],
 }
 
