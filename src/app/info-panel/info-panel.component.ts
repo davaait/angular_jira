@@ -15,7 +15,6 @@ type IconsNameType = {
   add: string,
   addCircleOutline: string
 }
-
 type ButtonTextType = {
   create: string,
   addTask: string
@@ -38,14 +37,13 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
     create: 'Create List',
     addTask: 'Add New Task'
   }
-  public progressValue?: number;
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public users$: Observable<UserStore[]> = this.crudService.handleData<UserStore>(Collections.USERS);
   public user: FireBaseUser = null;
   private subscriptions: Subscription[] = [];
   private boardId: string = "";
   private allBoards: BoardStore[] = [];
-  public allusers: UserStore[] = [];
+  public allUsers: UserStore[] = [];
   public allUsersID: string[] = [];
 
   constructor(private crudService: CrudService,
@@ -58,10 +56,15 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     let getUsers = this.users$.pipe(
       tap((value) => {
-        this.allusers = value.filter((f) => this.allBoards[0].activeUsers.includes(f.userId!))
-        this.allusers.forEach((f) => this.allUsersID.push(f.userId!))
+        this.allUsers = value.filter((f) => this.allBoards[0].activeUsers.includes(f.userId!))
+        this.allUsers.forEach((f) => {
+          if (!this.allUsersID.includes(f.userId!)) {
+            this.allUsersID.push(f.userId!)
+          } else return
+        })
       })
     )
+    getUsers.subscribe()
     let getBoards = this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
       tap((value) => {
         this.allBoards = value.filter((f) => f.id === this.boardId)
@@ -73,12 +76,12 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
           this.boardId = value;
         }),
         switchMap(() => getBoards),
-        switchMap(() => getUsers)
-      ).subscribe()
+        switchMap(() => getUsers),
+      ).subscribe(),
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
+      })
     )
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-      this.user = value
-    })
   }
 
   public newAssignedUser(): void {

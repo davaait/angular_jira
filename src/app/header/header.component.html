@@ -11,7 +11,7 @@
         <input matInput type="text" placeholder="Enter task name" [formControl]="myControl" [matAutocomplete]="auto"
                class="search-input">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option (click)="openTaskDetailsWindow(option)" *ngFor="let option of filteredOptions | async"
+          <mat-option (click)="openTaskDetailsWindow(option)" *ngFor="let option of (filteredOptions | async)"
                       [value]="option.name">
             {{option.name}}
           </mat-option>

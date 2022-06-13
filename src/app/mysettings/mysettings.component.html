@@ -23,7 +23,8 @@
             <span>Last sign in: {{user?.metadata?.lastSignInTime | date: 'medium'}}</span>
             <mat-divider></mat-divider>
           </div>
-          <div class="info-item"><span>Phone: {{user?.phoneNumber !== null ? user?.phoneNumber : "No phone number data"}}</span>
+          <div class="info-item">
+            <span>Phone: {{user?.phoneNumber !== null ? user?.phoneNumber : "No phone number data"}}</span>
             <mat-divider></mat-divider>
           </div>
           <div class="info-item"><span>Email: {{user?.email}}</span>
@@ -31,7 +32,7 @@
           </div>
         </div>
       </div>
-<!--      <app-chart class="chart"></app-chart>-->
+      <app-chart class="chart"></app-chart>
     </div>
   </div>
 </div>

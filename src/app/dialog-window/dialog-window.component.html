@@ -9,7 +9,7 @@
             <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter task name">
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
-            Please provide a name.
+            This field is required. Min length is 3, max length is 15.
           </div>
         </div>
         <div class="input-wrapper">
@@ -22,7 +22,7 @@
             </mat-select>
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.priority)" class="validate-hint">
-            Please provide a priority.
+            This field is required.
           </div>
         </div>
         <div class="input-wrapper-picker">
@@ -34,7 +34,7 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.dueDate)" class="validate-hint">
-            Please provide a due date.
+            This field is required.
           </div>
         </div>
         <div class="input-wrapper">
@@ -47,7 +47,7 @@
             </mat-select>
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.group)" class="validate-hint">
-            Please provide a group.
+            This field is required.
           </div>
         </div>
         <div class="input-wrapper">
@@ -65,7 +65,7 @@
                       [formControlName]="formControls.description"></textarea>
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.description)" class="validate-hint">
-            Please provide a description.
+            This field is required. Max length is 120.
           </div>
         </div>
       </form>

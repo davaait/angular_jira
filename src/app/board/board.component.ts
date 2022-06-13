@@ -3,7 +3,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {BoardStore, FireBaseUser, List, TasksStore} from "../services/types";
-import {concatMap, mergeMap, Observable, switchMap, tap} from "rxjs";
+import {Observable, switchMap, tap} from "rxjs";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
 import {GetIdService} from "../services/get-value/get-id.service";

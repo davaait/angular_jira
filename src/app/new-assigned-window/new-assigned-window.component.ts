@@ -7,8 +7,7 @@ import {CrudService} from "../services/crud/crud.service";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {GetIdService} from "../services/get-value/get-id.service";
-import {Observable, tap} from "rxjs";
-import {switchMap} from "rxjs/operators";
+import {Observable} from "rxjs";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 type DialogData = {
@@ -29,9 +28,6 @@ export class NewAssignedWindowComponent implements OnInit, OnDestroy {
   public user: FireBaseUser | null = null;
   public boards$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
-  private boardID: string = "";
-  private allBoards: BoardStore[] = [];
-  public allUsersID: string[] = [];
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
@@ -41,7 +37,7 @@ export class NewAssignedWindowComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    console.log(this.mainData)
+    console.log(this.mainData.assignedUsers)
     this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
       }

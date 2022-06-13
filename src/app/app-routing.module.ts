@@ -4,7 +4,6 @@ import {Routes} from "./routes";
 import {AuthGuard} from "./services/auth/auth.guard";
 import {MysettingsComponent} from "./mysettings/mysettings.component";
 import {AuthComponent} from "./auth/auth.component";
-import {SignUpComponent} from "./sign-up/sign-up.component";
 import {EditTaskWindowComponent} from "./edit-task-window/edit-task-window.component";
 import {EditListWindowComponent} from "./edit-list-window/edit-list-window.component";
 import {BoardComponent} from "./board/board.component";
@@ -12,7 +11,7 @@ import {WelcomeComponent} from "./welcome/welcome.component";
 
 const routes: Route[] = [
   {
-    path: '', redirectTo: '/' + Routes.PROFILE, pathMatch: 'full'
+    path: '', redirectTo: '/' + Routes.WELCOME, pathMatch: 'full'
   },
   {
     path: Routes.BOARD + "/:id", component: BoardComponent, canActivate: [AuthGuard],
@@ -34,9 +33,6 @@ const routes: Route[] = [
   },
   {
     path: Routes.LOGIN, component: AuthComponent
-  },
-  {
-    path: Routes.SIGNUP, component: SignUpComponent
   },
   {
     path: Routes.WELCOME, component: WelcomeComponent, canActivate: [AuthGuard]

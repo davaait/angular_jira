@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChartData} from 'chart.js';
 import {CrudService} from "../services/crud/crud.service";
 import {Observable, Subscription, tap} from "rxjs";
-import {BoardStore, FireBaseUser, List, TasksStore} from "../services/types";
+import {FireBaseUser, List, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
@@ -28,7 +28,6 @@ export class ChartComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private tasks$: Observable<TasksStore[]> = this.crudService.handleData(Collections.TASKS);
   public chartData: number[] = [];
-  public userBoards: BoardStore[] = [];
 
   public doughnutChartData: ChartData<'doughnut'> = {
     labels: [],
@@ -56,7 +55,6 @@ export class ChartComponent implements OnInit, OnDestroy {
                 ]
               }
             }
-
           }
         )
       })

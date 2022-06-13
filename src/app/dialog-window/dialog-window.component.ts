@@ -98,7 +98,7 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
     this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.assignedUser, new FormControl("", Validators.required));
-    this.myForm.addControl(TasksControls.description, new FormControl("", Validators.required));
+    this.myForm.addControl(TasksControls.description, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(120)])));
   }
 
   public addTask(newTask: Task): void {

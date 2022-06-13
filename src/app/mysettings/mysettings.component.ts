@@ -19,7 +19,8 @@ export class MysettingsComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private crudService: CrudService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.board$.subscribe((b) => {

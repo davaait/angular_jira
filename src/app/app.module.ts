@@ -29,8 +29,6 @@ import {MainComponent} from './main/main.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {MysettingsComponent} from './mysettings/mysettings.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {SignUpComponent} from './sign-up/sign-up.component';
-import {SignIpComponent} from "./sign-in/sign-ip.component";
 import {DialogWindowComponent} from './dialog-window/dialog-window.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
@@ -66,8 +64,6 @@ import {NewAssignedWindowComponent} from "./new-assigned-window/new-assigned-win
     MainComponent,
     MysettingsComponent,
     ItemComponent,
-    SignUpComponent,
-    SignIpComponent,
     DialogWindowComponent,
     ListWindowComponent,
     EditTaskWindowComponent,
