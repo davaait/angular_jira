@@ -3,7 +3,7 @@ import firebase from "firebase/compat/app";
 import {map, Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {startWith} from "rxjs/operators";
-import {TasksStore} from "../services/types";
+import {BoardStore, TasksStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {AuthService} from "../services/auth/auth.service";
@@ -28,10 +28,10 @@ export class HeaderComponent implements OnInit {
   }
 
   public myControl = new FormControl();
-  // public options: string[] = [];
   public filteredOptions?: Observable<TasksStore[]>;
   public array: TasksStore[] = [];
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
+  private boards: BoardStore[] = [];
 
   @Input() user?: firebase.User | null;
   @Input() fn?: () => void;
@@ -46,10 +46,20 @@ export class HeaderComponent implements OnInit {
     this.authService.user$.subscribe((value: firebase.User | null) => {
       this.user = value
     })
+    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((s) => {
+      this.boards = s;
+    })
     this.tasks$.subscribe((t) => {
       const tasks: TasksStore[] = t;
-      this.array = tasks.filter((f) => f.activeUser === this.user?.uid)
-      // this.array.forEach((curr) => this.options.push(curr.name))
+      console.log(this.boards)
+      this.array = tasks.filter((f) => {
+        let boardsID = [];
+        // this.boards.forEach((f) => boardsID.push(f.id))
+        // this.boards.forEach((b) => b.activeUsers.includes(this.user?.uid!))
+        // && boardsID.includes()
+        f.activeUser === this.user?.uid
+        || f.assignedUser === this.user?.uid
+      })
     })
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

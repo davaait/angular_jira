@@ -56,7 +56,8 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     let getUsers = this.users$.pipe(
       tap((value) => {
-        this.allUsers = value.filter((f) => this.allBoards[0].activeUsers.includes(f.userId!))
+        this.allUsersID = [];
+        this.allUsers = value.filter((f) => this.allBoards[0]?.activeUsers?.includes(f.userId!))
         this.allUsers.forEach((f) => {
           if (!this.allUsersID.includes(f.userId!)) {
             this.allUsersID.push(f.userId!)
@@ -64,7 +65,6 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
         })
       })
     )
-    getUsers.subscribe()
     let getBoards = this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
       tap((value) => {
         this.allBoards = value.filter((f) => f.id === this.boardId)

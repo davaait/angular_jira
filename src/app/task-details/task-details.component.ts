@@ -3,7 +3,7 @@ import {UploadService} from "../services/upload/upload.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {CrudService} from "../services/crud/crud.service";
 import {FireBaseUser, List, TasksStore, User} from "../services/types";
-import {combineLatest, Subscription, takeWhile} from "rxjs";
+import {combineLatest, Subscription, switchMap, takeWhile, tap} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {Collections} from "../services/crud/collections";
@@ -34,6 +34,10 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   public pictureUrl?: string | undefined | null
   public personName?: string | undefined | null
   public currentGroupName: List[] = [];
+  public itemName: string = "";
+  public itemPriority: string = "";
+  public groupID: string = "";
+  public itemDescription: string = "";
 
   constructor(private crudService: CrudService,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -44,27 +48,37 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    let getGroups = this.crudService.handleData<List>(Collections.GROUP).pipe(
+      tap((v) => {
+        this.currentGroupName = v.filter((f) => f.id === this.groupID)
+      }))
+    let getUsers = this.crudService.handleData<User>(Collections.USERS).pipe(
+      tap((user) => {
+        this.savedUsers = user.filter((f) => f.name === this.assignedPerson)
+        this.pictureUrl = this.savedUsers[0].avatarUrl
+        this.personName = this.savedUsers[0].name
+      }))
     this.subscriptions.push(
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
       }),
-      this.crudService.handleData<TasksStore>(Collections.TASKS).subscribe((value) => {
-        this.new = value.filter((f) => f.id === this.data?.item?.id)
-        this.imagesArr = this.new[0].images
-        this.updateDate = this.data?.item?.updateDate ? this.new[0].updateDate : "no update date"
-        this.history = this.new[0].history
-        this.assignedPerson = this.new[0].assignedUser
-      }),
-      this.crudService.handleData<List>(Collections.GROUP).subscribe((v) => {
-        this.currentGroupName = v.filter((f) => f.id === this.data?.item?.group)
-      })
+      this.crudService.handleData<TasksStore>(Collections.TASKS).pipe(
+        tap((value) => {
+          this.new = value.filter((f) => f.id === this.data?.item?.id)
+          this.itemName = this.new[0].name
+          this.itemPriority = this.new[0].priority
+          this.groupID = this.new[0].group
+          this.itemDescription = this.new[0].description
+          this.imagesArr = this.new[0].images
+          this.updateDate = this.data?.item?.updateDate ? this.new[0].updateDate : "no update date"
+          this.history = this.new[0].history
+          this.assignedPerson = this.new[0].assignedUser
+        }),
+        switchMap(() => getGroups),
+        switchMap(() => getUsers),
+      ).subscribe()
     )
     this.createDate = this.data?.item?.dateOfCreation ? this.data?.item?.dateOfCreation : "no date of creation"
-    this.crudService.handleData<User>(Collections.USERS).subscribe((user) => {
-      this.savedUsers = user.filter((f) => f.name === this.assignedPerson)
-      this.pictureUrl = this.savedUsers[0].avatarUrl
-      this.personName = this.savedUsers[0].name
-    })
   }
 
   public editWindow(t: TasksStore | undefined): void {
@@ -95,7 +109,9 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
                 }
               } else {
                 newImage = {
-                  images: [this.imageLink]
+                  images: [this.imageLink],
+                  updateDate: new Date().toString(),
+                  history: this.data.item.history?.concat(this.user?.displayName + ' uploaded new file')
                 }
               }
               this.progress = '';

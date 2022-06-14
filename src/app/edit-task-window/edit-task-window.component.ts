@@ -10,8 +10,6 @@ import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
-import {Router} from "@angular/router";
-import {COLLECTION_ENABLED} from "@angular/fire/compat/analytics";
 
 export type DialogData = {
   currentTask: TasksStore,
@@ -73,11 +71,11 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
         this.user = value
       })
     )
-    this.myForm.addControl(TasksControls.name, new FormControl(this.data?.currentTask.name, Validators.compose([Validators.required, Validators.maxLength(15)])));
+    this.myForm.addControl(TasksControls.name, new FormControl(this.data?.currentTask.name, Validators.compose([Validators.required, Validators.maxLength(15), Validators.minLength(3)])));
     this.myForm.addControl(TasksControls.priority, new FormControl(this.data?.currentTask.priority, Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl(this.data?.currentTask.group, Validators.required));
     this.myForm.addControl(TasksControls.assignedUser, new FormControl(this.data?.currentTask.assignedUser, Validators.required));
-    this.myForm.addControl(TasksControls.description, new FormControl(this.data?.currentTask.description, Validators.required));
+    this.myForm.addControl(TasksControls.description, new FormControl(this.data?.currentTask.description, Validators.compose([Validators.required, Validators.maxLength(120)])));
   }
 
   goBack(): void {
@@ -109,7 +107,9 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
       }
 
       if (this.new[0].group !== this.myForm?.controls[TasksControls.group].value) {
-        history.push(this.user?.displayName + ' changed group from ' + this.new[0].group + ' to ' + this.myForm?.controls[TasksControls.group].value)
+        let prev = this.filteredGroup.filter((f) => f.id === this.new[0].group)
+        let curr = this.filteredGroup.filter((f) => f.id === this.myForm?.controls[TasksControls.group].value)
+        history.push(this.user?.displayName + ' changed group from ' + prev[0].name + ' to ' + curr[0].name)
       }
 
       if (this.new[0].assignedUser !== this.myForm?.controls[TasksControls.assignedUser].value) {

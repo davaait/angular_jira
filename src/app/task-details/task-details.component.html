@@ -4,7 +4,7 @@
       <div class="span-header">
         <mat-icon>web</mat-icon>
         <span
-          [ngStyle]="{'font-size': '23px', 'font-weight': 'bold', 'margin-left': '10px'}">{{data?.item?.name}}</span>
+          [ngStyle]="{'font-size': '23px', 'font-weight': 'bold', 'margin-left': '10px'}">{{itemName}}</span>
         <app-button [style.margin-bottom]="'5px'" [expand]="true" [iconName]="'update'" (click)="editWindow(data?.item)"
                     routerLink="task/{{data?.item?.id}}"></app-button>
       </div>
@@ -24,7 +24,7 @@
       <div class="description-btn-group" (click)="uploadFile.click()">
         <button mat-raised-button color="primary">Upload new</button>
         <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
-        <progress max="100" [value]="progress"></progress>
+        <progress max="100" [value]="progress" *ngIf="progress"></progress>
       </div>
       <mat-divider></mat-divider>
     </div>
@@ -33,8 +33,8 @@
         <mat-icon [style.margin]="'0 5px 5px 0'">menu_book</mat-icon>
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Description</span>
       </div>
-      <div class="current-value">
-        {{data?.item?.description}}
+      <div class="current-value-description">
+        {{itemDescription}}
       </div>
       <mat-divider [style.margin-top]="'5px'"></mat-divider>
     </div>
@@ -42,14 +42,6 @@
       <div class="actions-header">
         <mat-icon>grading</mat-icon>
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Actions</span>
-      </div>
-      <div class="comment-field">
-        <div class="field">
-
-        </div>
-        <div class="comment-btn-group">
-
-        </div>
       </div>
       <div class="all-actions" *ngIf="history !== []">
         <div class="current-action" *ngFor="let taskHistory of history">
@@ -79,7 +71,7 @@
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Priority</span>
       </div>
       <div class="current-value">
-        {{data?.item?.priority | uppercase}}
+        {{itemPriority | uppercase}}
       </div>
     </div>
     <mat-divider></mat-divider>

@@ -57,6 +57,9 @@
 .item-title span {
   font-size: 16px;
   font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .manage_group {
@@ -77,13 +80,10 @@
   padding: 5px;
 }
 
-.truncate-text {
+.truncate-text p {
+  white-space: nowrap;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  line-height: 1.3em;
-  height: 3.9em;
+  text-overflow: ellipsis;
 }
 
 .item-progress p {

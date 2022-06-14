@@ -5,7 +5,7 @@ import {BoardStore, FireBaseUser, User, UserStore} from "./services/types";
 import {Routes} from "./routes";
 import {MatDialog} from "@angular/material/dialog";
 import {BoardWindowComponent} from "./board-window/board-window.component";
-import {delay, Observable, tap} from "rxjs";
+import {Observable, switchMap, tap} from "rxjs";
 import {CrudService} from "./services/crud/crud.service";
 import {Collections} from "./services/crud/collections";
 
@@ -20,10 +20,10 @@ export class AppComponent implements OnInit {
   public user: FireBaseUser = null;
   public routes: typeof Routes = Routes;
   public board$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
-  public default?: string;
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
+  public default?: string;
   public users: User[] = [];
-  public allIds?: any[] = [];
+  public allIds?: string[] = [];
   public filteredBoards?: BoardStore[];
 
   constructor(public authService: AuthService,
@@ -34,27 +34,27 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.users$.subscribe((u) => {
-      this.users = u as User[];
-      this.users.forEach((f) => {
-        if (!this.allIds?.includes(f.userId)) {
-          this.allIds?.push(f.userId)
-        }
-      })
-    })
-    this.authService.user$.pipe(
+    let filterUsers = this.users$.pipe(
       tap((value) => {
-        this.user = value;
+        this.allIds= [];
+        value.forEach((user) => {
+          this.allIds?.push(user.userId!)
+        })
+      })
+    )
+    this.authService.user$.pipe(
+      tap((u) => {
+        this.user = u;
       }),
-      delay(1200)
-    ).subscribe((val) => {
+      switchMap(() => filterUsers)
+    ).subscribe((value) => {
       let newUser: User = {
         name: this.user?.displayName,
         userId: this.user?.uid,
         avatarUrl: this.user?.photoURL,
       }
-      if (!this.allIds?.includes(this.user?.uid)) {
-        this.crudService.createObject(Collections.USERS, newUser).subscribe();
+      if (!this.allIds?.includes(this.user?.uid!)) {
+        this.crudService.createObject(Collections.USERS, newUser).subscribe()
       }
     })
     this.board$.subscribe(
