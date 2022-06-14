@@ -1,4 +1,9 @@
-<h2 [style.font-weight]="'bold'">{{board?.name}}</h2>
+<div class="rename">
+  <h2 [style.font-weight]="'bold'">{{board?.name}}</h2>
+  <button mat-icon-button (click)="editBoardName()">
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>
 <h3>Dashboard<span [style.font-weight]="'lighter'"> / Task Board</span></h3>
 <div class="progress">
   <div class="users-icons">

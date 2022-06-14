@@ -53,6 +53,7 @@ import { BoardComponent } from './board/board.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {NewAssignedWindowComponent} from "./new-assigned-window/new-assigned-window.component";
+import {RenameBoardWindowComponent} from "./rename-board-window/rename-board-window.component";
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import {NewAssignedWindowComponent} from "./new-assigned-window/new-assigned-win
     BoardWindowComponent,
     BoardComponent,
     WelcomeComponent,
-    NewAssignedWindowComponent
+    NewAssignedWindowComponent,
+    RenameBoardWindowComponent
   ],
   imports: [
     NgxMatColorPickerModule,

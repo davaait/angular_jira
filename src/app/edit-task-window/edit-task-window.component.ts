@@ -53,7 +53,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
       this.currentBoard = b.filter((f) => f.id === this.data.currentTask.boardID);
     })
     this.crudService.handleData<UserStore>(Collections.USERS).subscribe((u) => {
-      this.filteredUsers = u.filter((f) => this.currentBoard[0].activeUsers.includes(f.userId!))
+      this.filteredUsers = u.filter((f) => this.currentBoard[0].activeUsers?.includes(f.userId!))
     })
     this.new = [];
     this.subscriptions.push(
@@ -64,7 +64,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
       this.group$.subscribe((value: List[]) => {
         this.groupData = value;
         this.filteredGroup = this.groupData.filter((f) => f.boardID === this.currentBoard[0].id
-          && this.currentBoard[0].activeUsers.includes(f.activeUser!)
+          && this.currentBoard[0].activeUsers?.includes(f.activeUser!)
         )
       }),
       this.authService.user$.subscribe((value: firebase.User | null) => {

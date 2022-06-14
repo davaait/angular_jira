@@ -5,20 +5,12 @@
       <form [formGroup]="myForm" class="form">
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
-            <mat-label>Board Name</mat-label>
-            <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter board name">
+            <mat-label>Rename Board</mat-label>
+            <input matInput class="input-item" [value]="currBoardName" [formControlName]="formControls.name" placeholder="Edit board name">
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
-            This field is required.
+            This field is required. Min length is 3, max length is 15.
           </div>
-        </div>
-        <div class="input-wrapper">
-          <mat-form-field appearance="fill">
-            <mat-label>Assigned Users</mat-label>
-            <mat-select [formControlName]="formControls.users" multiple>
-              <mat-option *ngFor="let user of (users$ | async)" [value]="user.userId">{{user.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
         </div>
       </form>
     </mat-dialog-content>

@@ -11,49 +11,56 @@ import {Observable} from "rxjs";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 type DialogData = {
-  boardID: string,
-  assignedUsers: string[],
+  boardID: string
 }
 
 @Component({
   selector: 'app-list-window',
-  templateUrl: './new-assigned-window.component.html',
-  styleUrls: ['./new-assigned-window.component.css']
+  templateUrl: './rename-board-window.component.html',
+  styleUrls: ['./rename-board-window.component.css']
 })
 
-export class NewAssignedWindowComponent implements OnInit, OnDestroy {
+export class RenameBoardWindowComponent implements OnInit, OnDestroy {
 
   public myForm: FormGroup = new FormGroup({});
   public formControls: typeof BoardControl = BoardControl;
   public user: FireBaseUser | null = null;
   public boards$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
+  public currBoardName?: string = "";
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
-              private getIdService: GetIdService,
               @Inject(MAT_DIALOG_DATA) public mainData: DialogData,
   ) {
   }
 
   public ngOnInit(): void {
+    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((s) => {
+      let currentBoard = s.filter((f) => f.id === this.mainData?.boardID)
+      this.currBoardName = currentBoard[0].name
+    })
     this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
       }
     )
-    this.myForm.addControl(BoardControl.users, new FormControl(this.mainData?.assignedUsers, Validators.required))
+    this.myForm.addControl(BoardControl.name, new FormControl(this.currBoardName, Validators.compose([
+      Validators.required,
+      Validators.maxLength(15),
+      Validators.minLength(3),
+    ])));
   }
 
-  public updateBoard(newBoard: Board, id: string): void {
-    this.crudService.updateObject(Collections.BOARDS, id, newBoard).subscribe();
+  public editBoard(newBoard: Board): void {
+    this.crudService.updateObject(Collections.BOARDS, this.mainData?.boardID, newBoard).subscribe();
   }
 
   public submitForm(): void {
     if (this.myForm.valid) {
       const newBoard: Board = {
-        activeUsers: this.myForm?.controls[BoardControl.users].value,
+        name: this.myForm?.controls[BoardControl.name].value,
       }
-      this.updateBoard(newBoard, this.mainData?.boardID);
+      this.editBoard(newBoard);
       this.myForm?.reset();
     } else {
       alert("Error")

@@ -33,6 +33,11 @@ mat-form-field {
   justify-content: flex-start;
   flex-wrap: wrap;
   color: red;
+  margin-bottom: 5px;
+}
+
+.form-field-wrapper {
+  padding: 0;
 }
 
 .attach-file {

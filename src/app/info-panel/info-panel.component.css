@@ -12,6 +12,17 @@
   flex-wrap: wrap;
 }
 
+.rename {
+  max-width: 200px;
+  max-height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.rename h2 {
+  margin-bottom: 0;
+}
+
 .add-user-btn {
   margin-left: 10px;
 }

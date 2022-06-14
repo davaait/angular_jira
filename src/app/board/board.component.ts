@@ -40,7 +40,7 @@ export class BoardComponent implements OnInit {
         this.filteredGroup?.forEach((group: List) => {
             group.tasksArray = tasks.filter((filteredTask: TasksStore) =>
               filteredTask.group === group.id
-              && this.board?.activeUsers.includes(filteredTask.activeUser!)
+              && this.board?.activeUsers?.includes(filteredTask.activeUser!)
               && filteredTask.boardID === this.board?.id
             )
           }
@@ -58,7 +58,7 @@ export class BoardComponent implements OnInit {
         this.groupsData = value
         this.filteredGroup = this.groupsData.filter((g) =>
           g.boardID === this.board?.id
-          && this.board?.activeUsers.includes(g.activeUser!))
+          && this.board?.activeUsers?.includes(g.activeUser!))
       }),
       switchMap(() => updateTask))
     this.route.params.pipe(

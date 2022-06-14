@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import firebase from "firebase/compat/app";
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {startWith} from "rxjs/operators";
 import {BoardStore, TasksStore} from "../services/types";
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   public filteredOptions?: Observable<TasksStore[]>;
   public array: TasksStore[] = [];
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
-  private boards: BoardStore[] = [];
+  private boardsID: string[] = [];
 
   @Input() user?: firebase.User | null;
   @Input() fn?: () => void;
@@ -46,20 +46,17 @@ export class HeaderComponent implements OnInit {
     this.authService.user$.subscribe((value: firebase.User | null) => {
       this.user = value
     })
-    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((s) => {
-      this.boards = s;
-    })
-    this.tasks$.subscribe((t) => {
-      const tasks: TasksStore[] = t;
-      console.log(this.boards)
-      this.array = tasks.filter((f) => {
-        let boardsID = [];
-        // this.boards.forEach((f) => boardsID.push(f.id))
-        // this.boards.forEach((b) => b.activeUsers.includes(this.user?.uid!))
-        // && boardsID.includes()
-        f.activeUser === this.user?.uid
-        || f.assignedUser === this.user?.uid
+    this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
+      tap((s) => {
+        s.forEach((f) => this.boardsID.push(f.id))
       })
+    ).subscribe()
+    this.tasks$.subscribe((t) => {
+      this.array = t.filter((f) =>
+        this.boardsID.includes(f.boardID!)
+        || f.activeUser === this.user?.uid
+        || f.assignedUser === this.user?.uid
+      )
     })
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

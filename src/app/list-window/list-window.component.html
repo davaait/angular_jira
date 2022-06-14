@@ -9,7 +9,7 @@
             <input matInput class="input-item" [formControlName]="formControls.name" placeholder="Enter list name">
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
-            Please provide a name.
+            This field is required. Min length is 3, max length is 15.
           </div>
         </div>
         <div class="input-wrapper">
@@ -20,6 +20,9 @@
             <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
             <ngx-mat-color-picker #picker></ngx-mat-color-picker>
           </mat-form-field>
+          <div *ngIf="isControlValid(formControls.color)" class="validate-hint">
+            This field is required. Please, choose color.
+          </div>
         </div>
       </form>
     </mat-dialog-content>

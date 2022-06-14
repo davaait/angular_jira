@@ -10,6 +10,7 @@ import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {GetIdService} from "../services/get-value/get-id.service";
 import {NewAssignedWindowComponent} from "../new-assigned-window/new-assigned-window.component";
+import {RenameBoardWindowComponent} from "../rename-board-window/rename-board-window.component";
 
 type IconsNameType = {
   add: string,
@@ -82,6 +83,10 @@ export class InfoPanelComponent implements OnInit, OnDestroy {
         this.user = value
       })
     )
+  }
+
+  public editBoardName(): void {
+    this.dialog.open(RenameBoardWindowComponent, {data: {boardID: this.board?.id}});
   }
 
   public newAssignedUser(): void {

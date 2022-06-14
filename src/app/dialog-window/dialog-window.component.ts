@@ -80,13 +80,13 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
       (value: List[]) => {
         this.groupData = value;
         this.filteredGroups = this.groupData.filter((g) =>
-          this.currentBoard[0].activeUsers.includes(g.activeUser!)
+          this.currentBoard[0].activeUsers?.includes(g.activeUser!)
           && g.boardID === this.mainData.boardID
         )
       })
     this.crudService.handleData<UserStore>(Collections.USERS).subscribe((value) => {
       let usersArr = value;
-      this.filteredUsers = usersArr.filter((u) => this.currentBoard[0].activeUsers.includes(u.userId!))
+      this.filteredUsers = usersArr.filter((u) => this.currentBoard[0].activeUsers?.includes(u.userId!))
     })
     this.subscriptions.push(
       this.authService.user$.subscribe((value: firebase.User | null) => {
