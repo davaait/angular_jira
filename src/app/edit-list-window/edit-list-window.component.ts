@@ -8,7 +8,6 @@ import {UploadService} from "../services/upload/upload.service";
 import {Observable, Subscription} from "rxjs";
 import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {ActivatedRoute} from "@angular/router";
 
 export type DialogData = {
   currentList: List,
@@ -25,7 +24,6 @@ export class EditListWindowComponent implements OnInit, OnDestroy {
   public groupData: List[] = [];
   public formControls: typeof ListControl = ListControl;
   private subscriptions: Subscription[] = [];
-  public tID?: string | null;
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,

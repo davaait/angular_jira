@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {FireBaseUser, List, TasksStore} from "../services/types";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTaskWindowComponent} from "../edit-task-window/edit-task-window.component";
@@ -14,9 +14,8 @@ import {TaskDetailsComponent} from "../task-details/task-details.component";
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent implements OnInit, OnDestroy {
 
-  //TODO change types
   @Input() itemName?: any;
   @Input() genColor?: string;
   @Input() itemsArray?: TasksStore[];
@@ -26,6 +25,7 @@ export class ItemComponent implements OnInit {
 
   public tasks: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public lists: List[] = [];
+  private subscriptions: Subscription[] = [];
 
   constructor(private crudService: CrudService,
               public dialog: MatDialog,
@@ -33,9 +33,11 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.crudService.handleData<List>(Collections.GROUP).subscribe((value) => {
-      this.lists = value;
-    })
+    this.subscriptions.push(
+      this.crudService.handleData<List>(Collections.GROUP).subscribe((value) => {
+        this.lists = value;
+      })
+    )
   }
 
   public update(id: string): void {
@@ -49,7 +51,6 @@ export class ItemComponent implements OnInit {
     this.crudService.deleteObject(Collections.TASKS, id).subscribe();
   }
 
-  //TODO: remove tasks from firebase collection in the same time with removing list
   public removeList(id: string): void {
     this.crudService.deleteObject(Collections.GROUP, id).subscribe();
   }
@@ -88,6 +89,12 @@ export class ItemComponent implements OnInit {
     this.crudService.updateObject(Collections.TASKS, event.item.data.id, {
       group: event.container.id,
       history: [this.user?.displayName + ' change group from ' + prevName + ' to ' + currName, ...event.item.data.history]
+    })
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
     })
   }
 }

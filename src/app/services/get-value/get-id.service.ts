@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {ReplaySubject, Subject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {ReplaySubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,6 @@ export class GetIdService {
     this.idValue$.next(valueID);
   }
 
-  constructor() { }
+  constructor() {
+  }
 }

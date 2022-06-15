@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth/auth.service";
 import {Router} from "@angular/router";
 import {switchMap} from "rxjs/operators";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-button',
@@ -18,10 +19,13 @@ export class ButtonComponent implements OnInit {
   @Input() btnTheme?: string;
   @Input() menuAccBtn?: boolean;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private authService: AuthService,
     public router: Router
-  ) {}
+  ) {
+  }
 
   public logout(): void {
     this.authService.signOut()

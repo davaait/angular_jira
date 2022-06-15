@@ -5,7 +5,6 @@ import {
   BoardStore,
   FireBaseUser,
   List,
-  Priorities,
   PrioritiesStore,
   Task,
   TasksStore,
@@ -72,23 +71,22 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe(
-      (v) => {
-        this.currentBoard = v.filter((f) => f.id === this.mainData.boardID)
-      })
-    this.crudService.handleData<List>(Collections.GROUP).subscribe(
-      (value: List[]) => {
-        this.groupData = value;
-        this.filteredGroups = this.groupData.filter((g) =>
-          this.currentBoard[0].activeUsers?.includes(g.activeUser!)
-          && g.boardID === this.mainData.boardID
-        )
-      })
-    this.crudService.handleData<UserStore>(Collections.USERS).subscribe((value) => {
-      let usersArr = value;
-      this.filteredUsers = usersArr.filter((u) => this.currentBoard[0].activeUsers?.includes(u.userId!))
-    })
     this.subscriptions.push(
+      this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe(
+        (v) => {
+          this.currentBoard = v.filter((f) => f.id === this.mainData.boardID)
+        }),
+      this.crudService.handleData<List>(Collections.GROUP).subscribe(
+        (value: List[]) => {
+          this.groupData = value;
+          this.filteredGroups = this.groupData.filter((g) =>
+            this.currentBoard[0].activeUsers?.includes(g.activeUser!)
+            && g.boardID === this.mainData.boardID
+          )
+        }),
+      this.crudService.handleData<UserStore>(Collections.USERS).subscribe((value) => {
+        this.filteredUsers = value.filter((u) => this.currentBoard[0].activeUsers?.includes(u.userId!))
+      }),
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
       }),
@@ -139,6 +137,8 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscriptions.forEach((s) => s.unsubscribe())
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe()
+    })
   }
 }

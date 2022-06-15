@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {CrudService} from "../services/crud/crud.service";
 import {Collections} from "../services/crud/collections";
 import {BoardStore, FireBaseUser, List, TasksStore} from "../services/types";
-import {Observable, switchMap, tap} from "rxjs";
+import {Observable, Subscription, switchMap, tap} from "rxjs";
 import firebase from "firebase/compat";
 import {AuthService} from "../services/auth/auth.service";
 import {GetIdService} from "../services/get-value/get-id.service";
@@ -13,7 +13,7 @@ import {GetIdService} from "../services/get-value/get-id.service";
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
@@ -29,11 +29,9 @@ export class BoardComponent implements OnInit {
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   public user: FireBaseUser = null;
   public id: Params = {};
+  private subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-      this.user = value
-    })
     const updateTask: Observable<TasksStore[]> = this.tasks$.pipe(
       tap((task) => {
         const tasks: TasksStore[] = task;
@@ -61,14 +59,25 @@ export class BoardComponent implements OnInit {
           && this.board?.activeUsers?.includes(g.activeUser!))
       }),
       switchMap(() => updateTask))
-    this.route.params.pipe(
-      tap((s) => {
-        this.id = s;
-        this.getIdService.changeIdValue(this.id['id'])
+    this.subscriptions.push(
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
       }),
-      switchMap(() => getBoard),
-      switchMap(() => filterAll)
-    ).subscribe()
+      this.route.params.pipe(
+        tap((s) => {
+          this.id = s;
+          this.getIdService.changeIdValue(this.id['id'])
+        }),
+        switchMap(() => getBoard),
+        switchMap(() => filterAll)
+      ).subscribe()
+    )
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
+    })
   }
 
 }

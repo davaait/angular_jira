@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
+import {FormControl, FormGroupDirective, NgForm} from "@angular/forms";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {AuthService} from "../services/auth/auth.service";
 import {Router} from "@angular/router";
@@ -25,8 +25,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   public user: FireBaseUser = null;
   private subscriptions: Subscription[] = [];
-
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   matcher = new MyErrorStateMatcher();
 

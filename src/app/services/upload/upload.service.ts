@@ -24,7 +24,7 @@ export class UploadService {
   }
 
   private getDownloadUrl$(uploadTask: AngularFireUploadTask, path: string): Observable<string> {
-    return from(uploadTask).pipe(switchMap((_) =>  {
+    return from(uploadTask).pipe(switchMap((_) => {
       return this.storage.ref(path).getDownloadURL();
     }));
   }

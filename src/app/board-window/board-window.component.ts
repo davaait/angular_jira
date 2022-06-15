@@ -6,8 +6,7 @@ import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
-import {GetIdService} from "../services/get-value/get-id.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-list-window',
@@ -21,19 +20,20 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
   public formControls: typeof BoardControl = BoardControl;
   public user: FireBaseUser | null = null;
   public boards$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
-  private currentBoardID: string = "";
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
+  private subscriptions: Subscription[] = [];
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
-              private getIdService: GetIdService,
   ) {
   }
 
   public ngOnInit(): void {
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-        this.user = value
-      }
+    this.subscriptions.push(
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+          this.user = value
+        }
+      )
     )
     this.myForm.addControl(BoardControl.name, new FormControl("", Validators.compose([
       Validators.required,
@@ -70,5 +70,8 @@ export class BoardWindowComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
+    })
   }
 }

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import firebase from "firebase/compat/app";
-import {map, Observable, tap} from "rxjs";
+import {map, Observable, Subscription, tap} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {startWith, switchMap} from "rxjs/operators";
 import {BoardStore, TasksStore} from "../services/types";
@@ -20,7 +20,7 @@ export type IconsNameType = {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   public iconsName: IconsNameType = {
     menu: 'menu',
@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
   public array: TasksStore[] = [];
   public tasks$: Observable<TasksStore[]> = this.crudService.handleData<TasksStore>(Collections.TASKS);
   private boardsID: string[] = [];
+  private subscriptions: Subscription[] = [];
 
   @Input() user?: firebase.User | null;
   @Input() fn?: () => void;
@@ -43,9 +44,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-      this.user = value
-    })
+    this.subscriptions.push(
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+        this.user = value
+      })
+    )
     let getTasks = this.tasks$.pipe(
       tap((t) => {
         this.array = t.filter((f) =>
@@ -53,17 +56,15 @@ export class HeaderComponent implements OnInit {
           || f.activeUser === this.user?.uid
           || f.assignedUser === this.user?.displayName
         )
-        console.log(this.array)
       }))
     this.crudService.handleData<BoardStore>(Collections.BOARDS).pipe(
       tap((s) => {
         let arr = s.filter((f) => f.activeUsers?.includes(this.user?.uid!))
         this.boardsID = [];
         arr.forEach((f) => this.boardsID.push(f.id))
-        console.log(this.boardsID)
       }),
       switchMap(() => getTasks)
-    ).subscribe((s) => console.log(s))
+    ).subscribe()
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
@@ -77,5 +78,11 @@ export class HeaderComponent implements OnInit {
   private _filter(value: string): TasksStore[] {
     const filterValue = value.toLowerCase();
     return this.array.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
+    })
   }
 }

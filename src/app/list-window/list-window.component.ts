@@ -36,13 +36,14 @@ export class ListWindowComponent implements OnInit, OnDestroy {
               private authService: AuthService,
               @Inject(MAT_DIALOG_DATA) public mainData: DialogData,
               private getIdService: GetIdService,
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
-    this.getIdService.idValue$.subscribe((value) => {
-      this.urlID = value
-    })
     this.subscriptions.push(
+      this.getIdService.idValue$.subscribe((value) => {
+        this.urlID = value
+      }),
       this.crudService.handleData<List>(Collections.GROUP).subscribe((value: List[]) => {
         this.data = value;
         this.groupNameArray = [];

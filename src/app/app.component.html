@@ -19,7 +19,8 @@
       <ng-container *ngFor="let i of filteredBoards">
         <div class="sidenav-item">
           <div>
-            <a [ngStyle]="{'font-size': '15px', 'margin-left': '15px'}" routerLinkActive="active" routerLink="board/{{i.id}}">{{i.name}}</a>
+            <a [ngStyle]="{'font-size': '15px', 'margin-left': '15px'}" routerLinkActive="active"
+               routerLink="board/{{i.id}}">{{i.name}}</a>
           </div>
           <div>
             <button mat-icon-button (click)="removeBoard(i.id)">

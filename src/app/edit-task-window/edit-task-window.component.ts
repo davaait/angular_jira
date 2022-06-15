@@ -35,7 +35,7 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
   public currentBoard: BoardStore[] = [];
-  public filteredUsers: UserStore[] =[];
+  public filteredUsers: UserStore[] = [];
 
   constructor(private crudService: CrudService,
               private uploadService: UploadService,
@@ -49,14 +49,14 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   private group$: Observable<List[]> = this.crudService.getDate(Collections.GROUP);
 
   ngOnInit(): void {
-    this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((b) => {
-      this.currentBoard = b.filter((f) => f.id === this.data.currentTask.boardID);
-    })
-    this.crudService.handleData<UserStore>(Collections.USERS).subscribe((u) => {
-      this.filteredUsers = u.filter((f) => this.currentBoard[0].activeUsers?.includes(f.userId!))
-    })
     this.new = [];
     this.subscriptions.push(
+      this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((b) => {
+        this.currentBoard = b.filter((f) => f.id === this.data.currentTask.boardID);
+      }),
+      this.crudService.handleData<UserStore>(Collections.USERS).subscribe((u) => {
+        this.filteredUsers = u.filter((f) => this.currentBoard[0].activeUsers?.includes(f.userId!))
+      }),
       this.task$.subscribe((tasksValue) => {
         this.tasksArray = tasksValue as TasksStore[];
         this.new = this.tasksArray.filter((t) => t.id === this.data.currentTask.id)

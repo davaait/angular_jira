@@ -41,12 +41,12 @@ p {
 }
 
 .for h1 {
-  font-family:Baskerville,Times,'Times New Roman',serif;
-  font-size:30px;
-  color:white;
-  font-variant:small-caps;
-  text-align:center;
-  font-weight:bold;
+  font-family: Baskerville, Times, 'Times New Roman', serif;
+  font-size: 30px;
+  color: white;
+  font-variant: small-caps;
+  text-align: center;
+  font-weight: bold;
   padding-left: 10px;
   padding-top: 10px;
 }
@@ -58,68 +58,55 @@ p {
   animation-iteration-count: 1;
 }
 
-@-webkit-keyframes swing
-{
-  15%
-  {
+@-webkit-keyframes swing {
+  15% {
     -webkit-transform: translateX(5px);
     transform: translateX(5px);
   }
-  30%
-  {
+  30% {
     -webkit-transform: translateX(-5px);
     transform: translateX(-5px);
   }
-  50%
-  {
+  50% {
     -webkit-transform: translateX(3px);
     transform: translateX(3px);
   }
-  65%
-  {
+  65% {
     -webkit-transform: translateX(-3px);
     transform: translateX(-3px);
   }
-  80%
-  {
+  80% {
     -webkit-transform: translateX(2px);
     transform: translateX(2px);
   }
-  100%
-  {
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }
 }
-@keyframes swing
-{
-  15%
-  {
+
+@keyframes swing {
+  15% {
     -webkit-transform: translateX(5px);
     transform: translateX(5px);
   }
-  30%
-  {
+  30% {
     -webkit-transform: translateX(-5px);
     transform: translateX(-5px);
   }
-  50%
-  {
+  50% {
     -webkit-transform: translateX(3px);
     transform: translateX(3px);
   }
-  65%
-  {
+  65% {
     -webkit-transform: translateX(-3px);
     transform: translateX(-3px);
   }
-  80%
-  {
+  80% {
     -webkit-transform: translateX(2px);
     transform: translateX(2px);
   }
-  100%
-  {
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }

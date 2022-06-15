@@ -6,7 +6,8 @@
         <div class="input-wrapper">
           <mat-form-field appearance="fill">
             <mat-label>Rename Board</mat-label>
-            <input matInput class="input-item" [value]="currBoardName" [formControlName]="formControls.name" placeholder="Edit board name">
+            <input matInput class="input-item" [value]="currBoardName" [formControlName]="formControls.name"
+                   placeholder="Edit board name">
           </mat-form-field>
           <div *ngIf="isControlValid(formControls.name)" class="validate-hint">
             This field is required. Min length is 3, max length is 15.

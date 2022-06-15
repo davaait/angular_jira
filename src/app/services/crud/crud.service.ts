@@ -12,12 +12,12 @@ export class CrudService {
   constructor(private angularFirestore: AngularFirestore) {
   }
 
-  public getUserDoc<T>(collectionName: string, id: string) : Observable<T | undefined> {
+  public getUserDoc<T>(collectionName: string, id: string): Observable<T | undefined> {
     const snapshot: Observable<firebase.firestore.DocumentSnapshot<T>> = this.angularFirestore
       .collection(collectionName)
       .doc(id)
       .get() as Observable<firebase.firestore.DocumentSnapshot<T>>;
-    return snapshot.pipe(map((value: firebase.firestore.DocumentSnapshot<T>) =>  value.data()));
+    return snapshot.pipe(map((value: firebase.firestore.DocumentSnapshot<T>) => value.data()));
   }
 
   public getDate<T>(collectionName: string): Observable<T[]> {

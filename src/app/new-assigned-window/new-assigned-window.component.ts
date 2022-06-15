@@ -6,8 +6,7 @@ import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
-import {GetIdService} from "../services/get-value/get-id.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 type DialogData = {
@@ -28,18 +27,20 @@ export class NewAssignedWindowComponent implements OnInit, OnDestroy {
   public user: FireBaseUser | null = null;
   public boards$: Observable<BoardStore[]> = this.crudService.handleData(Collections.BOARDS);
   public users$: Observable<UserStore[]> = this.crudService.handleData(Collections.USERS);
+  private subscriptions: Subscription[] = [];
 
   constructor(private crudService: CrudService,
               private authService: AuthService,
-              private getIdService: GetIdService,
               @Inject(MAT_DIALOG_DATA) public mainData: DialogData,
   ) {
   }
 
   public ngOnInit(): void {
-    this.authService.user$.subscribe((value: firebase.User | null) => {
-        this.user = value
-      }
+    this.subscriptions.push(
+      this.authService.user$.subscribe((value: firebase.User | null) => {
+          this.user = value
+        }
+      )
     )
     this.myForm.addControl(BoardControl.users, new FormControl(this.mainData?.assignedUsers, Validators.required))
   }
@@ -70,5 +71,8 @@ export class NewAssignedWindowComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
+    })
   }
 }
