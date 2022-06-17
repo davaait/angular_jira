@@ -18,11 +18,11 @@
         <mat-icon>description</mat-icon>
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Attached files</span>
       </div>
-      <div class="attached-files" *ngIf="data?.item?.images">
+      <div class="attached-files" *ngIf="imagesArr.length >= 1">
         <img [src]="img" width="120" height="90" [style.display]="'block'" *ngFor="let img of imagesArr"/>
       </div>
       <div class="description-btn-group" (click)="uploadFile.click()">
-        <button mat-raised-button color="primary">Upload new</button>
+        <button mat-raised-button color="primary">Upload New</button>
         <input #uploadFile (change)="onFileSelected($event)" type='file' style="display:none" autocomplete="off"/>
         <progress max="100" [value]="progress" *ngIf="progress"></progress>
       </div>

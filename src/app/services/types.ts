@@ -43,6 +43,9 @@ export type User = {
 export type Priorities = {
   name: string
 }
+export type FileTypes = {
+  type: string
+}
 
 export type ID = {
   id: string;

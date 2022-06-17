@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {UploadService} from "../services/upload/upload.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {CrudService} from "../services/crud/crud.service";
-import {FireBaseUser, List, TasksStore, User} from "../services/types";
+import {FileTypes, FireBaseUser, List, TasksStore, User} from "../services/types";
 import {combineLatest, Subscription, switchMap, takeWhile, tap} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
@@ -20,6 +20,8 @@ type DialogData = {
 })
 export class TaskDetailsComponent implements OnInit, OnDestroy {
 
+  private fileSize: number = 10000000;
+  private fileTypes: string[] = [];
   public user: FireBaseUser = null;
   public createDate: string | undefined;
   public updateDate: string | undefined;
@@ -62,6 +64,10 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
       this.authService.user$.subscribe((value: firebase.User | null) => {
         this.user = value
       }),
+      this.crudService.handleData<FileTypes>(Collections.FILETYPES).subscribe((s) => {
+        this.fileTypes = [];
+        s.forEach((f) => this.fileTypes.push(f.type))
+      }),
       this.crudService.handleData<TasksStore>(Collections.TASKS).pipe(
         tap((value) => {
           this.new = value.filter((f) => f.id === this.data?.item?.id)
@@ -90,35 +96,37 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
       const eventTarget = (<HTMLInputElement>event?.target);
       if (eventTarget && eventTarget.files) {
         const file: File = eventTarget.files[0];
-        combineLatest(this.uploadService.uploadFileAndGetMetadata('images', file))
-          .pipe(
-            takeWhile(([, link]) => {
-              return !link;
-            }, true),
-          )
-          .subscribe(([percent, link]) => {
-            this.progress = percent;
-            this.imageLink = link;
-            if (this.imageLink) {
-              let newImage = {};
-              if (this.data.item.images) {
-                newImage = {
-                  images: [...this.data.item.images, this.imageLink],
-                  updateDate: new Date().toString(),
-                  history: this.data.item.history?.concat(this.user?.displayName + ' uploaded new file')
+        if (this.fileTypes.includes(file.type) && file.size <= this.fileSize) {
+          combineLatest(this.uploadService.uploadFileAndGetMetadata('images', file))
+            .pipe(
+              takeWhile(([, link]) => {
+                return !link;
+              }, true),
+            )
+            .subscribe(([percent, link]) => {
+              this.progress = percent;
+              this.imageLink = link;
+              if (this.imageLink) {
+                let newImage = {};
+                if (this.imagesArr) {
+                  newImage = {
+                    images: [...this.imagesArr, this.imageLink],
+                    updateDate: new Date().toString(),
+                    history: this.data.item.history?.concat(this.user?.displayName + ' uploaded new file')
+                  }
+                } else {
+                  newImage = {
+                    images: [this.imageLink],
+                    updateDate: new Date().toString(),
+                    history: this.data.item.history?.concat(this.user?.displayName + ' uploaded new file')
+                  }
                 }
-              } else {
-                newImage = {
-                  images: [this.imageLink],
-                  updateDate: new Date().toString(),
-                  history: this.data.item.history?.concat(this.user?.displayName + ' uploaded new file')
-                }
+                this.progress = '';
+                this.imageLink = '';
+                this.crudService.updateObject(Collections.TASKS, this.data.item.id, newImage)
               }
-              this.progress = '';
-              this.imageLink = '';
-              this.crudService.updateObject(Collections.TASKS, this.data.item.id, newImage)
-            }
-          });
+            });
+        }
       }
     }
   }

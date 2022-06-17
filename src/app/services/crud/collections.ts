@@ -4,4 +4,5 @@ export enum Collections {
   GROUP = "group",
   USERS = "users",
   PRIORITIES = "priorities",
+  FILETYPES = "fileTypes",
 }
