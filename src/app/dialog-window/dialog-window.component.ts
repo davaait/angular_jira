@@ -13,10 +13,11 @@ import {
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
-import {combineLatest, Observable, Subscription, takeWhile} from "rxjs";
+import {combineLatest, map, Observable, Subscription, takeWhile} from "rxjs";
 import {AuthService} from "../services/auth/auth.service";
 import firebase from "firebase/compat";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {startWith} from "rxjs/operators";
 
 type DialogData = {
   boardID: string
@@ -42,6 +43,7 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
   public currentBoard: BoardStore[] = [];
   private subscriptions: Subscription[] = [];
   public filteredUsers: UserStore[] = [];
+  public filteredOptions?: Observable<UserStore[]>;
   public priorities$: Observable<PrioritiesStore[]> = this.crudService.handleData<PrioritiesStore>(Collections.PRIORITIES);
 
   constructor(private crudService: CrudService,
@@ -91,12 +93,31 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
         this.user = value
       }),
     )
-    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(15), Validators.minLength(3)])));
+    this.myForm.addControl(TasksControls.name, new FormControl("", Validators.compose([
+      Validators.required,
+      Validators.maxLength(15),
+      Validators.minLength(3)
+    ])));
     this.myForm.addControl(TasksControls.priority, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.dueDate, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.group, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.assignedUser, new FormControl("", Validators.required));
     this.myForm.addControl(TasksControls.description, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(120)])));
+    this.filteredOptions = this.myForm?.controls[TasksControls.assignedUser].valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value?.name)),
+      map(name => (name ? this._filter(name) : this.filteredUsers.slice())),
+    );
+    console.log(this.myForm?.controls[TasksControls.assignedUser].value)
+  }
+
+  public displayFn(user: UserStore): string {
+    return user && user.name ? user.name : '';
+  }
+
+  private _filter(name: string): UserStore[] {
+    const filterValue = name.toLowerCase();
+    return this.filteredUsers.filter(option => option.name?.toLowerCase().includes(filterValue));
   }
 
   public addTask(newTask: Task): void {
