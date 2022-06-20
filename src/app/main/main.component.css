@@ -28,7 +28,7 @@
   .main-wrapper {
     justify-content: center;
     max-width: 90%;
-    margin: 40px 15px;
+    margin: 63px 15px;
   }
 }
 
@@ -36,15 +36,7 @@
   .main-wrapper {
     justify-content: center;
     max-width: 90%;
-    margin: 76px 15px;
-  }
-}
-
-@media screen and (max-width: 389px) {
-  .main-wrapper {
-    justify-content: center;
-    max-width: 90%;
-    margin: 116px 15px;
+    margin: 105px 15px;
   }
 }
 

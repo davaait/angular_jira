@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
 import {
-  BoardStore,
+  BoardStore, FileTypes,
   FireBaseUser,
   List,
   PrioritiesStore,
@@ -30,6 +30,8 @@ type DialogData = {
 })
 export class DialogWindowComponent implements OnInit, OnDestroy {
 
+  private fileSize: number = 10000000;
+  private fileTypes: string[] = [];
   public imageLink: string | null = "";
   public progress: string | undefined = "";
   public myForm: FormGroup = new FormGroup({});
@@ -58,22 +60,28 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
       const eventTarget = (<HTMLInputElement>event?.target);
       if (eventTarget && eventTarget.files) {
         const file: File = eventTarget.files[0];
-        combineLatest(this.uploadService.uploadFileAndGetMetadata('test', file))
-          .pipe(
-            takeWhile(([, link]) => {
-              return !link;
-            }, true),
-          )
-          .subscribe(([percent, link]) => {
-            this.progress = percent;
-            this.imageLink = link;
-          });
+        if (this.fileTypes.includes(file.type) && file.size <= this.fileSize) {
+          combineLatest(this.uploadService.uploadFileAndGetMetadata('test', file))
+            .pipe(
+              takeWhile(([, link]) => {
+                return !link;
+              }, true),
+            )
+            .subscribe(([percent, link]) => {
+              this.progress = percent;
+              this.imageLink = link;
+            });
+        }
       }
     }
   }
 
   ngOnInit(): void {
     this.subscriptions.push(
+      this.crudService.handleData<FileTypes>(Collections.FILETYPES).subscribe((s) => {
+        this.fileTypes = [];
+        s.forEach((f) => this.fileTypes.push(f.type))
+      }),
       this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe(
         (v) => {
           this.currentBoard = v.filter((f) => f.id === this.mainData.boardID)
@@ -105,14 +113,8 @@ export class DialogWindowComponent implements OnInit, OnDestroy {
     this.myForm.addControl(TasksControls.description, new FormControl("", Validators.compose([Validators.required, Validators.maxLength(120)])));
     this.filteredOptions = this.myForm?.controls[TasksControls.assignedUser].valueChanges.pipe(
       startWith(''),
-      map(value => (typeof value === 'string' ? value : value?.name)),
-      map(name => (name ? this._filter(name) : this.filteredUsers.slice())),
+      map(value => this._filter(value || '')),
     );
-    console.log(this.myForm?.controls[TasksControls.assignedUser].value)
-  }
-
-  public displayFn(user: UserStore): string {
-    return user && user.name ? user.name : '';
   }
 
   private _filter(name: string): UserStore[] {

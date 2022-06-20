@@ -1,7 +1,7 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksControls} from "../model/controls.enum";
-import {BoardStore, FireBaseUser, List, Task, TasksStore, UserStore} from "../services/types";
+import {BoardStore, FireBaseUser, List, PrioritiesStore, Task, TasksStore, UserStore} from "../services/types";
 import {Collections} from "../services/crud/collections";
 import {CrudService} from "../services/crud/crud.service";
 import {UploadService} from "../services/upload/upload.service";
@@ -22,7 +22,7 @@ export type DialogData = {
 })
 export class EditTaskWindowComponent implements OnInit, OnDestroy {
 
-  public priorities: string[] = ['Low', 'Normal', 'High'];
+  public priorities: string[] = [];
   public imageLink: string | null = "";
   public progress: string | undefined = "";
   public myForm: FormGroup = new FormGroup({});
@@ -51,6 +51,9 @@ export class EditTaskWindowComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.new = [];
     this.subscriptions.push(
+      this.crudService.handleData<PrioritiesStore>(Collections.PRIORITIES).subscribe((s) => {
+        s.forEach((f) => this.priorities.push(f.name))
+      }),
       this.crudService.handleData<BoardStore>(Collections.BOARDS).subscribe((b) => {
         this.currentBoard = b.filter((f) => f.id === this.data.currentTask.boardID);
       }),
