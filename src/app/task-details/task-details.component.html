@@ -18,7 +18,7 @@
         <mat-icon>description</mat-icon>
         <span [ngStyle]="{'font-size': '18px', 'font-weight': 'bolder'}">Attached files</span>
       </div>
-      <div class="attached-files" *ngIf="imagesArr.length >= 1">
+      <div class="attached-files">
         <img [src]="img" width="120" height="90" [style.display]="'block'" *ngFor="let img of imagesArr"/>
       </div>
       <div class="description-btn-group" (click)="uploadFile.click()">

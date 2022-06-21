@@ -71,6 +71,8 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
       this.crudService.handleData<TasksStore>(Collections.TASKS).pipe(
         tap((value) => {
           this.new = value.filter((f) => f.id === this.data?.item?.id)
+          console.log(this.new)
+          console.log(this.data?.item?.id)
           this.itemName = this.new[0].name
           this.itemPriority = this.new[0].priority
           this.groupID = this.new[0].group
